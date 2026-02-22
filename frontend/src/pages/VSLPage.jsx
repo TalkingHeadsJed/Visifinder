@@ -294,7 +294,7 @@ export default function VSLPage() {
           
           {/* CTA after problem section */}
           <motion.div {...fadeInUp} className="text-center mt-12">
-            <CTAButton text="Stop Losing Visitors — Book Your Reveal" onClick={handleCTAClick} size="md" />
+            <CTAButton text="Stop Losing Visitors — Book Your Reveal" onClick={() => handleCTAClick("after_problem")} size="md" />
           </motion.div>
         </div>
       </section>
