@@ -152,8 +152,15 @@ export default function VSLPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] relative" data-testid="vsl-page">
+    <div className="min-h-screen bg-[#fafbfc] relative" data-testid="vsl-page" data-variant={currentVariant}>
       <div className="grain-overlay" />
+      
+      {/* A/B Test Variant Indicator (remove in production) */}
+      {currentVariant && (
+        <div className="fixed bottom-4 left-4 z-50 bg-black/80 text-white px-3 py-1.5 rounded-full text-xs font-mono">
+          Variant {currentVariant}
+        </div>
+      )}
       
       {/* ============================================
           SECTION 1: HOOK - Pattern Interrupt + Problem
@@ -163,7 +170,7 @@ export default function VSLPage() {
         <div className="floating-shape w-[400px] h-[400px] bg-[#EAA73F] bottom-[-10%] left-[-5%]" />
         
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          {/* Pattern interrupt badge */}
+          {/* Pattern interrupt badge - A/B Tested */}
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -171,36 +178,35 @@ export default function VSLPage() {
             className="inline-flex items-center gap-2 glass px-5 py-2.5 rounded-full mb-8 text-sm font-bold text-[#589DFD] shadow-lg"
           >
             <Sparkles className="w-4 h-4" />
-            <span>Finally See Who's Visiting Your Website</span>
+            <span>{variantContent?.badge || "Finally See Who's Visiting Your Website"}</span>
           </motion.div>
           
-          {/* HOOK - Emotional, problem-focused headline */}
+          {/* HOOK - A/B Tested Headline */}
           <motion.h1 
             className="text-4xl sm:text-5xl lg:text-7xl font-black text-[#0a0a0a] mb-8 leading-[1.1]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="blue-gradient-text">97% of Your Website Visitors</span>
+            <span className="blue-gradient-text">{variantContent?.headline?.line1 || "97% of Your Website Visitors"}</span>
             <br />
-            <span className="text-[#0a0a0a]">Leave Without a Trace</span>
+            <span className="text-[#0a0a0a]">{variantContent?.headline?.line2 || "Leave Without a Trace"}</span>
             <br />
             <span className="text-red-600 relative inline-block">
-              And You Have No Idea Who They Were.
+              {variantContent?.headline?.line3 || "And You Have No Idea Who They Were."}
             </span>
           </motion.h1>
           
-          {/* Agitate the problem */}
+          {/* Agitate - A/B Tested Subtext */}
           <motion.p 
             className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            You're spending <span className="font-bold text-[#0a0a0a]">real money</span> driving traffic—ads, SEO, social, email. 
-            People click. They browse. They leave. And you're left wondering: 
-            <span className="text-red-600 font-bold"> Who were they? Why didn't they buy? Could I have followed up?</span>
-            <span className="block mt-3 text-[#589DFD] font-semibold text-lg">What if you could finally know?</span>
+            <span dangerouslySetInnerHTML={{ __html: variantContent?.subtext?.main || "You're spending <strong>real money</strong> driving traffic—ads, SEO, social, email. People click. They browse. They leave. And you're left wondering:" }} />
+            <span className="text-red-600 font-bold"> {variantContent?.subtext?.pain || "Who were they? Why didn't they buy? Could I have followed up?"}</span>
+            <span className="block mt-3 text-[#589DFD] font-semibold text-lg">{variantContent?.subtext?.hook || "What if you could finally know?"}</span>
           </motion.p>
           
           {/* Video */}
