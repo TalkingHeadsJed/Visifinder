@@ -127,7 +127,20 @@ const staggerContainer = {
 
 export default function VSLPage() {
   const navigate = useNavigate();
-  const handleCTAClick = () => navigate("/schedule");
+  
+  // A/B Test - Get variant content
+  const [variantContent, setVariantContent] = useState(null);
+  const [currentVariant, setCurrentVariant] = useState(null);
+  
+  useEffect(() => {
+    setVariantContent(getVariantContent());
+    setCurrentVariant(getVariant());
+  }, []);
+  
+  const handleCTAClick = (ctaName = "default") => {
+    trackCTAClick(ctaName);
+    navigate("/schedule");
+  };
 
   const faqItems = [
     { question: "Is this compliant with privacy laws?", answer: "Yes. VisiFinder operates at the company/account level for B2B and uses legally sourced, compliant data enrichment. We'll walk you through all the details on the call." },
