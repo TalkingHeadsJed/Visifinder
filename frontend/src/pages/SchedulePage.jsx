@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, Shield, Check } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Shield, Check, Zap } from "lucide-react";
 
 export default function SchedulePage() {
   const navigate = useNavigate();
@@ -19,19 +19,19 @@ export default function SchedulePage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-gray-500 hover:text-[#141414] transition-colors"
+            className="flex items-center gap-2 text-gray-500 hover:text-[#EAA73F] transition-colors"
             data-testid="back-button"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Back to Video</span>
           </button>
-          <div className="text-[#141414] font-bold text-xl">
-            <span className="font-normal">Visibility</span>Pixel
+          <div className="text-[#0a0a0a] font-bold text-xl">
+            <span className="gradient-text">Visibility</span>Pixel
           </div>
         </div>
       </header>
 
-      <div className="py-16 px-4">
+      <div className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-12 items-start">
             {/* Left Column - Info (2 cols) */}
@@ -41,15 +41,20 @@ export default function SchedulePage() {
               transition={{ duration: 0.5 }}
               className="lg:col-span-2"
             >
-              <h1 className="text-3xl sm:text-4xl font-bold text-[#141414] mb-6">
-                Book Your 7-Day Reveal Call
+              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-[#EAA73F] px-3 py-1.5 rounded-full mb-4 text-sm font-medium">
+                <Zap className="w-4 h-4" />
+                <span>7-Day Free Reveal</span>
+              </div>
+              
+              <h1 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a] mb-4">
+                Book Your <span className="gradient-text">Reveal Call</span>
               </h1>
               
               <p className="text-lg text-gray-600 mb-8">
-                Schedule a 15-minute qualification call to see if the Anonymous Buyer Reveal System is right for your business.
+                Schedule a 15-minute call to see if you qualify for the 7-Day Anonymous Buyer Reveal.
               </p>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-4 mb-8">
                 {benefits.map((benefit, index) => (
                   <motion.div
                     key={index}
@@ -58,15 +63,17 @@ export default function SchedulePage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 + index * 0.1 }}
                   >
-                    <span className="text-[#141414]">✓</span>
+                    <div className="w-6 h-6 bg-[#EAA73F] rounded-full flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
                     <span className="text-gray-700">{benefit}</span>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h3 className="text-[#141414] font-semibold mb-4 flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
+              <div className="bg-gradient-to-br from-amber-50 to-white rounded-xl p-6 border border-amber-100">
+                <h3 className="text-[#0a0a0a] font-bold mb-4 flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-[#EAA73F]" />
                   What to Expect
                 </h3>
                 <ul className="space-y-3 text-gray-600">
@@ -76,7 +83,7 @@ export default function SchedulePage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <Shield className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                    <span>We'll determine if you're a good fit for the 7-Day Reveal</span>
+                    <span>We'll determine if you qualify for the 7-Day Reveal</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -91,7 +98,7 @@ export default function SchedulePage() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-3 bg-white rounded-xl border border-gray-200 overflow-hidden shadow-lg"
+              className="lg:col-span-3 bg-white rounded-2xl border-2 border-[#EAA73F] overflow-hidden shadow-xl shadow-amber-100/50"
               data-testid="bookafy-calendar"
             >
               {/* Bookafy Calendar Embed */}
