@@ -26,7 +26,7 @@ export default function SchedulePage() {
             <span>Back to Video</span>
           </button>
           <div className="text-[#0a0a0a] font-bold text-xl">
-            <span className="gradient-text">Visibility</span>Pixel
+            <span className="text-[#589DFD]">Visi</span><span className="text-[#EAA73F]">Finder</span><span className="text-gray-400">™</span>
           </div>
         </div>
       </header>
@@ -41,17 +41,17 @@ export default function SchedulePage() {
               transition={{ duration: 0.5 }}
               className="lg:col-span-2"
             >
-              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-[#EAA73F] px-3 py-1.5 rounded-full mb-4 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 bg-blue-50 border border-[#589DFD] text-[#589DFD] px-3 py-1.5 rounded-full mb-4 text-sm font-medium">
                 <Zap className="w-4 h-4" />
-                <span>7-Day Free Reveal</span>
+                <span>7-Day Free VisiFinder Reveal</span>
               </div>
               
               <h1 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a] mb-4">
-                Book Your <span className="gradient-text">Reveal Call</span>
+                Book Your <span className="blue-gradient-text">VisiFinder</span> Call
               </h1>
               
               <p className="text-lg text-gray-600 mb-8">
-                Schedule a 15-minute call to see if you qualify for the 7-Day Anonymous Buyer Reveal.
+                Schedule a 15-minute call to see if you qualify for the 7-Day VisiFinder Reveal.
               </p>
 
               <div className="space-y-4 mb-8">
@@ -63,7 +63,7 @@ export default function SchedulePage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 + index * 0.1 }}
                   >
-                    <div className="w-6 h-6 bg-[#EAA73F] rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 bg-[#589DFD] rounded-full flex items-center justify-center flex-shrink-0">
                       <Check className="w-4 h-4 text-white" />
                     </div>
                     <span className="text-gray-700">{benefit}</span>
@@ -71,9 +71,9 @@ export default function SchedulePage() {
                 ))}
               </div>
 
-              <div className="bg-gradient-to-br from-amber-50 to-white rounded-xl p-6 border border-amber-100">
+              <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 border border-blue-100">
                 <h3 className="text-[#0a0a0a] font-bold mb-4 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-[#EAA73F]" />
+                  <Calendar className="w-5 h-5 text-[#589DFD]" />
                   What to Expect
                 </h3>
                 <ul className="space-y-3 text-gray-600">
@@ -83,7 +83,7 @@ export default function SchedulePage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <Shield className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                    <span>We'll determine if you qualify for the 7-Day Reveal</span>
+                    <span>We'll determine if you qualify for the 7-Day VisiFinder Reveal</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -98,7 +98,7 @@ export default function SchedulePage() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-3 bg-white rounded-2xl border-2 border-[#EAA73F] overflow-hidden shadow-xl shadow-amber-100/50"
+              className="lg:col-span-3 bg-white rounded-2xl border-2 border-[#589DFD] overflow-hidden shadow-xl shadow-blue-100/50"
               data-testid="bookafy-calendar"
             >
               {/* Bookafy Calendar Embed */}
@@ -118,8 +118,11 @@ export default function SchedulePage() {
       {/* Footer */}
       <footer className="py-8 px-4 bg-gray-50 border-t border-gray-200 mt-auto">
         <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xl font-bold mb-1">
+            <span className="text-[#589DFD]">Visi</span><span className="text-[#EAA73F]">Finder</span><span className="text-gray-400">™</span>
+          </p>
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Visibility Pixel. All rights reserved.
+            © {new Date().getFullYear()} VisiFinder. All rights reserved.
           </p>
         </div>
       </footer>
