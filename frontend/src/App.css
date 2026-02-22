@@ -1,34 +1,85 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* VSL Page Styles */
+.vsl-container {
+  min-height: 100vh;
+  background-color: #050505;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Section styles */
+.section-dark {
+  background-color: #050505;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.section-surface {
+  background-color: #0f0f0f;
 }
 
-.App-link {
-    color: #61dafb;
+/* Hero gradient overlay */
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.95) 100%);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Text styles */
+.text-gradient {
+  background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Stat number animation */
+.stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Feature check icon */
+.feature-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(16, 185, 129, 0.15);
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+/* Step indicator */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #1a1a1a;
+  border: 2px solid #3B82F6;
+  border-radius: 50%;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: #3B82F6;
+  flex-shrink: 0;
+}
+
+/* FAQ Accordion custom styles */
+.faq-accordion {
+  border-color: #27272a;
+}
+
+.faq-accordion-trigger {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+}
+
+/* Booking page calendar wrapper */
+.bookafy-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #0f0f0f;
+}
+
+/* Smooth scroll anchor offset */
+[id] {
+  scroll-margin-top: 80px;
 }
