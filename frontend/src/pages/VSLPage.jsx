@@ -631,7 +631,7 @@ export default function VSLPage() {
               It's time <span className="text-[#EAA73F]">you</span> did too.
             </p>
             
-            <CTAButton text="Start Your Free 7-Day Reveal Now" onClick={handleCTAClick} variant="gold" />
+            <CTAButton text="Start Your Free 7-Day Reveal Now" onClick={() => handleCTAClick("final_cta")} variant="gold" />
             <p className="text-gray-500 text-sm mt-5">15-minute call. See your visitors. No obligation.</p>
           </motion.div>
         </div>
