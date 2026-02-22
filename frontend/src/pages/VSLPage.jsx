@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../components/ui/accordion";
+import { getVariantContent, trackCTAClick, getVariant } from "../config/abTest";
 
 // Animated counter component
 const AnimatedCounter = ({ target, duration = 2000, suffix = "" }) => {
