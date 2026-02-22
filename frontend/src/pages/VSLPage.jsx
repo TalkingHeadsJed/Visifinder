@@ -143,12 +143,12 @@ export default function VSLPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="gradient-text">97% of Your Website Visitors</span>
+            <span className="blue-gradient-text">97% of Your Website Visitors</span>
             <br />
             <span className="text-[#0a0a0a]">Are Walking Out the Door</span>
             <br />
             <span className="text-red-600 relative inline-block">
-              And You Don't Even Know Who They Are.
+              And NEVER Fill Out Your Form.
             </span>
           </motion.h1>
           
@@ -158,9 +158,9 @@ export default function VSLPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            You're spending <span className="font-bold text-[#0a0a0a]">real money</span> on SEO, PPC, and ads. 
-            A CFO visits your pricing page. A VP reads three case studies. 
-            Then they leave. <span className="text-red-600 font-bold">Invisible. Gone. Taking your revenue with them.</span>
+            You're spending <span className="font-bold text-[#0a0a0a]">thousands</span> on SEO, PPC, and ads. 
+            This is serious money and it's frustrating not having any idea who they are or why they click on your link. 
+            <span className="text-red-600 font-bold">They are just invisible.</span>
             <span className="block mt-2 text-[#589DFD] font-semibold">VisiFinder changes that.</span>
           </motion.p>
           
