@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
-import { ArrowRight, ChevronDown, TrendingDown, DollarSign, Users, Eye, Target, BarChart3, Check, X, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronDown, TrendingDown, DollarSign, Users, Eye, Target, BarChart3, Check, X, Sparkles, Zap, ShieldCheck, Clock } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -30,7 +30,7 @@ const AnimatedCounter = ({ target, duration = 2000, suffix = "" }) => {
   return <span ref={ref}>{count}{suffix}</span>;
 };
 
-// CTA Button with gold styling
+// CTA Button
 const CTAButton = ({ text, onClick, variant = "gold", className = "", size = "lg" }) => {
   const sizeClasses = {
     lg: "px-10 py-5 text-lg",
@@ -56,14 +56,13 @@ const CTAButton = ({ text, onClick, variant = "gold", className = "", size = "lg
   );
 };
 
-// Pain Bar Graph Component with modern styling
+// Pain Bar Graph
 const PainBarGraph = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   return (
     <div ref={ref} className="relative h-72 flex items-end justify-center gap-16 py-8">
-      {/* Money In Bar */}
       <div className="flex flex-col items-center">
         <motion.div 
           className="w-24 sm:w-32 rounded-t-2xl relative overflow-hidden"
@@ -75,12 +74,11 @@ const PainBarGraph = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </motion.div>
         <div className="mt-4 text-center">
-          <p className="text-lg font-bold text-gray-800">Traffic Spend</p>
+          <p className="text-lg font-bold text-gray-800">Your Traffic</p>
           <p className="text-sm text-[#EAA73F] font-semibold">100%</p>
         </div>
       </div>
       
-      {/* Arrow */}
       <div className="flex flex-col items-center justify-center h-full pb-16">
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
@@ -92,7 +90,6 @@ const PainBarGraph = () => {
         </motion.div>
       </div>
       
-      {/* Leads Out Bar */}
       <div className="flex flex-col items-center">
         <motion.div 
           className="w-24 sm:w-32 rounded-t-2xl relative overflow-hidden"
@@ -104,7 +101,7 @@ const PainBarGraph = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </motion.div>
         <div className="mt-4 text-center">
-          <p className="text-lg font-bold text-gray-800">Leads You See</p>
+          <p className="text-lg font-bold text-gray-800">Identified</p>
           <p className="text-sm text-red-500 font-bold">Only 3%</p>
         </div>
       </div>
@@ -132,26 +129,27 @@ export default function VSLPage() {
   const handleCTAClick = () => navigate("/schedule");
 
   const faqItems = [
-    { question: "Is this compliant?", answer: "Yes. We operate at the company/account level and use legally sourced enrichment data. We'll walk you through details on the call." },
-    { question: "Does this replace our CRM?", answer: "No. It enhances it by adding intelligence that your CRM doesn't naturally capture." },
-    { question: "How long does installation take?", answer: "Typically about 15 minutes." },
-    { question: "Is there any commitment?", answer: "No. The 7-Day Reveal is simply an opportunity to evaluate what's possible." },
-    { question: "What happens after the reveal?", answer: "If you see value, we discuss subscription options based on your traffic and goals." }
+    { question: "Is this compliant with privacy laws?", answer: "Yes. VisiFinder operates at the company/account level for B2B and uses legally sourced, compliant data enrichment. We'll walk you through all the details on the call." },
+    { question: "Does this work for eCommerce and DTC brands?", answer: "Absolutely. Whether you're B2B, B2C, or DTC, if you're driving traffic and want to know who's visiting, VisiFinder reveals those anonymous visitors." },
+    { question: "Does this replace our CRM or analytics?", answer: "No. It enhances them by adding intelligence they can't naturally capture—the identity of visitors who never fill out a form." },
+    { question: "How long does installation take?", answer: "About 15 minutes. It's a simple script—no developer needed." },
+    { question: "Is there any commitment?", answer: "None. The 7-Day Reveal is free. If you see value, we talk next steps. If not, you leave with insights." },
+    { question: "What if it doesn't find anyone valuable?", answer: "Then you pay nothing. We only win if you win." }
   ];
 
   return (
     <div className="min-h-screen bg-[#fafbfc] relative" data-testid="vsl-page">
-      {/* Subtle grain overlay */}
       <div className="grain-overlay" />
       
-      {/* HERO */}
+      {/* ============================================
+          SECTION 1: HOOK - Pattern Interrupt + Problem
+          ============================================ */}
       <section className="relative min-h-screen flex items-center justify-center py-16 px-4 overflow-hidden" data-testid="hero-section">
-        {/* Floating decorative shapes */}
         <div className="floating-shape w-[600px] h-[600px] bg-[#589DFD] top-[-20%] right-[-10%]" />
         <div className="floating-shape w-[400px] h-[400px] bg-[#EAA73F] bottom-[-10%] left-[-5%]" />
         
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          {/* Product badge */}
+          {/* Pattern interrupt badge */}
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -159,10 +157,10 @@ export default function VSLPage() {
             className="inline-flex items-center gap-2 glass px-5 py-2.5 rounded-full mb-8 text-sm font-bold text-[#589DFD] shadow-lg"
           >
             <Sparkles className="w-4 h-4" />
-            <span>Introducing VisiFinder™</span>
+            <span>Finally See Who's Visiting Your Website</span>
           </motion.div>
           
-          {/* STRONG HOOK */}
+          {/* HOOK - Emotional, problem-focused headline */}
           <motion.h1 
             className="text-4xl sm:text-5xl lg:text-7xl font-black text-[#0a0a0a] mb-8 leading-[1.1]"
             initial={{ opacity: 0, y: 30 }}
@@ -171,26 +169,27 @@ export default function VSLPage() {
           >
             <span className="blue-gradient-text">97% of Your Website Visitors</span>
             <br />
-            <span className="text-[#0a0a0a]">Are Walking Out the Door</span>
+            <span className="text-[#0a0a0a]">Leave Without a Trace</span>
             <br />
             <span className="text-red-600 relative inline-block">
-              And NEVER Fill Out Your Form.
+              And You Have No Idea Who They Were.
             </span>
           </motion.h1>
           
+          {/* Agitate the problem */}
           <motion.p 
             className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            You're spending <span className="font-bold text-[#0a0a0a]">thousands</span> on SEO, PPC, and ads. 
-            This is serious money and it's frustrating not having any idea who they are or why they click on your link. 
-            <span className="text-red-600 font-bold"> They are just invisible.</span>
-            <span className="block mt-3 text-[#589DFD] font-semibold text-lg">VisiFinder changes that.</span>
+            You're spending <span className="font-bold text-[#0a0a0a]">real money</span> driving traffic—ads, SEO, social, email. 
+            People click. They browse. They leave. And you're left wondering: 
+            <span className="text-red-600 font-bold"> Who were they? Why didn't they buy? Could I have followed up?</span>
+            <span className="block mt-3 text-[#589DFD] font-semibold text-lg">What if you could finally know?</span>
           </motion.p>
           
-          {/* Vimeo Video */}
+          {/* Video */}
           <motion.div 
             className="vimeo-wrapper mb-10 max-w-4xl mx-auto"
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -205,14 +204,15 @@ export default function VSLPage() {
             />
           </motion.div>
           
+          {/* First CTA - Early placement */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="flex flex-col items-center gap-4"
           >
-            <CTAButton text="Stop the Bleeding — Book Your Reveal Call" onClick={handleCTAClick} />
-            <p className="text-gray-500 text-sm">15-minute call. See who's been visiting. No obligation.</p>
+            <CTAButton text="See Who's Visiting — Free 7-Day Reveal" onClick={handleCTAClick} />
+            <p className="text-gray-500 text-sm">No credit card. No commitment. Just answers.</p>
           </motion.div>
         </div>
         
@@ -225,32 +225,38 @@ export default function VSLPage() {
         </motion.div>
       </section>
 
-      {/* THE PAIN SECTION */}
+      {/* ============================================
+          SECTION 2: PROBLEM AMPLIFICATION
+          ============================================ */}
       <section className="py-24 px-4 section-gray relative" data-testid="pain-section">
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 bg-red-100 text-red-600 rounded-full text-sm font-bold mb-4">THE PROBLEM</span>
+            <span className="inline-block px-4 py-1.5 bg-red-100 text-red-600 rounded-full text-sm font-bold mb-4">THE PROBLEM YOU'RE FACING</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
-              Here's What's <span className="text-red-600">Really</span> Happening
+              You're Paying for <span className="text-red-600">100%</span> of Your Traffic
             </h2>
-            <p className="text-lg text-gray-600">Every dollar you spend on traffic, this is what you actually see:</p>
+            <p className="text-xl text-gray-600">But you only know who <span className="font-bold text-red-600">3%</span> of them are.</p>
           </motion.div>
           
-          {/* Pain Bar Graph in floating card */}
+          {/* Visual proof of the problem */}
           <motion.div {...fadeInUp} className="floating-card p-8 sm:p-12 mb-16">
             <PainBarGraph />
-            <p className="text-center text-gray-500 mt-4 text-sm">
-              You're paying for 100% of your traffic. You're only seeing 3% convert.
-              <span className="block text-red-600 font-bold mt-2 text-base">The other 97%? Gone. Forever.</span>
-            </p>
+            <div className="text-center mt-6 space-y-2">
+              <p className="text-gray-600">Every visitor costs you money. Every anonymous exit is lost opportunity.</p>
+              <p className="text-red-600 font-bold text-lg">The other 97%? They could be your best customers. And you'll never know.</p>
+            </div>
           </motion.div>
           
-          {/* Pain Points Grid */}
+          {/* Relatable pain scenarios */}
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <h3 className="text-2xl font-bold text-[#0a0a0a] mb-6">Sound Familiar?</h3>
+          </motion.div>
+          
           <motion.div {...staggerContainer} className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: Users, title: "Anonymous Visitors", stat: "97%", desc: "Leave without filling out a form", color: "red" },
-              { icon: DollarSign, title: "Wasted Ad Spend", stat: "$$$", desc: "Paying for traffic you can't follow up with", color: "gold" },
-              { icon: TrendingDown, title: "Lost Revenue", stat: "∞", desc: "Every invisible visitor is a missed opportunity", color: "red" }
+              { icon: DollarSign, title: "Wasted Ad Spend", desc: "Paying for clicks that vanish into thin air. No name. No email. No follow-up.", color: "red" },
+              { icon: Users, title: "Invisible Buyers", desc: "Someone browsed your pricing page 5 times this week. Who? You'll never know.", color: "red" },
+              { icon: TrendingDown, title: "Lost Revenue", desc: "Competitors reach your visitors first because they know who's shopping. You don't.", color: "red" }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -260,16 +266,22 @@ export default function VSLPage() {
                 <div className={`icon-badge icon-badge-${item.color} mx-auto mb-6 group-hover:scale-110 transition-transform`}>
                   <item.icon className="w-7 h-7 text-white relative z-10" />
                 </div>
-                <p className="text-4xl font-black text-red-600 mb-3">{item.stat}</p>
-                <h3 className="text-xl font-bold text-[#0a0a0a] mb-2">{item.title}</h3>
-                <p className="text-gray-500">{item.desc}</p>
+                <h3 className="text-xl font-bold text-[#0a0a0a] mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
               </motion.div>
             ))}
+          </motion.div>
+          
+          {/* CTA after problem section */}
+          <motion.div {...fadeInUp} className="text-center mt-12">
+            <CTAButton text="Stop Losing Visitors — Book Your Reveal" onClick={handleCTAClick} size="md" />
           </motion.div>
         </div>
       </section>
 
-      {/* BIG STAT - 97% */}
+      {/* ============================================
+          SECTION 3: BIG STAT - Emotional Impact
+          ============================================ */}
       <section className="py-32 px-4 section-dark relative" data-testid="stat-section">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div {...fadeInUp}>
@@ -277,52 +289,53 @@ export default function VSLPage() {
               <AnimatedCounter target={97} duration={2500} suffix="%" />
             </span>
             <p className="text-xl sm:text-2xl text-gray-300 max-w-xl mx-auto mt-6">
-              of your website visitors leave without identifying themselves.
+              of your website visitors leave without ever identifying themselves.
             </p>
             <p className="text-lg text-[#589DFD] font-semibold mt-4">
-              That's not a conversion problem. That's a <span className="underline decoration-2">visibility</span> problem.
+              That's not a marketing problem. That's a <span className="underline decoration-2">visibility</span> problem.
             </p>
-            <p className="text-xl text-white font-bold mt-2">
-              VisiFinder™ solves it.
+            <p className="text-2xl text-white font-bold mt-4">
+              And <span className="gradient-text">VisiFinder™</span> solves it.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* THE SHIFT - Before/After */}
+      {/* ============================================
+          SECTION 4: THE SOLUTION + TRANSFORMATION
+          ============================================ */}
       <section className="py-24 px-4 section-gray relative" data-testid="shift-section">
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#589DFD] rounded-full text-sm font-bold mb-4">THE SHIFT</span>
+            <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#589DFD] rounded-full text-sm font-bold mb-4">THE SOLUTION</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
-              What If You Could <span className="blue-gradient-text">Finally See</span> Who's Visiting?
+              Imagine <span className="blue-gradient-text">Finally Knowing</span> Who Visits
             </h2>
-            <p className="text-lg text-gray-600">Imagine opening your <span className="font-bold text-[#589DFD]">VisiFinder</span> dashboard and knowing:</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">What would change if you could see every visitor—not just the 3% who fill out forms?</p>
           </motion.div>
           
-          {/* Modern Before/After Comparison */}
+          {/* Before/After Transformation */}
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
-            {/* Before - Pain Card */}
+            {/* Before */}
             <motion.div 
               {...fadeInUp}
               className="floating-card floating-card-red p-8 lg:p-10 relative overflow-hidden"
             >
-              {/* Top accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-red-400" />
               
               <div className="flex items-center gap-4 mb-8">
                 <div className="icon-badge icon-badge-red">
                   <X className="w-6 h-6 text-white relative z-10" />
                 </div>
-                <h3 className="text-2xl font-bold text-[#0a0a0a]">Without Visibility</h3>
+                <h3 className="text-2xl font-bold text-[#0a0a0a]">Right Now (Blind)</h3>
               </div>
               
               <ul className="space-y-5 mb-8">
                 {[
-                  "Anonymous visitors leave with no trace",
-                  "Guessing who might be interested",
-                  "Wasting money on traffic you can't see",
-                  "Competitors steal your leads"
+                  "Anonymous visitors disappear forever",
+                  "Guessing which campaigns actually work",
+                  "Competitors convert YOUR traffic",
+                  "Marketing feels like throwing darts blindfolded"
                 ].map((item, i) => (
                   <motion.li 
                     key={i} 
@@ -341,18 +354,17 @@ export default function VSLPage() {
               <div className="floating-image h-48">
                 <img 
                   src="https://images.pexels.com/photos/5717791/pexels-photo-5717791.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                  alt="Frustrated business person"
+                  alt="Frustrated marketer"
                   className="w-full h-full object-cover"
                 />
               </div>
             </motion.div>
             
-            {/* After - Success Card */}
+            {/* After */}
             <motion.div 
               {...fadeInUp}
               className="floating-card floating-card-blue p-8 lg:p-10 relative overflow-hidden"
             >
-              {/* Top accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#589DFD] to-[#7BB5FF]" />
               
               <div className="flex items-center gap-4 mb-8">
@@ -364,10 +376,10 @@ export default function VSLPage() {
               
               <ul className="space-y-5 mb-8">
                 {[
-                  "See exactly who visits your website",
-                  "Know which pages they viewed",
-                  "Identify repeat visitors & buying signals",
-                  "Follow up before competitors do"
+                  "See exactly who visits your site",
+                  "Know which pages they viewed & how often",
+                  "Identify hot leads before they buy elsewhere",
+                  "Follow up with the right message at the right time"
                 ].map((item, i) => (
                   <motion.li 
                     key={i} 
@@ -386,7 +398,7 @@ export default function VSLPage() {
               <div className="floating-image h-48">
                 <img 
                   src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGRhc2hib2FyZCUyMGFuYWx5dGljcyUyMGRhdGElMjBpbnNpZ2h0cyUyMHN1Y2Nlc3N8ZW58MHx8fHwxNzcxNzUwNjIxfDA&ixlib=rb-4.1.0&q=85"
-                  alt="Analytics dashboard showing insights"
+                  alt="Analytics dashboard"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -394,31 +406,33 @@ export default function VSLPage() {
           </div>
           
           <div className="text-center">
-            <CTAButton text="See Who's Visiting Your Site" onClick={handleCTAClick} />
+            <CTAButton text="Get Your Free 7-Day Reveal" onClick={handleCTAClick} />
           </div>
         </div>
       </section>
 
-      {/* THE SOLUTION */}
+      {/* ============================================
+          SECTION 5: HOW IT WORKS (Mechanism)
+          ============================================ */}
       <section className="py-24 px-4 section-white relative" data-testid="solution-section">
         <div className="max-w-6xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#589DFD] rounded-full text-sm font-bold mb-4">THE SOLUTION</span>
+            <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#589DFD] rounded-full text-sm font-bold mb-4">HOW IT WORKS</span>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
               <span className="blue-gradient-text">VisiFinder™</span>
             </h2>
-            <p className="text-xl text-gray-700 font-medium mb-2">The Anonymous Buyer Reveal System</p>
+            <p className="text-xl text-gray-700 font-medium mb-2">Your Invisible Traffic, Finally Visible</p>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              X-Ray vision for your website. Know who's visiting before they fill out a form.
+              Works for B2B, B2C, eCommerce, DTC—anyone driving traffic who wants to know who's actually visiting.
             </p>
           </motion.div>
           
-          <motion.div {...staggerContainer} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div {...staggerContainer} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
-              { icon: Eye, title: "Detect Visitors", desc: "Company-level identification", color: "blue" },
-              { icon: BarChart3, title: "Track Behavior", desc: "See which pages they visit", color: "gold" },
-              { icon: Target, title: "Identify Intent", desc: "Spot buying signals", color: "blue" },
-              { icon: Users, title: "CRM Integration", desc: "Sync insights instantly", color: "gold" }
+              { icon: Eye, title: "Identify Visitors", desc: "See who's on your site—even if they never fill out a form", color: "blue" },
+              { icon: BarChart3, title: "Track Behavior", desc: "Know what pages they view and how engaged they are", color: "gold" },
+              { icon: Target, title: "Spot Intent", desc: "Identify buyers ready to purchase vs. casual browsers", color: "blue" },
+              { icon: Users, title: "Sync & Act", desc: "Push insights to your CRM, ads, or sales team instantly", color: "gold" }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -433,25 +447,42 @@ export default function VSLPage() {
               </motion.div>
             ))}
           </motion.div>
+          
+          {/* Trust badges */}
+          <motion.div {...fadeInUp} className="flex flex-wrap justify-center gap-6 mt-12">
+            {[
+              { icon: ShieldCheck, text: "Privacy Compliant" },
+              { icon: Zap, text: "15-Min Setup" },
+              { icon: Clock, text: "Real-Time Data" }
+            ].map((badge, i) => (
+              <div key={i} className="flex items-center gap-2 text-gray-600">
+                <badge.icon className="w-5 h-5 text-[#589DFD]" />
+                <span className="font-medium">{badge.text}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* 7-DAY REVEAL */}
+      {/* ============================================
+          SECTION 6: OFFER + PROOF (7-Day Reveal)
+          ============================================ */}
       <section className="py-24 px-4 section-gray relative" data-testid="reveal-section">
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-[#589DFD] to-[#EAA73F] text-white rounded-full text-sm font-bold mb-4">7-DAY VISIFINDER REVEAL</span>
+            <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-[#589DFD] to-[#EAA73F] text-white rounded-full text-sm font-bold mb-4">RISK-FREE OFFER</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
               Don't Take Our Word For It.
-              <span className="block blue-gradient-text">Let Us Prove It.</span>
+              <span className="block blue-gradient-text">See It For Yourself—Free.</span>
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">We'll reveal who's been visiting your site for 7 days. If you don't see value, you pay nothing.</p>
           </motion.div>
           
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {[
-              { step: "1", title: "Install VisiFinder", desc: "15-minute setup. No dev work needed.", color: "blue" },
-              { step: "2", title: "Monitor Traffic", desc: "7 days of real visitor data.", color: "gold" },
-              { step: "3", title: "Reveal Buyers", desc: "See exactly who's been shopping you.", color: "blue" }
+              { step: "1", title: "Quick Install", desc: "15 minutes. Simple script. No developers needed.", color: "blue" },
+              { step: "2", title: "7 Days of Data", desc: "We monitor and identify your anonymous visitors.", color: "gold" },
+              { step: "3", title: "Reveal Call", desc: "We show you exactly who's been visiting. You decide next steps.", color: "blue" }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -470,31 +501,37 @@ export default function VSLPage() {
             ))}
           </div>
           
+          {/* Risk reversal */}
           <motion.div {...fadeInUp} className="floating-card p-10 text-center bg-gradient-to-r from-[#0a0a0a] to-[#1a1a1a] border-none">
-            <p className="text-gray-300 text-xl mb-3">If we don't reveal valuable prospects…</p>
-            <p className="text-white text-3xl font-bold mb-8">You don't pay. Simple as that.</p>
-            <CTAButton text="Book Your 7-Day Reveal" onClick={handleCTAClick} variant="gold" />
+            <p className="text-gray-300 text-xl mb-3">No credit card required. No contracts. No risk.</p>
+            <p className="text-white text-3xl font-bold mb-8">If we don't deliver value, you pay nothing.</p>
+            <CTAButton text="Start Your Free 7-Day Reveal" onClick={handleCTAClick} variant="gold" />
           </motion.div>
         </div>
       </section>
 
-      {/* WHO IS THIS FOR */}
+      {/* ============================================
+          SECTION 7: WHO THIS IS FOR (Expanded ICP)
+          ============================================ */}
       <section className="py-24 px-4 section-white" data-testid="qualification-section">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeInUp}>
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#589DFD] rounded-full text-sm font-bold mb-4">WHO VISIFINDER IS FOR</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a]">
-                This Is For <span className="blue-gradient-text">Serious</span> B2B Companies
+              <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#589DFD] rounded-full text-sm font-bold mb-4">WHO THIS IS FOR</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a] mb-4">
+                VisiFinder Works For <span className="blue-gradient-text">Anyone Driving Traffic</span>
               </h2>
+              <p className="text-lg text-gray-600">B2B, B2C, eCommerce, DTC—if you're investing in traffic, you deserve to know who's showing up.</p>
             </div>
             
             <div className="grid sm:grid-cols-2 gap-6 mb-10">
               {[
-                "Investing in SEO, PPC, or paid traffic",
-                "3,000+ monthly website visitors",
-                "Selling high-ticket products/services",
-                "Have a sales team ready to follow up"
+                "Running ads, SEO, or paid campaigns",
+                "Getting traffic but not enough conversions",
+                "Frustrated that most visitors leave anonymous",
+                "Want to follow up with interested buyers",
+                "Selling products or services online",
+                "Ready to turn invisible visitors into revenue"
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -502,7 +539,7 @@ export default function VSLPage() {
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.08 }}
                 >
                   <div className="icon-badge icon-badge-blue w-12 h-12 rounded-xl flex-shrink-0">
                     <Check className="w-6 h-6 text-white relative z-10" />
@@ -513,20 +550,22 @@ export default function VSLPage() {
             </div>
             
             <p className="text-center text-gray-600">
-              <span className="font-bold text-[#0a0a0a]">Not for you?</span> If you get under 100 visitors/month or sell low-ticket items, this won't move the needle.
+              <span className="font-bold text-[#0a0a0a]">Bottom line:</span> If you're paying for traffic and wish you knew who was visiting, this is for you.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ============================================
+          SECTION 8: FAQ - Objection Handling
+          ============================================ */}
       <section className="py-24 px-4 section-gray relative" data-testid="faq-section">
         <div className="max-w-3xl mx-auto relative z-10">
           <motion.div {...fadeInUp}>
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-1.5 bg-gray-200 text-gray-700 rounded-full text-sm font-bold mb-4">FAQ</span>
+              <span className="inline-block px-4 py-1.5 bg-gray-200 text-gray-700 rounded-full text-sm font-bold mb-4">QUESTIONS?</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a]">
-                Questions? We've Got Answers.
+                Everything You Need to Know
               </h2>
             </div>
             
@@ -551,24 +590,29 @@ export default function VSLPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* ============================================
+          SECTION 9: FINAL CTA - Urgency Close
+          ============================================ */}
       <section className="py-28 px-4 section-dark relative" data-testid="final-section">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div {...fadeInUp}>
-            <span className="inline-block px-4 py-1.5 bg-[#589DFD]/20 text-[#589DFD] rounded-full text-sm font-bold mb-6">START USING VISIFINDER TODAY</span>
+            <span className="inline-block px-4 py-1.5 bg-[#589DFD]/20 text-[#589DFD] rounded-full text-sm font-bold mb-6">DON'T WAIT</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Every Day You Wait,
-              <span className="block blue-gradient-text mt-3">More Buyers Slip Through Your Fingers.</span>
+              Right Now, Someone Is On Your Website.
+              <span className="block blue-gradient-text mt-3">Do You Know Who They Are?</span>
             </h2>
             <p className="text-lg text-gray-400 mb-4">
-              Right now, someone is on your website. Evaluating you. Comparing you. 
+              Every day you wait, buyers visit your site, evaluate your offer, and leave without a trace.
             </p>
-            <p className="text-2xl text-white font-semibold mb-10">
-              <span className="text-[#589DFD]">VisiFinder</span> will tell you who they are.
+            <p className="text-xl text-gray-300 mb-4">
+              Your competitors might already know who they are.
+            </p>
+            <p className="text-2xl text-white font-bold mb-10">
+              It's time <span className="text-[#EAA73F]">you</span> did too.
             </p>
             
-            <CTAButton text="Book Your VisiFinder Reveal Call" onClick={handleCTAClick} variant="gold" />
-            <p className="text-gray-500 text-sm mt-5">15-minute call. No commitment. Just clarity.</p>
+            <CTAButton text="Start Your Free 7-Day Reveal Now" onClick={handleCTAClick} variant="gold" />
+            <p className="text-gray-500 text-sm mt-5">15-minute call. See your visitors. No obligation.</p>
           </motion.div>
         </div>
       </section>
