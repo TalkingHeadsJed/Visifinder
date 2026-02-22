@@ -28,7 +28,7 @@ export const AB_TEST_CONFIG = {
     headline: {
       line1: "You're Paying for Traffic",
       line2: "That Disappears Forever",
-      line3: "What If You Could See Every Visitor?"
+      line3: "What If You Could See Your Visitors?"
     },
     subtext: {
       main: "Every day, potential customers visit your website. They browse your products, check your pricing, read your content. Then they vanish—",
