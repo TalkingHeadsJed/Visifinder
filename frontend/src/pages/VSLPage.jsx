@@ -231,7 +231,7 @@ export default function VSLPage() {
             transition={{ delay: 0.6 }}
             className="flex flex-col items-center gap-4"
           >
-            <CTAButton text="See Who's Visiting — Free 7-Day Reveal" onClick={handleCTAClick} />
+            <CTAButton text="See Who's Visiting — Free 7-Day Reveal" onClick={() => handleCTAClick("hero_main")} />
             <p className="text-gray-500 text-sm">No credit card. No commitment. Just answers.</p>
           </motion.div>
         </div>
