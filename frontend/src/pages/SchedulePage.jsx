@@ -7,8 +7,8 @@ export default function SchedulePage() {
 
   const benefits = [
     "See exactly who's visiting your website",
-    "Understand visitor behavior and intent",
-    "No commitment required",
+    "Works for B2B, B2C, eCommerce & DTC",
+    "No commitment—completely free trial",
     "15-minute qualification call"
   ];
 
