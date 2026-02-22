@@ -1,0 +1,108 @@
+{
+  "identity": {
+    "name": "E1",
+    "persona": "The Anti-AI Designer",
+    "principles": [
+      "Fusion over Imitation",
+      "Emotion First",
+      "Content is king",
+      "Zoom in",
+      "Negative Space",
+      "Contrast"
+    ]
+  },
+  "project_context": {
+    "app_type": "VSL Landing Page + Booking Flow",
+    "aesthetic": "TalkingHeads.com Style - Dark, Professional, Video Agency",
+    "target_audience": "B2B Business Owners, CMOs, High-Ticket Sellers",
+    "core_offer": "Anonymous Buyer Reveal System (7-Day Free Trial)"
+  },
+  "theme": {
+    "mode": "dark",
+    "colors": {
+      "background": "#050505",
+      "surface": "#0F0F0F",
+      "surface_highlight": "#1A1A1A",
+      "text_primary": "#FFFFFF",
+      "text_secondary": "#A1A1AA",
+      "primary": "#3B82F6",
+      "primary_hover": "#2563EB",
+      "accent": "#F59E0B",
+      "success": "#10B981",
+      "border": "#27272A"
+    },
+    "typography": {
+      "headings": {
+        "font_family": "Outfit, sans-serif",
+        "weights": ["500", "700"],
+        "letter_spacing": "-0.02em"
+      },
+      "body": {
+        "font_family": "Inter, sans-serif",
+        "weights": ["400", "500"]
+      }
+    }
+  },
+  "assets": {
+    "fonts": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+    ],
+    "icons": "lucide-react",
+    "images": {
+      "hero_bg": "https://images.pexels.com/photos/27141316/pexels-photo-27141316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "reality_frustration": "https://images.unsplash.com/photo-1624814635026-6cd3a72f35a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwyfHxmcnVzdHJhdGVkJTIwYnVzaW5lc3MlMjBvd25lciUyMGxvb2tpbmclMjBhdCUyMGNvbXB1dGVyJTIwZGFyayUyMG1vb2R5fGVufDB8fHx8MTc3MTc0OTM0Mnww&ixlib=rb-4.1.0&q=85",
+      "solution_tech": "https://images.pexels.com/photos/8090147/pexels-photo-8090147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "social_proof_meeting": "https://images.unsplash.com/photo-1758520145175-aa3b593b81af?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwyfHxzdWNjZXNzZnVsJTIwYnVzaW5lc3MlMjBtZWV0aW5nJTIwbW9kZXJuJTIwb2ZmaWNlJTIwZGFyayUyMGFlc3RoZXRpY3xlbnwwfHx8fDE3NzE3NDkzNDR8MA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "layout_strategy": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing": "py-24 md:py-32",
+    "grid_modes": {
+      "features": "grid grid-cols-1 md:grid-cols-2 gap-12 items-center",
+      "stats": "grid grid-cols-2 md:grid-cols-4 gap-8"
+    }
+  },
+  "components": {
+    "ui_library": "shadcn/ui (customized)",
+    "custom_components": [
+      {
+        "name": "VSLHero",
+        "description": "Centered layout with bold headline, subheadline, Vimeo embed (16:9), and primary CTA.",
+        "props": ["headline", "subheadline", "videoUrl", "ctaText"]
+      },
+      {
+        "name": "ContentSection",
+        "description": "Alternating layout (Text Left/Image Right or vice versa) for storytelling.",
+        "props": ["title", "content", "image", "reversed"]
+      },
+      {
+        "name": "CTAButton",
+        "description": "High visibility button, often full width on mobile, pulsing effect optional.",
+        "props": ["text", "onClick", "variant"]
+      },
+      {
+        "name": "FAQAccordion",
+        "description": "Shadcn accordion with dark theme styling.",
+        "props": ["items"]
+      }
+    ]
+  },
+  "motion": {
+    "library": "framer-motion",
+    "principles": [
+      "Fade up on scroll for sections",
+      "Scale up for CTAs on hover",
+      "Smooth accordion expansion"
+    ]
+  },
+  "universal_guidelines": [
+    "Use dark colors without gradients for backgrounds (e.g. #050505)",
+    "Use 'Outfit' font for all headings to match the modern video agency vibe.",
+    "Ensure video embed is responsive (aspect-video).",
+    "CTAs must be prominent and repeated in every section.",
+    "Do NOT use transparent backgrounds for dropdowns/overlays.",
+    "Add 'data-testid' to all interactive elements."
+  ],
+  "instructions_to_main_agent": "Implement the VSL page first. Use the Vimeo URL provided. Ensure the Bookafy calendar is embedded on a separate '/schedule' route. Use the dark theme variables in tailwind.config.js."
+}
