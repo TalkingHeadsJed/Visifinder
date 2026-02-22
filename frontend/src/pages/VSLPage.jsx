@@ -525,7 +525,7 @@ export default function VSLPage() {
           <motion.div {...fadeInUp} className="floating-card p-10 text-center bg-gradient-to-r from-[#0a0a0a] to-[#1a1a1a] border-none">
             <p className="text-gray-300 text-xl mb-3">No credit card required. No contracts. No risk.</p>
             <p className="text-white text-3xl font-bold mb-8">If we don't deliver value, you pay nothing.</p>
-            <CTAButton text="Start Your Free 7-Day Reveal" onClick={handleCTAClick} variant="gold" />
+            <CTAButton text="Start Your Free 7-Day Reveal" onClick={() => handleCTAClick("risk_reversal")} variant="gold" />
           </motion.div>
         </div>
       </section>
