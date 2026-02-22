@@ -426,7 +426,7 @@ export default function VSLPage() {
           </div>
           
           <div className="text-center">
-            <CTAButton text="Get Your Free 7-Day Reveal" onClick={handleCTAClick} />
+            <CTAButton text="Get Your Free 7-Day Reveal" onClick={() => handleCTAClick("after_transformation")} />
           </div>
         </div>
       </section>
