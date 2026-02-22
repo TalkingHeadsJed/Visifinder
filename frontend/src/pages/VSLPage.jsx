@@ -125,15 +125,15 @@ export default function VSLPage() {
         }} />
         
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          {/* Pain-focused pre-headline */}
+          {/* Product badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-full mb-6 text-sm font-medium"
+            className="inline-flex items-center gap-2 bg-blue-50 border border-[#589DFD] text-[#589DFD] px-4 py-2 rounded-full mb-6 text-sm font-bold"
           >
-            <DollarSign className="w-4 h-4" />
-            <span>You're paying for 100% of your traffic…</span>
+            <Eye className="w-4 h-4" />
+            <span>Introducing VisiFinder™</span>
           </motion.div>
           
           {/* STRONG HOOK - Turn the knife */}
@@ -161,6 +161,7 @@ export default function VSLPage() {
             You're spending <span className="font-bold text-[#0a0a0a]">real money</span> on SEO, PPC, and ads. 
             A CFO visits your pricing page. A VP reads three case studies. 
             Then they leave. <span className="text-red-600 font-bold">Invisible. Gone. Taking your revenue with them.</span>
+            <span className="block mt-2 text-[#589DFD] font-semibold">VisiFinder changes that.</span>
           </motion.p>
           
           {/* Vimeo Video */}
@@ -202,6 +203,7 @@ export default function VSLPage() {
       <section className="py-20 px-4 section-gray" data-testid="pain-section">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-12">
+            <p className="text-[#589DFD] font-bold mb-3 tracking-wide uppercase text-sm">The Problem</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
               Here's What's <span className="text-red-600">Really</span> Happening
             </h2>
@@ -258,8 +260,11 @@ export default function VSLPage() {
             <p className="text-xl sm:text-2xl text-gray-300 max-w-xl mx-auto mt-4">
               of your website visitors leave without identifying themselves.
             </p>
-            <p className="text-lg text-[#EAA73F] font-semibold mt-4">
+            <p className="text-lg text-[#589DFD] font-semibold mt-4">
               That's not a conversion problem. That's a <span className="underline">visibility</span> problem.
+            </p>
+            <p className="text-xl text-white font-bold mt-2">
+              VisiFinder™ solves it.
             </p>
           </motion.div>
         </div>
@@ -269,10 +274,11 @@ export default function VSLPage() {
       <section className="py-20 px-4 section-gold-gradient" data-testid="shift-section">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-12">
+            <p className="text-[#589DFD] font-bold mb-3 tracking-wide uppercase text-sm">The Shift</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
-              What If You Could <span className="gradient-text">Finally See</span> Who's Visiting?
+              What If You Could <span className="blue-gradient-text">Finally See</span> Who's Visiting?
             </h2>
-            <p className="text-lg text-gray-600">Imagine opening your dashboard and knowing:</p>
+            <p className="text-lg text-gray-600">Imagine opening your <span className="font-bold text-[#589DFD]">VisiFinder</span> dashboard and knowing:</p>
           </motion.div>
           
           {/* Before/After Comparison */}
@@ -312,14 +318,14 @@ export default function VSLPage() {
             {/* After - Success */}
             <motion.div 
               {...fadeInUp}
-              className="bg-white rounded-2xl p-8 border-2 border-[#EAA73F] relative overflow-hidden"
+              className="bg-white rounded-2xl p-8 border-2 border-[#589DFD] relative overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-[#EAA73F]" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-[#589DFD]" />
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
-                  <Check className="w-5 h-5 text-[#EAA73F]" />
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Check className="w-5 h-5 text-[#589DFD]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0a0a0a]">With Visibility Pixel</h3>
+                <h3 className="text-xl font-bold text-[#0a0a0a]">With <span className="text-[#589DFD]">VisiFinder™</span></h3>
               </div>
               <ul className="space-y-4">
                 {[
@@ -329,7 +335,7 @@ export default function VSLPage() {
                   "Follow up before competitors do"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-gray-700">
-                    <Check className="w-5 h-5 text-[#EAA73F] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#589DFD] mt-0.5 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -352,10 +358,11 @@ export default function VSLPage() {
       <section className="py-20 px-4 section-white" data-testid="solution-section">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-12">
-            <p className="text-[#EAA73F] font-bold mb-3 tracking-wide uppercase text-sm">The Solution</p>
+            <p className="text-[#589DFD] font-bold mb-3 tracking-wide uppercase text-sm">The Solution</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
-              The Anonymous Buyer Reveal System™
+              <span className="blue-gradient-text">VisiFinder™</span>
             </h2>
+            <p className="text-xl text-gray-700 font-medium mb-2">The Anonymous Buyer Reveal System</p>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               X-Ray vision for your website. Know who's visiting before they fill out a form.
             </p>
@@ -363,10 +370,10 @@ export default function VSLPage() {
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Eye, title: "Detect Visitors", desc: "Company-level identification" },
-              { icon: BarChart3, title: "Track Behavior", desc: "See which pages they visit" },
-              { icon: Target, title: "Identify Intent", desc: "Spot buying signals" },
-              { icon: Users, title: "CRM Integration", desc: "Sync insights instantly" }
+              { icon: Eye, title: "Detect Visitors", desc: "Company-level identification", color: "from-[#589DFD] to-[#7BB5FF]" },
+              { icon: BarChart3, title: "Track Behavior", desc: "See which pages they visit", color: "from-[#EAA73F] to-[#F5C063]" },
+              { icon: Target, title: "Identify Intent", desc: "Spot buying signals", color: "from-[#589DFD] to-[#7BB5FF]" },
+              { icon: Users, title: "CRM Integration", desc: "Sync insights instantly", color: "from-[#EAA73F] to-[#F5C063]" }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -376,7 +383,7 @@ export default function VSLPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-[#EAA73F] to-[#F5C063] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mx-auto mb-4`}>
                   <item.icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-[#0a0a0a] mb-2">{item.title}</h3>
@@ -391,17 +398,18 @@ export default function VSLPage() {
       <section className="py-20 px-4 section-gray" data-testid="reveal-section">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-12">
+            <p className="text-[#589DFD] font-bold mb-3 tracking-wide uppercase text-sm">7-Day VisiFinder Reveal</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
               Don't Take Our Word For It.
-              <span className="block gradient-text">Let Us Prove It.</span>
+              <span className="block blue-gradient-text">Let Us Prove It.</span>
             </h2>
           </motion.div>
           
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {[
-              { step: "1", title: "Install", desc: "15-minute setup. No dev work needed.", color: "from-[#EAA73F] to-[#F5C063]" },
-              { step: "2", title: "Monitor", desc: "7 days of real visitor data.", color: "from-[#589DFD] to-[#7BB5FF]" },
-              { step: "3", title: "Reveal", desc: "See exactly who's been shopping you.", color: "from-[#22c55e] to-[#4ade80]" }
+              { step: "1", title: "Install VisiFinder", desc: "15-minute setup. No dev work needed.", color: "from-[#589DFD] to-[#7BB5FF]" },
+              { step: "2", title: "Monitor Traffic", desc: "7 days of real visitor data.", color: "from-[#EAA73F] to-[#F5C063]" },
+              { step: "3", title: "Reveal Buyers", desc: "See exactly who's been shopping you.", color: "from-[#589DFD] to-[#7BB5FF]" }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -432,8 +440,9 @@ export default function VSLPage() {
       <section className="py-20 px-4 section-white" data-testid="qualification-section">
         <div className="max-w-4xl mx-auto">
           <motion.div {...fadeInUp}>
+            <p className="text-[#589DFD] font-bold mb-3 tracking-wide uppercase text-sm text-center">Who VisiFinder Is For</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a] mb-8 text-center">
-              This Is For <span className="gradient-text">Serious</span> B2B Companies
+              This Is For <span className="blue-gradient-text">Serious</span> B2B Companies
             </h2>
             
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -445,13 +454,13 @@ export default function VSLPage() {
               ].map((item, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center gap-4 bg-gradient-to-r from-amber-50 to-white p-5 rounded-xl border border-amber-100"
+                  className="flex items-center gap-4 bg-gradient-to-r from-blue-50 to-white p-5 rounded-xl border border-blue-100"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="w-8 h-8 bg-[#EAA73F] rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-[#589DFD] rounded-full flex items-center justify-center flex-shrink-0">
                     <Check className="w-5 h-5 text-white" />
                   </div>
                   <span className="text-gray-700 font-medium">{item}</span>
@@ -495,25 +504,27 @@ export default function VSLPage() {
         </div>
       </section>
 
-      {/* FINAL CTA - Dark with gold accent */}
+      {/* FINAL CTA - Dark with blue and gold accents */}
       <section className="py-24 px-4 section-dark relative overflow-hidden" data-testid="final-section">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#EAA73F] rounded-full blur-[100px]" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#589DFD] rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#EAA73F] rounded-full blur-[100px]" />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div {...fadeInUp}>
+            <p className="text-[#589DFD] font-bold mb-4 tracking-wide uppercase text-sm">Start Using VisiFinder Today</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Every Day You Wait,
-              <span className="block gradient-text mt-2">More Buyers Slip Through Your Fingers.</span>
+              <span className="block blue-gradient-text mt-2">More Buyers Slip Through Your Fingers.</span>
             </h2>
             <p className="text-lg text-gray-400 mb-4">
               Right now, someone is on your website. Evaluating you. Comparing you. 
             </p>
             <p className="text-xl text-white font-semibold mb-8">
-              Will you know who they are tomorrow?
+              <span className="text-[#589DFD]">VisiFinder</span> will tell you who they are.
             </p>
             
-            <CTAButton text="Book Your Reveal Call Now" onClick={handleCTAClick} variant="gold" />
+            <CTAButton text="Book Your VisiFinder Reveal Call" onClick={handleCTAClick} variant="gold" />
             <p className="text-gray-500 text-sm mt-4">15-minute call. No commitment. Just clarity.</p>
           </motion.div>
         </div>
@@ -522,8 +533,11 @@ export default function VSLPage() {
       {/* Footer */}
       <footer className="py-8 px-4 bg-[#050505] border-t border-gray-800">
         <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xl font-bold mb-2">
+            <span className="text-[#589DFD]">Visi</span><span className="text-[#EAA73F]">Finder</span><span className="text-gray-400">™</span>
+          </p>
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Visibility Pixel. All rights reserved.
+            © {new Date().getFullYear()} VisiFinder. All rights reserved.
           </p>
         </div>
       </footer>
