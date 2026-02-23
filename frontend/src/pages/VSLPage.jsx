@@ -317,7 +317,7 @@ export default function VSLPage() {
             {/* Main comparison image */}
             <div className="rounded-3xl overflow-hidden shadow-2xl">
               <img 
-                src="https://customer-assets.emergentagent.com/job_vsl-player/artifacts/kn02cm44_Hispanic%20man.png"
+                src="https://customer-assets.emergentagent.com/job_91154cc5-6887-48b2-bd90-93334b2768e9/artifacts/ocl1pycn_Hispanic-manweb.png"
                 alt="Anonymous visitor vs identified visitor comparison"
                 className="w-full h-auto"
               />
