@@ -87,8 +87,8 @@ export default function AdminDashboard() {
   );
 
   const VariantCard = ({ variant, data, color, delay = 0 }) => {
-    const totalVisits = (stats?.variant_a?.visits || 0) + (stats?.variant_b?.visits || 0);
-    const visitPercentage = totalVisits > 0 ? ((data.visits / totalVisits) * 100).toFixed(0) : 0;
+    const totalVslVisits = (stats?.variant_a?.vsl_visits || 0) + (stats?.variant_b?.vsl_visits || 0);
+    const vslPercentage = totalVslVisits > 0 ? ((data.vsl_visits / totalVslVisits) * 100).toFixed(0) : 0;
     
     return (
       <motion.div
@@ -98,6 +98,77 @@ export default function AdminDashboard() {
         className="bg-white rounded-2xl p-6 shadow-lg"
       >
         <div className="flex items-center gap-3 mb-6">
+          <div className={`w-4 h-4 rounded-full ${color}`}></div>
+          <h3 className="text-xl font-bold text-gray-900">Variant {variant}</h3>
+          <span className={`ml-auto px-3 py-1 rounded-full text-sm font-medium ${color.replace('bg-', 'bg-opacity-20 text-').replace('-500', '-600')}`}>
+            {variant === 'A' ? 'Control' : 'Challenger'}
+          </span>
+        </div>
+        
+        <div className="space-y-4">
+          {/* Landing Page Visits */}
+          <div>
+            <div className="flex justify-between text-sm mb-1">
+              <span className="text-gray-500">Landing Page Visits</span>
+              <span className="font-semibold">{data.vsl_visits || 0}</span>
+            </div>
+            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${vslPercentage}%` }}
+                transition={{ delay: delay + 0.3, duration: 0.8 }}
+                className={`h-full ${color} rounded-full`}
+              />
+            </div>
+          </div>
+          
+          {/* Schedule Page Visits */}
+          <div>
+            <div className="flex justify-between text-sm mb-1">
+              <span className="text-gray-500">Schedule Page Visits</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-400">CTR: {data.ctr || '0%'}</span>
+                <span className="font-semibold">{data.schedule_visits || 0}</span>
+              </div>
+            </div>
+            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${data.vsl_visits > 0 ? (data.schedule_visits / data.vsl_visits) * 100 : 0}%` }}
+                transition={{ delay: delay + 0.4, duration: 0.8 }}
+                className={`h-full ${color} opacity-75 rounded-full`}
+              />
+            </div>
+          </div>
+
+          {/* Bookings */}
+          <div>
+            <div className="flex justify-between text-sm mb-1">
+              <span className="text-gray-500">Bookings (Conversions)</span>
+              <span className="font-semibold">{data.conversions || 0}</span>
+            </div>
+            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${data.schedule_visits > 0 ? (data.conversions / data.schedule_visits) * 100 : 0}%` }}
+                transition={{ delay: delay + 0.5, duration: 0.8 }}
+                className={`h-full ${color} opacity-50 rounded-full`}
+              />
+            </div>
+          </div>
+          
+          <div className="pt-4 border-t border-gray-100">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-500">Booking Rate</span>
+              <span className={`text-2xl font-bold ${color.replace('bg-', 'text-')}`}>
+                {data.conversion_rate || '0%'}
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
           <div className={`w-4 h-4 rounded-full ${color}`}></div>
           <h3 className="text-xl font-bold text-gray-900">Variant {variant}</h3>
           <span className={`ml-auto px-3 py-1 rounded-full text-sm font-medium ${color.replace('bg-', 'bg-opacity-20 text-').replace('-500', '-600')}`}>
