@@ -113,7 +113,7 @@ export default function SchedulePage() {
             >
               {/* Bookafy Calendar Embed */}
               <iframe
-                src="https://websitetalkingheads.bookafy.com/schedule?type=iframe&locale=en"
+                src={bookafyUrl}
                 height="800"
                 style={{ width: "100%" }}
                 frameBorder="0"
