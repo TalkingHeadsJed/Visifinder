@@ -1,9 +1,19 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, Shield, Check, Zap } from "lucide-react";
+import { getVariant, AB_TEST_CONFIG } from "../config/abTest";
 
 export default function SchedulePage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  
+  // Get variant from URL param or from stored assignment
+  const urlVariant = searchParams.get("variant");
+  const variant = urlVariant || getVariant();
+  
+  // Build Bookafy URL with variant tracking
+  const bookafyBaseUrl = "https://websitetalkingheads.bookafy.com/schedule";
+  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en&custom_ab_variant=${variant}&custom_test_name=${AB_TEST_CONFIG.testName}`;
 
   const benefits = [
     "See exactly who's visiting your website",
