@@ -315,11 +315,11 @@ export default function VSLPage() {
             className="relative"
           >
             {/* Main comparison image */}
-            <div className="rounded-2xl overflow-hidden shadow-xl max-h-[280px] flex items-center justify-center">
+            <div className="rounded-2xl overflow-hidden shadow-xl mx-auto max-w-2xl">
               <img 
                 src="https://customer-assets.emergentagent.com/job_91154cc5-6887-48b2-bd90-93334b2768e9/artifacts/ocl1pycn_Hispanic-manweb.png"
                 alt="Anonymous visitor vs identified visitor comparison"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto"
               />
             </div>
             
