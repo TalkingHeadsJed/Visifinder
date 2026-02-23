@@ -181,11 +181,26 @@ async def bookafy_webhook(request: Request):
         return {"status": "error", "message": str(e)}
 
 @api_router.get("/ab-stats")
-async def get_ab_stats():
-    """Get A/B test statistics"""
+async def get_ab_stats(start_date: Optional[str] = None, end_date: Optional[str] = None):
+    """Get A/B test statistics, optionally filtered by date range"""
+    
+    # Build date filter if provided
+    date_filter = {}
+    if start_date:
+        date_filter["timestamp"] = {"$gte": start_date}
+    if end_date:
+        if "timestamp" in date_filter:
+            date_filter["timestamp"]["$lte"] = end_date + "T23:59:59"
+        else:
+            date_filter["timestamp"] = {"$lte": end_date + "T23:59:59"}
+    
+    # Build queries with optional date filter
+    visit_query = {"page": "schedule", **date_filter}
+    conversion_query = {**date_filter}
+    
     # Get conversion counts by variant
-    conversions = await db.booking_conversions.find({}, {"_id": 0}).to_list(1000)
-    visits = await db.variant_visits.find({"page": "schedule"}, {"_id": 0}).to_list(1000)
+    conversions = await db.booking_conversions.find(conversion_query, {"_id": 0}).to_list(1000)
+    visits = await db.variant_visits.find(visit_query, {"_id": 0}).to_list(1000)
     
     stats = {
         "variant_a": {
@@ -196,7 +211,11 @@ async def get_ab_stats():
             "visits": len([v for v in visits if v.get('variant') == 'B']),
             "conversions": len([c for c in conversions if c.get('variant') == 'B'])
         },
-        "recent_conversions": conversions[-10:] if conversions else []
+        "recent_conversions": conversions[-10:] if conversions else [],
+        "date_range": {
+            "start": start_date,
+            "end": end_date
+        }
     }
     
     # Calculate conversion rates
@@ -206,6 +225,28 @@ async def get_ab_stats():
         stats[v]['conversion_rate'] = f"{(conv_count/visits_count*100):.1f}%" if visits_count > 0 else "0%"
     
     return stats
+
+@api_router.post("/ab-reset")
+async def reset_ab_test():
+    """Reset all A/B test data - use when starting a new test"""
+    try:
+        # Delete all variant visits
+        visits_result = await db.variant_visits.delete_many({})
+        # Delete all booking conversions
+        conversions_result = await db.booking_conversions.delete_many({})
+        
+        logger.info(f"A/B test reset: deleted {visits_result.deleted_count} visits, {conversions_result.deleted_count} conversions")
+        
+        return {
+            "status": "reset_complete",
+            "deleted": {
+                "visits": visits_result.deleted_count,
+                "conversions": conversions_result.deleted_count
+            }
+        }
+    except Exception as e:
+        logger.error(f"A/B reset error: {str(e)}")
+        return {"status": "error", "message": str(e)}
 
 # Include the router in the main app
 app.include_router(api_router)
