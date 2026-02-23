@@ -98,6 +98,112 @@ async def get_status_checks():
     
     return status_checks
 
+# ============================================
+# A/B TEST TRACKING ENDPOINTS
+# ============================================
+
+@api_router.post("/track-variant")
+async def track_variant_visit(visit: VariantVisitCreate):
+    """Track when a user visits with a specific variant"""
+    visit_obj = VariantVisit(**visit.model_dump())
+    doc = visit_obj.model_dump()
+    doc['timestamp'] = doc['timestamp'].isoformat()
+    
+    await db.variant_visits.insert_one(doc)
+    logger.info(f"Tracked variant visit: {visit.variant} on {visit.page} (session: {visit.session_id})")
+    return {"status": "tracked", "id": visit_obj.id}
+
+@api_router.post("/bookafy/webhook")
+async def bookafy_webhook(request: Request):
+    """Receive webhook from Bookafy when appointment is created"""
+    try:
+        payload = await request.json()
+        logger.info(f"Bookafy webhook received: {payload}")
+        
+        # Extract appointment data
+        appointment = payload.get('appointment', payload)
+        customer_info = appointment.get('appointment_customer_info', {})
+        customer = appointment.get('customer', {})
+        
+        # Get customer details
+        customer_email = customer_info.get('email') or customer.get('customer_detail_hstore', {}).get('email', '')
+        customer_name = customer_info.get('name') or customer.get('customer_detail_hstore', {}).get('name', '')
+        appointment_id = str(appointment.get('id', ''))
+        appointment_date = appointment.get('appointment_date', '')
+        
+        if customer_email:
+            # Find the most recent variant visit for this email or recent session
+            recent_visit = await db.variant_visits.find_one(
+                {"email": customer_email, "converted": False},
+                sort=[("timestamp", -1)]
+            )
+            
+            # If no email match, find most recent unconverted schedule page visit (within last hour)
+            if not recent_visit:
+                from datetime import timedelta
+                one_hour_ago = (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()
+                recent_visit = await db.variant_visits.find_one(
+                    {"page": "schedule", "converted": False, "timestamp": {"$gte": one_hour_ago}},
+                    sort=[("timestamp", -1)]
+                )
+            
+            variant = recent_visit.get('variant', 'unknown') if recent_visit else 'unknown'
+            
+            # Record the conversion
+            conversion = BookingConversion(
+                variant=variant,
+                customer_email=customer_email,
+                customer_name=customer_name,
+                appointment_id=appointment_id,
+                appointment_date=appointment_date
+            )
+            doc = conversion.model_dump()
+            doc['timestamp'] = doc['timestamp'].isoformat()
+            await db.booking_conversions.insert_one(doc)
+            
+            # Mark the visit as converted
+            if recent_visit:
+                await db.variant_visits.update_one(
+                    {"id": recent_visit['id']},
+                    {"$set": {"converted": True}}
+                )
+            
+            logger.info(f"Booking conversion recorded: {customer_email} from Variant {variant}")
+            return {"status": "conversion_recorded", "variant": variant}
+        
+        return {"status": "received", "note": "no customer email found"}
+        
+    except Exception as e:
+        logger.error(f"Bookafy webhook error: {str(e)}")
+        return {"status": "error", "message": str(e)}
+
+@api_router.get("/ab-stats")
+async def get_ab_stats():
+    """Get A/B test statistics"""
+    # Get conversion counts by variant
+    conversions = await db.booking_conversions.find({}, {"_id": 0}).to_list(1000)
+    visits = await db.variant_visits.find({"page": "schedule"}, {"_id": 0}).to_list(1000)
+    
+    stats = {
+        "variant_a": {
+            "visits": len([v for v in visits if v.get('variant') == 'A']),
+            "conversions": len([c for c in conversions if c.get('variant') == 'A'])
+        },
+        "variant_b": {
+            "visits": len([v for v in visits if v.get('variant') == 'B']),
+            "conversions": len([c for c in conversions if c.get('variant') == 'B'])
+        },
+        "recent_conversions": conversions[-10:] if conversions else []
+    }
+    
+    # Calculate conversion rates
+    for v in ['variant_a', 'variant_b']:
+        visits_count = stats[v]['visits']
+        conv_count = stats[v]['conversions']
+        stats[v]['conversion_rate'] = f"{(conv_count/visits_count*100):.1f}%" if visits_count > 0 else "0%"
+    
+    return stats
+
 # Include the router in the main app
 app.include_router(api_router)
 
