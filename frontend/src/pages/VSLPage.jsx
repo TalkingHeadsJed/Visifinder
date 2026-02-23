@@ -327,15 +327,15 @@ export default function VSLPage() {
             <div className="grid grid-cols-2 gap-4 mt-6">
               {/* Left label - Without */}
               <div className="floating-card floating-card-red p-5 text-center">
-                <p className="text-lg sm:text-xl font-bold text-red-500 mb-1">WITHOUT VISIFINDER</p>
-                <p className="text-2xl sm:text-3xl font-bold text-[#0a0a0a]">Your Website Now</p>
+                <p className="text-2xl sm:text-3xl font-bold text-red-500 mb-1">WITHOUT VISIFINDER</p>
+                <p className="text-lg sm:text-xl font-bold text-[#0a0a0a]">Your Website Now</p>
                 <p className="text-gray-500 text-base mt-1">Anonymous. Invisible. Unknown.</p>
               </div>
               
               {/* Right label - With */}
               <div className="floating-card floating-card-blue p-5 text-center">
-                <p className="text-lg sm:text-xl font-bold text-[#589DFD] mb-1">WITH VISIFINDER</p>
-                <p className="text-2xl sm:text-3xl font-bold text-[#0a0a0a]">Your Website Revealed</p>
+                <p className="text-2xl sm:text-3xl font-bold text-[#589DFD] mb-1">WITH VISIFINDER</p>
+                <p className="text-lg sm:text-xl font-bold text-[#0a0a0a]">Your Website Revealed</p>
                 <p className="text-gray-500 text-base mt-1">Names. Companies. Intent.</p>
               </div>
             </div>
