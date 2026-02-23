@@ -42,6 +42,33 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# A/B Test Tracking Models
+class VariantVisit(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    variant: str  # "A" or "B"
+    email: Optional[str] = None
+    session_id: str
+    page: str  # "vsl" or "schedule"
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    converted: bool = False  # Set to True when booking is made
+
+class VariantVisitCreate(BaseModel):
+    variant: str
+    session_id: str
+    page: str
+    email: Optional[str] = None
+
+class BookingConversion(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    variant: str
+    customer_email: str
+    customer_name: str
+    appointment_id: str
+    appointment_date: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
