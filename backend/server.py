@@ -120,8 +120,8 @@ async def bookafy_webhook(request: Request):
         payload = await request.json()
         logger.info(f"Bookafy webhook received: {payload}")
         
-        # Extract appointment data
-        appointment = payload.get('appointment', payload)
+        # Extract appointment data - Bookafy sends it under 'object' key
+        appointment = payload.get('object', payload.get('appointment', payload))
         customer_info = appointment.get('appointment_customer_info', {})
         customer = appointment.get('customer', {})
         
