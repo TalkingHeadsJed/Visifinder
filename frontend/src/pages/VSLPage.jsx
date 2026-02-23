@@ -127,6 +127,7 @@ const staggerContainer = {
 
 export default function VSLPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
   // A/B Test - Get variant content
   const [variantContent, setVariantContent] = useState(null);
@@ -143,8 +144,16 @@ export default function VSLPage() {
   };
   
   useEffect(() => {
-    const variant = getVariant();
-    setVariantContent(getVariantContent());
+    // Check URL param first, then fall back to stored/random assignment
+    const urlVariant = searchParams.get("variant");
+    const variant = urlVariant || getVariant();
+    
+    // Get content based on the variant
+    const content = variant === "A" ? 
+      require("../config/abTest").AB_TEST_CONFIG.variantA : 
+      require("../config/abTest").AB_TEST_CONFIG.variantB;
+    
+    setVariantContent(content);
     setCurrentVariant(variant);
     
     // Track variant visit to backend
@@ -165,7 +174,7 @@ export default function VSLPage() {
       }
     };
     trackVisit();
-  }, []);
+  }, [searchParams]);
   
   const handleCTAClick = (ctaName = "default") => {
     trackCTAClick(ctaName);
