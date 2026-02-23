@@ -195,21 +195,30 @@ async def get_ab_stats(start_date: Optional[str] = None, end_date: Optional[str]
             date_filter["timestamp"] = {"$lte": end_date + "T23:59:59"}
     
     # Build queries with optional date filter
-    visit_query = {"page": "schedule", **date_filter}
+    vsl_visit_query = {"page": "vsl", **date_filter}
+    schedule_visit_query = {"page": "schedule", **date_filter}
     conversion_query = {**date_filter}
     
-    # Get conversion counts by variant
+    # Get all data
     conversions = await db.booking_conversions.find(conversion_query, {"_id": 0}).to_list(1000)
-    visits = await db.variant_visits.find(visit_query, {"_id": 0}).to_list(1000)
+    vsl_visits = await db.variant_visits.find(vsl_visit_query, {"_id": 0}).to_list(1000)
+    schedule_visits = await db.variant_visits.find(schedule_visit_query, {"_id": 0}).to_list(1000)
     
     stats = {
         "variant_a": {
-            "visits": len([v for v in visits if v.get('variant') == 'A']),
+            "vsl_visits": len([v for v in vsl_visits if v.get('variant') == 'A']),
+            "schedule_visits": len([v for v in schedule_visits if v.get('variant') == 'A']),
             "conversions": len([c for c in conversions if c.get('variant') == 'A'])
         },
         "variant_b": {
-            "visits": len([v for v in visits if v.get('variant') == 'B']),
+            "vsl_visits": len([v for v in vsl_visits if v.get('variant') == 'B']),
+            "schedule_visits": len([v for v in schedule_visits if v.get('variant') == 'B']),
             "conversions": len([c for c in conversions if c.get('variant') == 'B'])
+        },
+        "totals": {
+            "vsl_visits": len(vsl_visits),
+            "schedule_visits": len(schedule_visits),
+            "conversions": len(conversions)
         },
         "recent_conversions": conversions[-10:] if conversions else [],
         "date_range": {
@@ -218,11 +227,14 @@ async def get_ab_stats(start_date: Optional[str] = None, end_date: Optional[str]
         }
     }
     
-    # Calculate conversion rates
+    # Calculate conversion rates (schedule visits to bookings)
     for v in ['variant_a', 'variant_b']:
-        visits_count = stats[v]['visits']
+        schedule_count = stats[v]['schedule_visits']
         conv_count = stats[v]['conversions']
-        stats[v]['conversion_rate'] = f"{(conv_count/visits_count*100):.1f}%" if visits_count > 0 else "0%"
+        stats[v]['conversion_rate'] = f"{(conv_count/schedule_count*100):.1f}%" if schedule_count > 0 else "0%"
+        # Calculate click-through rate (VSL to schedule)
+        vsl_count = stats[v]['vsl_visits']
+        stats[v]['ctr'] = f"{(schedule_count/vsl_count*100):.1f}%" if vsl_count > 0 else "0%"
     
     return stats
 
