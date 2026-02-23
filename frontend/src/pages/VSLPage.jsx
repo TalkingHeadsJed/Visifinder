@@ -300,6 +300,63 @@ export default function VSLPage() {
       </section>
 
       {/* ============================================
+          SECTION 2.5: VISUAL IMPACT - Invisible vs Visible
+          ============================================ */}
+      <section className="py-20 px-4 section-white relative overflow-hidden" data-testid="visual-section">
+        <div className="max-w-5xl mx-auto relative z-10">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
+              See the Difference
+            </h2>
+          </motion.div>
+          
+          <motion.div 
+            {...fadeInUp}
+            className="relative rounded-3xl overflow-hidden shadow-2xl"
+          >
+            {/* Main comparison image */}
+            <img 
+              src="https://customer-assets.emergentagent.com/job_vsl-player/artifacts/kn02cm44_Hispanic%20man.png"
+              alt="Anonymous visitor vs identified visitor comparison"
+              className="w-full h-auto"
+            />
+            
+            {/* Overlay labels */}
+            <div className="absolute inset-0 flex">
+              {/* Left side - Without */}
+              <div className="w-1/2 flex flex-col justify-end p-6 sm:p-10 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+                <div className="text-white">
+                  <p className="text-sm sm:text-base font-medium text-red-400 mb-1">Without VisiFinder</p>
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold">Your Website Now</p>
+                  <p className="text-sm sm:text-base text-gray-300 mt-1">Anonymous. Invisible. Unknown.</p>
+                </div>
+              </div>
+              
+              {/* Divider line */}
+              <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/30" />
+              
+              {/* Right side - With */}
+              <div className="w-1/2 flex flex-col justify-end p-6 sm:p-10 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+                <div className="text-white text-right">
+                  <p className="text-sm sm:text-base font-medium text-[#589DFD] mb-1">With VisiFinder</p>
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold">Your Website Revealed</p>
+                  <p className="text-sm sm:text-base text-gray-300 mt-1">Names. Companies. Intent.</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          
+          <motion.p 
+            {...fadeInUp}
+            className="text-center text-lg sm:text-xl text-gray-600 mt-8 max-w-2xl mx-auto"
+          >
+            Every day, real people visit your website. With VisiFinder, 
+            <span className="font-bold text-[#589DFD]"> you finally see who they are.</span>
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ============================================
           SECTION 3: BIG STAT - Emotional Impact
           ============================================ */}
       <section className="py-32 px-4 section-dark relative" data-testid="stat-section">
