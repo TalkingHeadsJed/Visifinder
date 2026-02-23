@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisiFinder - See Who's Visiting Your Website</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --gold: #EAA73F;
+            --gold-dark: #d4922e;
+            --blue: #589DFD;
+            --dark: #0a0a0a;
+            --red: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        /* Hero Section with gradient */
+        .hero-section {
+            background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(88,157,253,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(234,167,63,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--blue);
+            font-weight: 500;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .headline {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 28px;
+        }
+        
+        .headline .gold {
+            color: var(--gold);
+            font-style: italic;
+        }
+        
+        .headline .red {
+            color: var(--red);
+            font-style: italic;
+        }
+        
+        .subtext {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 750px;
+            margin: 0 auto 20px;
+            line-height: 1.7;
+        }
+        
+        .subtext .highlight {
+            color: var(--blue);
+            font-weight: 600;
+        }
+        
+        /* CTA Button with glow */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(234, 167, 63, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(234, 167, 63, 0.5);
+            color: white;
+        }
+        
+        /* Trust badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .trust-badge i {
+            color: var(--blue);
+            font-size: 1.1rem;
+        }
+        
+        /* Video Section */
+        .video-section {
+            padding: 70px 0;
+            background: white;
+        }
+        
+        .video-wrapper {
+            max-width: 950px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 0 0 5px var(--gold), 0 25px 80px rgba(0,0,0,0.15);
+        }
+        
+        .video-wrapper iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
+        }
+        
+        /* See the Difference Section */
+        .difference-section {
+            padding: 70px 0;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+        
+        .difference-image {
+            max-width: 700px;
+            margin: 0 auto 28px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+        
+        .difference-image img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .comparison-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .comparison-card {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .comparison-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .comparison-card.without {
+            border-left: 5px solid var(--red);
+        }
+        
+        .comparison-card.with {
+            border-left: 5px solid var(--blue);
+        }
+        
+        .comparison-card .label {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .comparison-card.without .label {
+            color: var(--red);
+        }
+        
+        .comparison-card.with .label {
+            color: var(--blue);
+        }
+        
+        .comparison-card .title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+        
+        .comparison-card .desc {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        
+        /* Stats Section with animated counter */
+        .stats-section {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .big-stat {
+            font-size: 10rem;
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 20px;
+            font-family: 'Outfit', sans-serif;
+            text-shadow: 0 0 60px rgba(88,157,253,0.3);
+            position: relative;
+        }
+        
+        .stat-text {
+            font-size: 1.6rem;
+            color: white;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .stat-text strong {
+            color: var(--gold);
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 90px 0;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 36px 28px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            height: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--blue) 0%, #4a8de8 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 8px 25px rgba(88,157,253,0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: #6b7280;
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        /* How It Works */
+        .how-section {
+            padding: 90px 0;
+            background: white;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 25px rgba(234,167,63,0.3);
+        }
+        
+        .step-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .step-card p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        /* Calendar Section */
+        .calendar-section {
+            padding: 90px 0;
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        .calendar-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .calendar-header {
+            background: linear-gradient(135deg, var(--blue) 0%, #4a8de8 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .calendar-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .calendar-embed iframe {
+            width: 100%;
+            height: 650px;
+            border: none;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
+            padding: 90px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            color: #9ca3af;
+            font-size: 1.2rem;
+            margin-bottom: 36px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        
+        .footer-logo .visi {
+            color: var(--gold);
+        }
+        
+        .footer-logo .finder {
+            color: white;
+        }
+        
+        .footer p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2.4rem;
+            }
+            
+            .big-stat {
+                font-size: 6rem;
+            }
+            
+            .comparison-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .stat-text {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="text-center position-relative" style="z-index: 1;">
+                <div class="badge-pill">
+                    <i class="fas fa-sparkles"></i>
+                    <span id="badge-text">Finally See Who's Visiting Your Website</span>
+                </div>
+                
+                <h1 class="headline" id="headline">
+                    <span class="gold" id="line1">97% of Your Website Visitors</span><br>
+                    <span id="line2">Leave Without a Trace</span><br>
+                    <span class="red" id="line3">And You Have No Idea Who They Were.</span>
+                </h1>
+                
+                <p class="subtext" id="subtext">
+                    You're spending <strong>real money</strong> driving traffic—ads, SEO, social, email. 
+                    People click. They browse. They leave. And you're left wondering: 
+                    <span class="highlight">Who were they? Why didn't they buy? Could I have followed up?</span>
+                </p>
+                
+                <p class="subtext highlight" style="font-weight: 600; color: var(--blue); margin-bottom: 36px;">
+                    What if you could finally know?
+                </p>
+                
+                <a href="#calendar" class="cta-button">
+                    Stop Losing Visitors — Book Your Reveal
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <i class="fas fa-shield-halved"></i>
+                        Privacy Compliant
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-bolt"></i>
+                        15-Min Setup
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-clock"></i>
+                        Real-Time Data
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="video-wrapper fade-in">
+                <iframe 
+                    src="https://player.vimeo.com/video/1055973007?badge=0&autopause=0&player_id=0&app_id=58479"
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    title="VisiFinder Demo">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    
+    <!-- See the Difference Section -->
+    <section class="difference-section">
+        <div class="container">
+            <h2 class="section-title fade-in">See the Difference</h2>
+            
+            <div class="difference-image fade-in">
+                <img src="https://customer-assets.emergentagent.com/job_91154cc5-6887-48b2-bd90-93334b2768e9/artifacts/ocl1pycn_Hispanic-manweb.png" 
+                     alt="Anonymous visitor vs identified visitor comparison">
+            </div>
+            
+            <div class="comparison-cards">
+                <div class="comparison-card without fade-in">
+                    <div class="label">WITHOUT VISIFINDER</div>
+                    <div class="title">Your Website Now</div>
+                    <div class="desc">Anonymous. Invisible. Unknown.</div>
+                </div>
+                <div class="comparison-card with fade-in">
+                    <div class="label">WITH VISIFINDER</div>
+                    <div class="title">Your Website Revealed</div>
+                    <div class="desc">Names. Companies. Intent.</div>
+                </div>
+            </div>
+            
+            <p class="text-center mt-5 fade-in" style="color: #6b7280; font-size: 1.2rem;">
+                Every day, real people visit your website. With VisiFinder, 
+                <strong style="color: var(--blue);">you finally see who they are.</strong>
+            </p>
+        </div>
+    </section>
+    
+    <!-- Stats Section with Animated Counter -->
+    <section class="stats-section">
+        <div class="container position-relative">
+            <div class="big-stat" id="animated-stat">0%</div>
+            <p class="stat-text">
+                of your website visitors leave without ever filling out a form, calling, or buying. 
+                <strong>They're gone. Forever.</strong>
+            </p>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title fade-in">
+                <span style="color: var(--gold);">Visi</span>Finder™
+            </h2>
+            <p class="section-subtitle fade-in">Your Invisible Traffic, Finally Visible</p>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Identify Visitors</h3>
+                        <p>See who's on your site—even if they never fill out a form</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Track Behavior</h3>
+                        <p>Know what pages they view and how engaged they are</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Spot Intent</h3>
+                        <p>Identify buyers ready to purchase vs. casual browsers</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Company Intel</h3>
+                        <p>See company names, sizes, and industries visiting you</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <h3>Sync & Act</h3>
+                        <p>Push insights to your CRM, ads, or sales team instantly</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <h3>Privacy Safe</h3>
+                        <p>100% compliant with privacy regulations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="container">
+            <h2 class="section-title fade-in">How It Works</h2>
+            <p class="section-subtitle fade-in">Get started in minutes, not months</p>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="step-card fade-in">
+                        <div class="step-number">1</div>
+                        <h3>Install the Pixel</h3>
+                        <p>Add one line of code to your website. Takes 5 minutes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card fade-in">
+                        <div class="step-number">2</div>
+                        <h3>Watch Visitors Appear</h3>
+                        <p>Start seeing who's visiting your site in real-time.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card fade-in">
+                        <div class="step-number">3</div>
+                        <h3>Convert More Sales</h3>
+                        <p>Follow up with hot prospects before they go cold.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Calendar Section -->
+    <section class="calendar-section" id="calendar">
+        <div class="container">
+            <h2 class="section-title fade-in">Book Your Free Demo</h2>
+            <p class="section-subtitle fade-in">Schedule a 15-minute call to see if you qualify for a 7-day trial</p>
+            
+            <div class="calendar-wrapper fade-in">
+                <div class="calendar-header">
+                    <h3><i class="fas fa-calendar-check me-2"></i> Schedule Your Appointment</h3>
+                </div>
+                <div class="calendar-embed">
+                    <iframe 
+                        src="https://websitetalkingheads.bookafy.com/schedule?type=iframe&locale=en"
+                        title="Book Appointment">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="fade-in">Ready to See Who's Visiting?</h2>
+            <p class="fade-in">Stop losing customers. Start converting more traffic today.</p>
+            <a href="#calendar" class="cta-button fade-in">
+                Book Your Free Demo
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <span class="visi">Visi</span><span class="finder">Finder</span>™
+            </div>
+            <p>© 2026 VisiFinder. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // A/B Test - Check URL for variant parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const variant = urlParams.get('variant');
+        
+        // Variant B content
+        if (variant === 'B') {
+            document.getElementById('badge-text').textContent = 'Stop Losing Anonymous Visitors';
+            document.getElementById('line1').textContent = "You're Paying for Traffic";
+            document.getElementById('line2').textContent = 'That Disappears Forever';
+            document.getElementById('line3').textContent = 'What If You Could See Your Visitors?';
+            document.getElementById('subtext').innerHTML = `
+                Every day, potential customers visit your website. They browse your products, 
+                check your pricing, read your content. Then they vanish—
+                <span class="highlight">no name, no email, no way to follow up.</span>
+            `;
+        }
+        
+        // Animated Counter for 97%
+        function animateCounter() {
+            const statElement = document.getElementById('animated-stat');
+            const target = 97;
+            const duration = 2000;
+            let startTime = null;
+            let hasStarted = false;
+            
+            function animate(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOut * target);
+                
+                statElement.textContent = current + '%';
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            
+            // Intersection Observer to trigger animation when visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasStarted) {
+                        hasStarted = true;
+                        requestAnimationFrame(animate);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(statElement);
+        }
+        
+        // Fade-in animations on scroll
+        function initFadeAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            
+            fadeElements.forEach(el => observer.observe(el));
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', function() {
+            animateCounter();
+            initFadeAnimations();
+        });
+    </script>
+</body>
+</html>
