@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import { ArrowRight, ChevronDown, TrendingDown, DollarSign, Users, Eye, Target, BarChart3, Check, X, Sparkles, Zap, ShieldCheck, Clock } from "lucide-react";
 import {
