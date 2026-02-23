@@ -389,8 +389,8 @@ export default function AdminDashboard() {
                 value="Active"
                 subtitle="Collecting data"
                 icon={BarChart3}
-                color="border-purple-500"
-                delay={0.3}
+                color="border-gray-500"
+                delay={0.4}
               />
             </div>
 
@@ -399,13 +399,13 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <VariantCard 
                 variant="A" 
-                data={stats.variant_a || { visits: 0, conversions: 0, conversion_rate: '0%' }} 
+                data={stats.variant_a || { vsl_visits: 0, schedule_visits: 0, conversions: 0, conversion_rate: '0%', ctr: '0%' }} 
                 color="bg-blue-500"
                 delay={0.4}
               />
               <VariantCard 
                 variant="B" 
-                data={stats.variant_b || { visits: 0, conversions: 0, conversion_rate: '0%' }} 
+                data={stats.variant_b || { vsl_visits: 0, schedule_visits: 0, conversions: 0, conversion_rate: '0%', ctr: '0%' }} 
                 color="bg-amber-500"
                 delay={0.5}
               />
