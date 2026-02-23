@@ -169,56 +169,6 @@ export default function AdminDashboard() {
       </motion.div>
     );
   };
-          <div className={`w-4 h-4 rounded-full ${color}`}></div>
-          <h3 className="text-xl font-bold text-gray-900">Variant {variant}</h3>
-          <span className={`ml-auto px-3 py-1 rounded-full text-sm font-medium ${color.replace('bg-', 'bg-opacity-20 text-').replace('-500', '-600')}`}>
-            {variant === 'A' ? 'Control' : 'Challenger'}
-          </span>
-        </div>
-        
-        <div className="space-y-4">
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-gray-500">Schedule Page Visits</span>
-              <span className="font-semibold">{data.visits}</span>
-            </div>
-            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={{ width: `${visitPercentage}%` }}
-                transition={{ delay: delay + 0.3, duration: 0.8 }}
-                className={`h-full ${color} rounded-full`}
-              />
-            </div>
-          </div>
-          
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-gray-500">Bookings (Conversions)</span>
-              <span className="font-semibold">{data.conversions}</span>
-            </div>
-            <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={{ width: `${data.visits > 0 ? (data.conversions / data.visits) * 100 : 0}%` }}
-                transition={{ delay: delay + 0.4, duration: 0.8 }}
-                className={`h-full ${color} rounded-full`}
-              />
-            </div>
-          </div>
-          
-          <div className="pt-4 border-t border-gray-100">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500">Conversion Rate</span>
-              <span className={`text-2xl font-bold ${color.replace('bg-', 'text-')}`}>
-                {data.conversion_rate}
-              </span>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    );
-  };
 
   return (
     <div className="min-h-screen bg-gray-50" data-testid="admin-dashboard">
