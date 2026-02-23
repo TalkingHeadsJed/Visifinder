@@ -302,10 +302,10 @@ export default function VSLPage() {
       {/* ============================================
           SECTION 2.5: VISUAL IMPACT - Invisible vs Visible
           ============================================ */}
-      <section className="py-20 px-4 section-white relative overflow-hidden" data-testid="visual-section">
-        <div className="max-w-5xl mx-auto relative z-10">
-          <motion.div {...fadeInUp} className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a0a0a] mb-4">
+      <section className="py-10 px-4 section-white relative overflow-hidden" data-testid="visual-section">
+        <div className="max-w-3xl mx-auto relative z-10">
+          <motion.div {...fadeInUp} className="text-center mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0a0a0a]">
               See the Difference
             </h2>
           </motion.div>
@@ -315,35 +315,35 @@ export default function VSLPage() {
             className="relative"
           >
             {/* Main comparison image */}
-            <div className="rounded-3xl overflow-hidden shadow-2xl">
+            <div className="rounded-2xl overflow-hidden shadow-xl max-h-[280px] flex items-center justify-center">
               <img 
                 src="https://customer-assets.emergentagent.com/job_91154cc5-6887-48b2-bd90-93334b2768e9/artifacts/ocl1pycn_Hispanic-manweb.png"
                 alt="Anonymous visitor vs identified visitor comparison"
-                className="w-full h-auto"
+                className="w-full h-auto object-cover"
               />
             </div>
             
             {/* Labels below image */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="grid grid-cols-2 gap-3 mt-4">
               {/* Left label - Without */}
-              <div className="floating-card floating-card-red p-6 text-center">
-                <p className="text-sm font-bold text-red-500 mb-1">WITHOUT VISIFINDER</p>
-                <p className="text-xl sm:text-2xl font-bold text-[#0a0a0a]">Your Website Now</p>
-                <p className="text-gray-500 mt-1">Anonymous. Invisible. Unknown.</p>
+              <div className="floating-card floating-card-red p-3 text-center">
+                <p className="text-xs font-bold text-red-500 mb-0.5">WITHOUT VISIFINDER</p>
+                <p className="text-base sm:text-lg font-bold text-[#0a0a0a]">Your Website Now</p>
+                <p className="text-gray-500 text-sm">Anonymous. Invisible. Unknown.</p>
               </div>
               
               {/* Right label - With */}
-              <div className="floating-card floating-card-blue p-6 text-center">
-                <p className="text-sm font-bold text-[#589DFD] mb-1">WITH VISIFINDER</p>
-                <p className="text-xl sm:text-2xl font-bold text-[#0a0a0a]">Your Website Revealed</p>
-                <p className="text-gray-500 mt-1">Names. Companies. Intent.</p>
+              <div className="floating-card floating-card-blue p-3 text-center">
+                <p className="text-xs font-bold text-[#589DFD] mb-0.5">WITH VISIFINDER</p>
+                <p className="text-base sm:text-lg font-bold text-[#0a0a0a]">Your Website Revealed</p>
+                <p className="text-gray-500 text-sm">Names. Companies. Intent.</p>
               </div>
             </div>
           </motion.div>
           
           <motion.p 
             {...fadeInUp}
-            className="text-center text-lg sm:text-xl text-gray-600 mt-10 max-w-2xl mx-auto"
+            className="text-center text-base text-gray-600 mt-4 max-w-xl mx-auto"
           >
             Every day, real people visit your website. With VisiFinder, 
             <span className="font-bold text-[#589DFD]"> you finally see who they are.</span>
