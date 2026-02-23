@@ -151,35 +151,117 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50" data-testid="admin-dashboard">
+      {/* Reset Confirmation Modal */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl p-6 max-w-md mx-4 shadow-2xl"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-red-100 rounded-full">
+                <AlertTriangle className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900">Reset All Data?</h3>
+            </div>
+            <p className="text-gray-600 mb-6">
+              This will permanently delete all visit tracking and conversion data. Use this when starting a new A/B test with different headlines.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReset}
+                disabled={resetting}
+                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
+              >
+                {resetting ? 'Resetting...' : 'Yes, Reset All'}
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate("/")}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              data-testid="back-to-vsl"
-            >
-              <ArrowLeft className="w-5 h-5 text-gray-500" />
-            </button>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">A/B Test Dashboard</h1>
-              <p className="text-sm text-gray-500">VisiFinder Headline Test</p>
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => navigate("/")}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                data-testid="back-to-vsl"
+              >
+                <ArrowLeft className="w-5 h-5 text-gray-500" />
+              </button>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">A/B Test Dashboard</h1>
+                <p className="text-sm text-gray-500">VisiFinder Headline Test</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              {lastUpdated && (
+                <span className="text-sm text-gray-400">Updated: {lastUpdated}</span>
+              )}
+              <button
+                onClick={fetchStats}
+                disabled={loading}
+                className="flex items-center gap-2 px-4 py-2 bg-[#589DFD] text-white rounded-lg hover:bg-[#4a8de8] transition-colors disabled:opacity-50"
+                data-testid="refresh-stats"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+              <button
+                onClick={() => setShowResetConfirm(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+                data-testid="reset-data"
+              >
+                <Trash2 className="w-4 h-4" />
+                Reset
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            {lastUpdated && (
-              <span className="text-sm text-gray-400">Updated: {lastUpdated}</span>
+          
+          {/* Date Filters */}
+          <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <Calendar className="w-4 h-4" />
+              <span>Filter by date:</span>
+            </div>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#589DFD] focus:border-transparent"
+              placeholder="Start date"
+            />
+            <span className="text-gray-400">to</span>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#589DFD] focus:border-transparent"
+              placeholder="End date"
+            />
+            {(startDate || endDate) && (
+              <button
+                onClick={clearDateFilter}
+                className="text-sm text-[#589DFD] hover:underline"
+              >
+                Clear filter
+              </button>
             )}
-            <button
-              onClick={fetchStats}
-              disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 bg-[#589DFD] text-white rounded-lg hover:bg-[#4a8de8] transition-colors disabled:opacity-50"
-              data-testid="refresh-stats"
-            >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              Refresh
-            </button>
+            {(startDate || endDate) && (
+              <span className="ml-auto text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+                Filtered view
+              </span>
+            )}
           </div>
         </div>
       </header>
