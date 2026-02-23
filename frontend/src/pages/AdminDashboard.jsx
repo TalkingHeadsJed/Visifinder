@@ -345,22 +345,30 @@ export default function AdminDashboard() {
         ) : stats ? (
           <>
             {/* Summary Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
               <StatCard
-                title="Total Visits"
-                value={(stats.variant_a?.visits || 0) + (stats.variant_b?.visits || 0)}
-                subtitle="Schedule page"
+                title="Landing Page"
+                value={stats.totals?.vsl_visits || 0}
+                subtitle="VSL views"
                 icon={Users}
                 color="border-blue-500"
                 delay={0}
               />
               <StatCard
-                title="Total Conversions"
-                value={(stats.variant_a?.conversions || 0) + (stats.variant_b?.conversions || 0)}
-                subtitle="Bookings made"
+                title="Schedule Page"
+                value={stats.totals?.schedule_visits || 0}
+                subtitle="CTA clicks"
+                icon={Target}
+                color="border-purple-500"
+                delay={0.1}
+              />
+              <StatCard
+                title="Bookings"
+                value={stats.totals?.conversions || 0}
+                subtitle="Appointments"
                 icon={Target}
                 color="border-green-500"
-                delay={0.1}
+                delay={0.2}
               />
               <StatCard
                 title="Best Performer"
@@ -371,10 +379,10 @@ export default function AdminDashboard() {
                     ? 'Variant B'
                     : 'Tie'
                 }
-                subtitle="Higher conversion rate"
+                subtitle="Higher booking rate"
                 icon={TrendingUp}
                 color="border-amber-500"
-                delay={0.2}
+                delay={0.3}
               />
               <StatCard
                 title="Test Status"
