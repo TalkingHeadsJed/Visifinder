@@ -12,8 +12,9 @@ export default function SchedulePage() {
   const variant = urlVariant || getVariant();
   
   // Build Bookafy URL with variant tracking
+  // Note: Create a custom field named "ab_variant" in Bookafy to capture this
   const bookafyBaseUrl = "https://websitetalkingheads.bookafy.com/schedule";
-  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en&custom_ab_variant=${variant}&custom_test_name=${AB_TEST_CONFIG.testName}`;
+  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en&ab_variant=${variant}`;
 
   const benefits = [
     "See exactly who's visiting your website",
