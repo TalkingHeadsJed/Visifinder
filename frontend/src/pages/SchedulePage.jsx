@@ -12,10 +12,10 @@ export default function SchedulePage() {
   const variant = urlVariant || getVariant();
   
   // Build Bookafy URL with variant tracking
-  // Bookafy custom field: "Landing Page" (will receive "Variant A" or "Variant B")
+  // Bookafy custom field: "Landing Page" (field name is "landing page" lowercase)
   const bookafyBaseUrl = "https://websitetalkingheads.bookafy.com/schedule";
   const landingPageValue = `Variant ${variant}`;
-  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en&Landing_Page=${encodeURIComponent(landingPageValue)}`;
+  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en&landing%20page=${encodeURIComponent(landingPageValue)}`;
 
   const benefits = [
     "See exactly who's visiting your website",
