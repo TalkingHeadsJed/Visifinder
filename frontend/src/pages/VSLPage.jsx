@@ -132,9 +132,39 @@ export default function VSLPage() {
   const [variantContent, setVariantContent] = useState(null);
   const [currentVariant, setCurrentVariant] = useState(null);
   
+  // Get or create session ID for tracking
+  const getSessionId = () => {
+    let sessionId = sessionStorage.getItem('vsl_session_id');
+    if (!sessionId) {
+      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      sessionStorage.setItem('vsl_session_id', sessionId);
+    }
+    return sessionId;
+  };
+  
   useEffect(() => {
+    const variant = getVariant();
     setVariantContent(getVariantContent());
-    setCurrentVariant(getVariant());
+    setCurrentVariant(variant);
+    
+    // Track variant visit to backend
+    const trackVisit = async () => {
+      try {
+        const API_URL = process.env.REACT_APP_BACKEND_URL;
+        await fetch(`${API_URL}/api/track-variant`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            variant: variant,
+            session_id: getSessionId(),
+            page: 'vsl'
+          })
+        });
+      } catch (e) {
+        console.log('Tracking failed:', e);
+      }
+    };
+    trackVisit();
   }, []);
   
   const handleCTAClick = (ctaName = "default") => {
