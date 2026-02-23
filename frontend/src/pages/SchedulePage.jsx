@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, Shield, Check, Zap } from "lucide-react";
-import { getVariant, AB_TEST_CONFIG } from "../config/abTest";
+import { getVariant } from "../config/abTest";
 
 export default function SchedulePage() {
   const navigate = useNavigate();
@@ -12,10 +13,39 @@ export default function SchedulePage() {
   const variant = urlVariant || getVariant();
   
   // Build Bookafy URL with variant tracking
-  // Bookafy custom field: "Landing Page" (field name is "landing page" lowercase)
   const bookafyBaseUrl = "https://websitetalkingheads.bookafy.com/schedule";
-  const landingPageValue = `Variant ${variant}`;
-  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en&landing%20page=${encodeURIComponent(landingPageValue)}`;
+  const bookafyUrl = `${bookafyBaseUrl}?type=iframe&locale=en`;
+
+  // Get or create session ID for tracking
+  const getSessionId = () => {
+    let sessionId = sessionStorage.getItem('vsl_session_id');
+    if (!sessionId) {
+      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      sessionStorage.setItem('vsl_session_id', sessionId);
+    }
+    return sessionId;
+  };
+
+  // Track schedule page visit
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        const API_URL = process.env.REACT_APP_BACKEND_URL;
+        await fetch(`${API_URL}/api/track-variant`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            variant: variant,
+            session_id: getSessionId(),
+            page: 'schedule'
+          })
+        });
+      } catch (e) {
+        console.log('Tracking failed:', e);
+      }
+    };
+    trackVisit();
+  }, [variant]);
 
   const benefits = [
     "See exactly who's visiting your website",
