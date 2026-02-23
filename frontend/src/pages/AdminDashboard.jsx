@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { BarChart3, Users, Target, TrendingUp, RefreshCw, ArrowLeft } from "lucide-react";
+import { BarChart3, Users, Target, TrendingUp, RefreshCw, ArrowLeft, Trash2, Calendar, AlertTriangle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
@@ -8,12 +8,22 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   const fetchStats = async () => {
     setLoading(true);
     try {
       const API_URL = process.env.REACT_APP_BACKEND_URL;
-      const response = await fetch(`${API_URL}/api/ab-stats`);
+      let url = `${API_URL}/api/ab-stats`;
+      const params = new URLSearchParams();
+      if (startDate) params.append('start_date', startDate);
+      if (endDate) params.append('end_date', endDate);
+      if (params.toString()) url += `?${params.toString()}`;
+      
+      const response = await fetch(url);
       const data = await response.json();
       setStats(data);
       setLastUpdated(new Date().toLocaleTimeString());
@@ -23,12 +33,38 @@ export default function AdminDashboard() {
     setLoading(false);
   };
 
+  const handleReset = async () => {
+    setResetting(true);
+    try {
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${API_URL}/api/ab-reset`, { method: 'POST' });
+      const data = await response.json();
+      if (data.status === 'reset_complete') {
+        setShowResetConfirm(false);
+        fetchStats();
+      }
+    } catch (e) {
+      console.error('Failed to reset:', e);
+    }
+    setResetting(false);
+  };
+
+  const clearDateFilter = () => {
+    setStartDate("");
+    setEndDate("");
+  };
+
   useEffect(() => {
     fetchStats();
     // Auto-refresh every 30 seconds
     const interval = setInterval(fetchStats, 30000);
     return () => clearInterval(interval);
   }, []);
+
+  // Refetch when dates change
+  useEffect(() => {
+    if (stats) fetchStats();
+  }, [startDate, endDate]);
 
   const StatCard = ({ title, value, subtitle, icon: Icon, color, delay = 0 }) => (
     <motion.div
