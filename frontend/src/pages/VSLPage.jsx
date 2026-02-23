@@ -139,7 +139,8 @@ export default function VSLPage() {
   
   const handleCTAClick = (ctaName = "default") => {
     trackCTAClick(ctaName);
-    navigate("/schedule");
+    // Pass variant to schedule page for Bookafy tracking
+    navigate(`/schedule?variant=${currentVariant}`);
   };
 
   const faqItems = [
