@@ -138,16 +138,18 @@ async def bookafy_webhook(request: Request):
                 sort=[("timestamp", -1)]
             )
             
-            # If no email match, find most recent unconverted schedule page visit (within last hour)
+            # If no email match, find most recent unconverted schedule page visit (within last 2 hours)
             if not recent_visit:
                 from datetime import timedelta
-                one_hour_ago = (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()
+                two_hours_ago = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()
                 recent_visit = await db.variant_visits.find_one(
-                    {"page": "schedule", "converted": False, "timestamp": {"$gte": one_hour_ago}},
+                    {"page": "schedule", "converted": False},
                     sort=[("timestamp", -1)]
                 )
+                logger.info(f"Looking for recent schedule visit, found: {recent_visit}")
             
             variant = recent_visit.get('variant', 'unknown') if recent_visit else 'unknown'
+            logger.info(f"Matched to variant: {variant}")
             
             # Record the conversion
             conversion = BookingConversion(
@@ -160,6 +162,7 @@ async def bookafy_webhook(request: Request):
             doc = conversion.model_dump()
             doc['timestamp'] = doc['timestamp'].isoformat()
             await db.booking_conversions.insert_one(doc)
+            logger.info(f"Inserted conversion: {doc}")
             
             # Mark the visit as converted
             if recent_visit:
