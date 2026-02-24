@@ -181,11 +181,21 @@
         /* ============================================
            VIMEO VIDEO WRAPPER
            ============================================ */
+        .video-card {
+            background: linear-gradient(135deg, rgba(88, 157, 253, 0.03) 0%, rgba(234, 167, 63, 0.03) 100%);
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+        
         .vimeo-wrapper {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
+            border-radius: 16px;
         }
         
         .vimeo-wrapper iframe {
@@ -503,7 +513,7 @@
     <!-- ============================================
          SECTION 1: HERO - Pattern Interrupt + Problem
          ============================================ -->
-    <section class="position-relative min-vh-100 d-flex align-items-center py-5 overflow-hidden" style="background: #fafbfc;">
+    <section class="position-relative py-5 overflow-hidden" style="background: #fafbfc;">
         <!-- Floating Shapes -->
         <div class="floating-shape" style="width: 600px; height: 600px; background: #589DFD; top: -20%; right: -10%;"></div>
         <div class="floating-shape" style="width: 400px; height: 400px; background: #EAA73F; bottom: -10%; left: -5%;"></div>
@@ -524,19 +534,21 @@
                 </h1>
                 
                 <!-- Subtext -->
-                <p class="fs-5 text-secondary mx-auto mb-3 fade-in-up" style="max-width: 800px; line-height: 1.7;" id="subtext">
+                <p class="fs-5 text-secondary mx-auto mb-1 fade-in-up" style="max-width: 800px; line-height: 1.7;" id="subtext">
                     You're spending <strong>real money</strong> driving traffic—ads, SEO, social, email. People click. They browse. They leave. And you're left wondering:
                     <span style="color: var(--red); font-weight: 700;"> Who were they? Why didn't they buy? Could I have followed up?</span>
                 </p>
-                <p class="fs-5 fw-semibold fade-in-up" style="color: var(--blue); margin-bottom: 16px;">What if you could finally know?</p>
+                <p class="fs-5 fw-semibold" style="color: var(--blue); margin: 0; padding: 0;">What if you could finally know?</p>
                 
                 <!-- Video -->
-                <div class="vimeo-wrapper mx-auto mb-4 fade-in-up" style="max-width: 900px;">
+                <div class="video-card mx-auto mb-4" style="max-width: 900px; margin-top: 16px !important;">
+                    <div class="vimeo-wrapper">
                     <iframe
                         src="https://player.vimeo.com/video/1167550168?h=a761b4636b&badge=0&autopause=0&player_id=0&app_id=58479"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                         title="VisiFinder VSL">
                     </iframe>
+                    </div>
                 </div>
                 
                 <!-- CTA Button -->
