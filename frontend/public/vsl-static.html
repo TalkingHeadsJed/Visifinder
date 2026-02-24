@@ -183,7 +183,7 @@
            ============================================ */
         .vimeo-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 177.78%; /* 9:16 vertical aspect ratio */
             height: 0;
             overflow: hidden;
             border-radius: 24px;
@@ -191,7 +191,6 @@
                 0 20px 60px -15px rgba(88, 157, 253, 0.3),
                 0 40px 100px -30px rgba(234, 167, 63, 0.2),
                 0 0 0 2px rgba(88, 157, 253, 0.2);
-            transform: perspective(1000px) rotateX(2deg);
             transition: all 0.5s ease;
         }
         
@@ -206,7 +205,7 @@
         }
         
         .vimeo-wrapper:hover {
-            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            transform: translateY(-5px);
             box-shadow: 
                 0 30px 80px -20px rgba(88, 157, 253, 0.4),
                 0 50px 120px -40px rgba(234, 167, 63, 0.3);
