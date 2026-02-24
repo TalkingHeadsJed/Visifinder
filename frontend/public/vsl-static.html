@@ -1184,10 +1184,86 @@
     
     <script>
         // ============================================
+        // WEBHOOK TRACKING CONFIGURATION
+        // ============================================
+        // INSTRUCTIONS: Replace this URL with your Zapier webhook URL
+        // Example: 'https://hooks.zapier.com/hooks/catch/123456/abcdef/'
+        const WEBHOOK_URL = ''; // <-- PASTE YOUR ZAPIER WEBHOOK URL HERE
+        
+        // ============================================
+        // SESSION & VARIANT MANAGEMENT
+        // ============================================
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('vsl_session_id');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('vsl_session_id', sessionId);
+            }
+            return sessionId;
+        }
+        
+        function getStoredVariant() {
+            return localStorage.getItem('vsl_variant');
+        }
+        
+        function setStoredVariant(variant) {
+            localStorage.setItem('vsl_variant', variant);
+        }
+        
+        // ============================================
+        // WEBHOOK TRACKING FUNCTION
+        // ============================================
+        function trackEvent(eventType, eventData = {}) {
+            if (!WEBHOOK_URL) {
+                console.log('Tracking (no webhook configured):', eventType, eventData);
+                return;
+            }
+            
+            const payload = {
+                timestamp: new Date().toISOString(),
+                session_id: getSessionId(),
+                variant: currentVariant,
+                page: 'vsl',
+                event_type: eventType,
+                url: window.location.href,
+                referrer: document.referrer || 'direct',
+                user_agent: navigator.userAgent,
+                ...eventData
+            };
+            
+            // Send to webhook (using sendBeacon for reliability)
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon(WEBHOOK_URL, JSON.stringify(payload));
+            } else {
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                    keepalive: true
+                }).catch(err => console.log('Tracking error:', err));
+            }
+        }
+        
+        // ============================================
         // A/B TEST - URL Parameter Handling
         // ============================================
         const urlParams = new URLSearchParams(window.location.search);
-        const variant = urlParams.get('variant');
+        const urlVariant = urlParams.get('variant');
+        
+        // Determine variant: URL param > stored > random assignment
+        let currentVariant;
+        if (urlVariant === 'A' || urlVariant === 'B') {
+            currentVariant = urlVariant;
+            setStoredVariant(currentVariant);
+        } else if (getStoredVariant()) {
+            currentVariant = getStoredVariant();
+        } else {
+            // Random 50/50 assignment for new visitors
+            currentVariant = Math.random() < 0.5 ? 'A' : 'B';
+            setStoredVariant(currentVariant);
+        }
+        
+        const variant = currentVariant;
         
         if (variant === 'B') {
             document.getElementById('badge-text').textContent = 'Stop Losing Anonymous Visitors';
@@ -1309,12 +1385,46 @@
         });
         
         // ============================================
+        // CTA CLICK TRACKING
+        // ============================================
+        function trackCTAClick(ctaName) {
+            trackEvent('cta_click', { cta_name: ctaName });
+        }
+        
+        // Add click tracking to all CTA buttons
+        function initCTATracking() {
+            document.querySelectorAll('.cta-gold').forEach((btn, index) => {
+                btn.addEventListener('click', function(e) {
+                    const ctaName = this.textContent.trim().substring(0, 50);
+                    trackCTAClick(ctaName);
+                    
+                    // Update href to include variant parameter
+                    if (this.href && this.href.includes('schedule.html')) {
+                        e.preventDefault();
+                        const scheduleUrl = 'schedule.html?variant=' + currentVariant;
+                        window.location.href = scheduleUrl;
+                    }
+                });
+            });
+        }
+        
+        // ============================================
         // INITIALIZE ON DOM LOAD
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             animateCounter();
             animatePainBars();
             initFadeAnimations();
+            initCTATracking();
+            
+            // Track page view
+            trackEvent('page_view');
+            
+            // Add variant indicator (optional - remove in production)
+            const indicator = document.createElement('div');
+            indicator.style.cssText = 'position:fixed;bottom:16px;left:16px;background:rgba(0,0,0,0.8);color:white;padding:6px 12px;border-radius:20px;font-size:12px;font-family:monospace;z-index:9999;';
+            indicator.textContent = 'Variant ' + currentVariant;
+            document.body.appendChild(indicator);
         });
     </script>
 </body>
