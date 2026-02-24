@@ -183,7 +183,7 @@
            ============================================ */
         .vimeo-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 177.78%; /* 9:16 vertical aspect ratio */
             height: 0;
             overflow: hidden;
             border-radius: 24px;
@@ -191,7 +191,6 @@
                 0 20px 60px -15px rgba(88, 157, 253, 0.3),
                 0 40px 100px -30px rgba(234, 167, 63, 0.2),
                 0 0 0 2px rgba(88, 157, 253, 0.2);
-            transform: perspective(1000px) rotateX(2deg);
             transition: all 0.5s ease;
         }
         
@@ -206,7 +205,7 @@
         }
         
         .vimeo-wrapper:hover {
-            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            transform: translateY(-5px);
             box-shadow: 
                 0 30px 80px -20px rgba(88, 157, 253, 0.4),
                 0 50px 120px -40px rgba(234, 167, 63, 0.3);
@@ -555,9 +554,9 @@
                 <p class="fs-5 fw-semibold mb-4 fade-in-up" style="color: var(--blue);">What if you could finally know?</p>
                 
                 <!-- Video -->
-                <div class="vimeo-wrapper mx-auto mb-4 fade-in-up" style="max-width: 900px;">
+                <div class="vimeo-wrapper mx-auto mb-4 fade-in-up" style="max-width: 500px;">
                     <iframe
-                        src="https://player.vimeo.com/video/1167050545?h=8067fe9053&badge=0&autopause=0&player_id=0&app_id=58479"
+                        src="https://player.vimeo.com/video/1167550168?h=a761b4636b&badge=0&autopause=0&player_id=0&app_id=58479"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                         title="VisiFinder VSL">
                     </iframe>
