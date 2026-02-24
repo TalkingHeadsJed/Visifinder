@@ -1397,6 +1397,13 @@
                 btn.addEventListener('click', function(e) {
                     const ctaName = this.textContent.trim().substring(0, 50);
                     trackCTAClick(ctaName);
+                    
+                    // Update href to include variant parameter
+                    if (this.href && this.href.includes('schedule.html')) {
+                        e.preventDefault();
+                        const scheduleUrl = 'schedule.html?variant=' + currentVariant;
+                        window.location.href = scheduleUrl;
+                    }
                 });
             });
         }
