@@ -397,7 +397,8 @@
                 return;
             }
             
-            const payload = {
+            // Build URL with query parameters (Zapier parses these as individual fields)
+            const params = new URLSearchParams({
                 timestamp: new Date().toISOString(),
                 session_id: getSessionId(),
                 variant: currentVariant,
@@ -405,21 +406,14 @@
                 event_type: eventType,
                 url: window.location.href,
                 referrer: document.referrer || 'direct',
-                user_agent: navigator.userAgent,
-                ...eventData
-            };
+                cta_name: eventData.cta_name || ''
+            });
             
-            // Send to webhook (using sendBeacon for reliability)
-            if (navigator.sendBeacon) {
-                navigator.sendBeacon(WEBHOOK_URL, JSON.stringify(payload));
-            } else {
-                fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload),
-                    keepalive: true
-                }).catch(err => console.log('Tracking error:', err));
-            }
+            // Send as GET request with query params (Zapier reads these as separate fields)
+            fetch(WEBHOOK_URL + '?' + params.toString(), {
+                method: 'GET',
+                mode: 'no-cors'
+            }).catch(err => console.log('Tracking error:', err));
         }
         
         // Track schedule page view on load
