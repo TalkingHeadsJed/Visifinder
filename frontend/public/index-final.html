@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisiFinder - See Who's Visiting Your Website</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --gold: #EAA73F;
+            --gold-dark: #D4922E;
+            --blue: #589DFD;
+            --blue-dark: #4A8FE7;
+            --dark: #0a0a0a;
+            --red: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fafbfc;
+            color: #141414;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.03em;
+            color: #141414;
+        }
+        
+        /* ============================================
+           GRADIENT TEXT EFFECTS
+           ============================================ */
+        .gradient-text {
+            background: linear-gradient(135deg, #EAA73F 0%, #F5C063 50%, #EAA73F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .blue-gradient-text {
+            background: linear-gradient(135deg, #589DFD 0%, #7BB5FF 50%, #4A8FE7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* ============================================
+           FLOATING CARDS (GLASSMORPHISM)
+           ============================================ */
+        .floating-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 20px 40px -10px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 8px 12px -2px rgba(0, 0, 0, 0.08),
+                0 20px 30px -6px rgba(0, 0, 0, 0.12),
+                0 40px 60px -15px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+        }
+        
+        .floating-card-blue {
+            background: linear-gradient(135deg, rgba(88, 157, 253, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+            border: 2px solid rgba(88, 157, 253, 0.3);
+            box-shadow: 
+                0 4px 6px -1px rgba(88, 157, 253, 0.1),
+                0 10px 15px -3px rgba(88, 157, 253, 0.15),
+                0 20px 40px -10px rgba(88, 157, 253, 0.2),
+                0 0 60px -10px rgba(88, 157, 253, 0.15);
+        }
+        
+        .floating-card-blue:hover {
+            border-color: rgba(88, 157, 253, 0.5);
+            box-shadow: 
+                0 8px 12px -2px rgba(88, 157, 253, 0.15),
+                0 20px 30px -6px rgba(88, 157, 253, 0.2),
+                0 40px 60px -15px rgba(88, 157, 253, 0.25),
+                0 0 80px -10px rgba(88, 157, 253, 0.3);
+        }
+        
+        .floating-card-red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%);
+            border: 2px solid rgba(239, 68, 68, 0.2);
+            box-shadow: 
+                0 4px 6px -1px rgba(239, 68, 68, 0.08),
+                0 10px 15px -3px rgba(239, 68, 68, 0.1),
+                0 20px 40px -10px rgba(239, 68, 68, 0.12);
+        }
+        
+        .floating-card-gold {
+            background: linear-gradient(135deg, rgba(234, 167, 63, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+            border: 2px solid rgba(234, 167, 63, 0.3);
+            box-shadow: 
+                0 4px 6px -1px rgba(234, 167, 63, 0.1),
+                0 10px 15px -3px rgba(234, 167, 63, 0.15),
+                0 20px 40px -10px rgba(234, 167, 63, 0.2);
+        }
+        
+        /* ============================================
+           FLOATING IMAGE FRAME
+           ============================================ */
+        .floating-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px -5px rgba(0, 0, 0, 0.2),
+                0 20px 50px -10px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px) rotateY(-2deg) rotateX(2deg);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .floating-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .floating-image:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-10px) scale(1.02);
+        }
+        
+        .floating-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ============================================
+           GLASSMORPHISM
+           ============================================ */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* ============================================
+           VIMEO VIDEO WRAPPER
+           ============================================ */
+        .vimeo-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 60px -15px rgba(88, 157, 253, 0.3),
+                0 40px 100px -30px rgba(234, 167, 63, 0.2),
+                0 0 0 2px rgba(88, 157, 253, 0.2);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: all 0.5s ease;
+        }
+        
+        .vimeo-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #589DFD 0%, #EAA73F 100%);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        .vimeo-wrapper:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            box-shadow: 
+                0 30px 80px -20px rgba(88, 157, 253, 0.4),
+                0 50px 120px -40px rgba(234, 167, 63, 0.3);
+        }
+        
+        .vimeo-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* ============================================
+           ANIMATED STAT COUNTER
+           ============================================ */
+        .stat-counter {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            text-shadow: 0 10px 30px rgba(88, 157, 253, 0.3);
+        }
+        
+        /* ============================================
+           CTA BUTTONS
+           ============================================ */
+        .cta-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #EAA73F 0%, #D4922E 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 
+                0 4px 15px rgba(234, 167, 63, 0.4),
+                0 8px 30px rgba(234, 167, 63, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .cta-gold:hover {
+            color: white;
+            box-shadow: 
+                0 8px 25px rgba(234, 167, 63, 0.5),
+                0 15px 50px rgba(234, 167, 63, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        .cta-gold:hover::before {
+            left: 100%;
+        }
+        
+        .cta-md {
+            padding: 16px 32px;
+            font-size: 1rem;
+        }
+        
+        /* ============================================
+           SECTION BACKGROUNDS
+           ============================================ */
+        .section-white {
+            background-color: #ffffff;
+        }
+        
+        .section-gray {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+        }
+        
+        .section-gray::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(88, 157, 253, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(234, 167, 63, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .section-dark {
+            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-dark::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(88, 157, 253, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .section-dark::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(234, 167, 63, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        /* ============================================
+           ICON BADGES
+           ============================================ */
+        .icon-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .icon-badge::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 50%);
+        }
+        
+        .icon-badge-blue {
+            background: linear-gradient(135deg, #589DFD 0%, #4A8FE7 100%);
+            box-shadow: 0 10px 30px -5px rgba(88, 157, 253, 0.5);
+        }
+        
+        .icon-badge-gold {
+            background: linear-gradient(135deg, #EAA73F 0%, #D4922E 100%);
+            box-shadow: 0 10px 30px -5px rgba(234, 167, 63, 0.5);
+        }
+        
+        .icon-badge-red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 10px 30px -5px rgba(239, 68, 68, 0.5);
+        }
+        
+        /* ============================================
+           FLOATING DECORATIVE SHAPES
+           ============================================ */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        /* ============================================
+           GRAIN OVERLAY
+           ============================================ */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        /* ============================================
+           PAIN BAR GRAPH
+           ============================================ */
+        .pain-bar {
+            transition: height 1.2s ease-out;
+        }
+        
+        .pain-bar-container {
+            height: 220px;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        /* ============================================
+           ACCORDION STYLES
+           ============================================ */
+        .faq-accordion .accordion-item {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px !important;
+            margin-bottom: 16px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .faq-accordion .accordion-button {
+            background: transparent;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--dark);
+            padding: 24px 32px;
+            box-shadow: none;
+        }
+        
+        .faq-accordion .accordion-button:not(.collapsed) {
+            background: transparent;
+            color: var(--blue);
+        }
+        
+        .faq-accordion .accordion-button:focus {
+            box-shadow: none;
+        }
+        
+        .faq-accordion .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23589DFD'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+        
+        .faq-accordion .accordion-body {
+            padding: 0 32px 24px;
+            color: var(--gray-600);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .bounce-arrow {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(12px) translateX(-50%); }
+            60% { transform: translateY(6px) translateX(-50%); }
+        }
+        
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 992px) {
+            .hero-headline {
+                font-size: 2.5rem !important;
+            }
+            .stat-counter {
+                font-size: 100px !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 2rem !important;
+            }
+            .stat-counter {
+                font-size: 80px !important;
+            }
+            .section-title {
+                font-size: 1.75rem !important;
+            }
+        }
+        
+        /* Top bar accent */
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            border-radius: 24px 24px 0 0;
+        }
+        
+        .top-accent-blue {
+            background: linear-gradient(90deg, #589DFD 0%, #7BB5FF 100%);
+        }
+        
+        .top-accent-red {
+            background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+    
+    <!-- ============================================
+         SECTION 1: HERO - Pattern Interrupt + Problem
+         ============================================ -->
+    <section class="position-relative min-vh-100 d-flex align-items-center py-5 overflow-hidden" style="background: #fafbfc;">
+        <!-- Floating Shapes -->
+        <div class="floating-shape" style="width: 600px; height: 600px; background: #589DFD; top: -20%; right: -10%;"></div>
+        <div class="floating-shape" style="width: 400px; height: 400px; background: #EAA73F; bottom: -10%; left: -5%;"></div>
+        
+        <div class="container position-relative" style="z-index: 10;">
+            <div class="text-center">
+                <!-- Pattern Interrupt Badge -->
+                <div class="glass d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill mb-4 shadow-lg fade-in-up" id="hero-badge">
+                    <i class="fas fa-sparkles text-primary" style="color: var(--blue) !important;"></i>
+                    <span class="fw-bold" style="color: var(--blue); font-size: 0.875rem;" id="badge-text">Finally See Who's Visiting Your Website</span>
+                </div>
+                
+                <!-- Main Headline -->
+                <h1 class="hero-headline fw-black mb-4 fade-in-up" style="font-size: 4rem; line-height: 1.1;">
+                    <span class="blue-gradient-text" id="headline-line1">97% of Your Website Visitors</span><br>
+                    <span class="text-dark" id="headline-line2">Leave Without a Trace</span><br>
+                    <span style="color: var(--red);" id="headline-line3">And You Have No Idea Who They Were.</span>
+                </h1>
+                
+                <!-- Subtext -->
+                <p class="fs-5 text-secondary mx-auto mb-3 fade-in-up" style="max-width: 800px; line-height: 1.7;" id="subtext">
+                    You're spending <strong>real money</strong> driving traffic—ads, SEO, social, email. People click. They browse. They leave. And you're left wondering:
+                    <span style="color: var(--red); font-weight: 700;"> Who were they? Why didn't they buy? Could I have followed up?</span>
+                </p>
+                <p class="fs-5 fw-semibold mb-4 fade-in-up" style="color: var(--blue);">What if you could finally know?</p>
+                
+                <!-- Video -->
+                <div class="vimeo-wrapper mx-auto mb-4 fade-in-up" style="max-width: 900px;">
+                    <iframe
+                        src="https://player.vimeo.com/video/1167050545?h=8067fe9053&badge=0&autopause=0&player_id=0&app_id=58479"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                        title="VisiFinder VSL">
+                    </iframe>
+                </div>
+                
+                <!-- CTA Button -->
+                <div class="fade-in-up">
+                    <a href="schedule.html" class="cta-gold">
+                        See Who's Visiting — Free 7-Day Reveal
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <p class="text-secondary mt-3" style="font-size: 0.875rem;">No credit card. No commitment. Just answers.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bounce Arrow -->
+        <div class="position-absolute bounce-arrow" style="bottom: 30px; left: 50%;">
+            <i class="fas fa-chevron-down fs-4" style="color: var(--blue);"></i>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 2: PROBLEM AMPLIFICATION
+         ============================================ -->
+    <section class="section-gray py-5 position-relative">
+        <div class="container py-5 position-relative" style="z-index: 10;">
+            <div class="text-center mb-5 fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-3" style="background: rgba(239,68,68,0.1); color: var(--red); font-size: 0.875rem; font-weight: 700;">THE PROBLEM YOU'RE FACING</span>
+                <h2 class="section-title fw-bold mb-3" style="font-size: 2.5rem;">
+                    You're Paying for <span style="color: var(--red);">100%</span> of Your Traffic
+                </h2>
+                <p class="fs-5 text-secondary">But you only know who <span class="fw-bold" style="color: var(--red);">3%</span> of them are.</p>
+            </div>
+            
+            <!-- Pain Bar Graph -->
+            <div class="floating-card p-4 p-md-5 mb-5 fade-in-up">
+                <div class="d-flex align-items-end justify-content-center gap-5 py-4" style="height: 320px;">
+                    <!-- Your Traffic Bar -->
+                    <div class="text-center">
+                        <div class="pain-bar-container">
+                            <div class="pain-bar rounded-top position-relative overflow-hidden" id="traffic-bar" style="width: 120px; height: 0; background: linear-gradient(180deg, #EAA73F 0%, #F5C063 100%);">
+                                <div class="position-absolute" style="inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);"></div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="fw-bold text-dark fs-5 mb-1">Your Traffic</p>
+                            <p class="fw-semibold" style="color: var(--gold); font-size: 0.875rem;">100%</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow Icon -->
+                    <div class="d-flex align-items-center justify-content-center" style="height: 220px; padding-bottom: 60px;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center shadow-lg" style="width: 64px; height: 64px; background: rgba(239,68,68,0.1);" id="trend-icon">
+                            <i class="fas fa-arrow-trend-down fs-4" style="color: var(--red);"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Identified Bar -->
+                    <div class="text-center">
+                        <div class="pain-bar-container">
+                            <div class="pain-bar rounded-top position-relative overflow-hidden" id="identified-bar" style="width: 120px; height: 0; background: linear-gradient(180deg, #ef4444 0%, #f87171 100%);">
+                                <div class="position-absolute" style="inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);"></div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="fw-bold text-dark fs-5 mb-1">Identified</p>
+                            <p class="fw-bold" style="color: var(--red); font-size: 0.875rem;">Only 3%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <p class="text-secondary mb-2">Every visitor costs you money. Every anonymous exit is lost opportunity.</p>
+                    <p class="fw-bold fs-5" style="color: var(--red);">The other 97%? They could be your best customers. And you'll never know.</p>
+                </div>
+            </div>
+            
+            <!-- Sound Familiar Cards -->
+            <div class="text-center mb-4 fade-in-up">
+                <h3 class="fw-bold fs-4 text-dark">Sound Familiar?</h3>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-red mx-auto mb-4">
+                            <i class="fas fa-dollar-sign text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Wasted Ad Spend</h3>
+                        <p class="text-secondary mb-0">Paying for clicks that vanish into thin air. No name. No email. No follow-up.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-red mx-auto mb-4">
+                            <i class="fas fa-users text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Invisible Buyers</h3>
+                        <p class="text-secondary mb-0">Someone browsed your pricing page 5 times this week. Who? You'll never know.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-red mx-auto mb-4">
+                            <i class="fas fa-arrow-trend-down text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Lost Revenue</h3>
+                        <p class="text-secondary mb-0">Competitors reach your visitors first because they know who's shopping. You don't.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center fade-in-up">
+                <a href="schedule.html" class="cta-gold cta-md">
+                    Stop Losing Visitors — Book Your Reveal
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 2.5: VISUAL IMPACT - See the Difference
+         ============================================ -->
+    <section class="section-white py-5 position-relative overflow-hidden">
+        <div class="container py-4" style="max-width: 800px;">
+            <div class="text-center mb-4 fade-in-up">
+                <h2 class="fw-bold fs-3 text-dark">See the Difference</h2>
+            </div>
+            
+            <div class="fade-in-up">
+                <div class="rounded-4 overflow-hidden shadow-lg mx-auto mb-4" style="max-width: 700px;">
+                    <img src="https://customer-assets.emergentagent.com/job_91154cc5-6887-48b2-bd90-93334b2768e9/artifacts/ocl1pycn_Hispanic-manweb.png" 
+                         alt="Anonymous visitor vs identified visitor comparison"
+                         class="w-100 h-auto">
+                </div>
+                
+                <div class="row g-3" style="max-width: 700px; margin: 0 auto;">
+                    <div class="col-6">
+                        <div class="floating-card floating-card-red p-4 text-center">
+                            <p class="fw-bold mb-1" style="font-size: 1.5rem; color: var(--red);">WITHOUT VISIFINDER</p>
+                            <p class="fw-bold text-dark fs-5 mb-1">Your Website Now</p>
+                            <p class="text-secondary mb-0">Anonymous. Invisible. Unknown.</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="floating-card floating-card-blue p-4 text-center">
+                            <p class="fw-bold mb-1" style="font-size: 1.5rem; color: var(--blue);">WITH VISIFINDER</p>
+                            <p class="fw-bold text-dark fs-5 mb-1">Your Website Revealed</p>
+                            <p class="text-secondary mb-0">Names. Companies. Intent.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-secondary mt-4 fade-in-up" style="max-width: 600px; margin: 0 auto;">
+                Every day, real people visit your website. With VisiFinder, 
+                <span class="fw-bold" style="color: var(--blue);">you finally see who they are.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 3: BIG STAT - 97%
+         ============================================ -->
+    <section class="section-dark py-5">
+        <div class="container py-5 text-center position-relative" style="z-index: 10;">
+            <div class="fade-in-up">
+                <span class="stat-counter blue-gradient-text" style="font-size: 150px;" id="animated-stat">0%</span>
+                <p class="fs-5 mt-4 mx-auto" style="color: #d1d5db; max-width: 600px;">
+                    of your website visitors leave without ever identifying themselves.
+                </p>
+                <p class="fs-5 fw-semibold mt-3" style="color: var(--blue);">
+                    That's not a marketing problem. That's a <span class="text-decoration-underline">visibility</span> problem.
+                </p>
+                <p class="fs-4 text-white fw-bold mt-3">
+                    And <span class="gradient-text">VisiFinder™</span> solves it.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 4: SOLUTION + TRANSFORMATION
+         ============================================ -->
+    <section class="section-gray py-5 position-relative">
+        <div class="container py-5 position-relative" style="z-index: 10;">
+            <div class="text-center mb-5 fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-3" style="background: rgba(88,157,253,0.1); color: var(--blue); font-size: 0.875rem; font-weight: 700;">THE SOLUTION</span>
+                <h2 class="section-title fw-bold mb-3" style="font-size: 2.5rem;">
+                    Imagine <span class="blue-gradient-text">Finally Knowing</span> Who Visits
+                </h2>
+                <p class="fs-5 text-secondary mx-auto" style="max-width: 700px;">What would change if you could see every visitor—not just the 3% who fill out forms?</p>
+            </div>
+            
+            <!-- Before/After Cards -->
+            <div class="row g-4 mb-5">
+                <!-- Before Card -->
+                <div class="col-md-6">
+                    <div class="floating-card floating-card-red p-4 p-lg-5 h-100 position-relative overflow-hidden fade-in-up">
+                        <div class="top-accent top-accent-red"></div>
+                        
+                        <div class="d-flex align-items-center gap-3 mb-4 pt-2">
+                            <div class="icon-badge icon-badge-red">
+                                <i class="fas fa-xmark text-white fs-4 position-relative" style="z-index: 1;"></i>
+                            </div>
+                            <h3 class="fw-bold fs-4 text-dark mb-0">Right Now (Blind)</h3>
+                        </div>
+                        
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-xmark mt-1" style="color: var(--red);"></i>
+                                <span class="text-secondary fs-5">Anonymous visitors disappear forever</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-xmark mt-1" style="color: var(--red);"></i>
+                                <span class="text-secondary fs-5">Guessing which campaigns actually work</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-xmark mt-1" style="color: var(--red);"></i>
+                                <span class="text-secondary fs-5">Competitors convert YOUR traffic</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3">
+                                <i class="fas fa-xmark mt-1" style="color: var(--red);"></i>
+                                <span class="text-secondary fs-5">Marketing feels like throwing darts blindfolded</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="floating-image" style="height: 200px;">
+                            <img src="https://images.pexels.com/photos/5717791/pexels-photo-5717791.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" 
+                                 alt="Frustrated marketer">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- After Card -->
+                <div class="col-md-6">
+                    <div class="floating-card floating-card-blue p-4 p-lg-5 h-100 position-relative overflow-hidden fade-in-up">
+                        <div class="top-accent top-accent-blue"></div>
+                        
+                        <div class="d-flex align-items-center gap-3 mb-4 pt-2">
+                            <div class="icon-badge icon-badge-blue">
+                                <i class="fas fa-check text-white fs-4 position-relative" style="z-index: 1;"></i>
+                            </div>
+                            <h3 class="fw-bold fs-4 text-dark mb-0">With <span style="color: var(--blue);">VisiFinder™</span></h3>
+                        </div>
+                        
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-check mt-1" style="color: var(--blue);"></i>
+                                <span class="text-secondary fs-5">See exactly who visits your site</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-check mt-1" style="color: var(--blue);"></i>
+                                <span class="text-secondary fs-5">Know which pages they viewed & how often</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-check mt-1" style="color: var(--blue);"></i>
+                                <span class="text-secondary fs-5">Identify hot leads before they buy elsewhere</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3">
+                                <i class="fas fa-check mt-1" style="color: var(--blue);"></i>
+                                <span class="text-secondary fs-5">Follow up with the right message at the right time</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="floating-image" style="height: 200px;">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGRhc2hib2FyZCUyMGFuYWx5dGljcyUyMGRhdGElMjBpbnNpZ2h0cyUyMHN1Y2Nlc3N8ZW58MHx8fHwxNzcxNzUwNjIxfDA&ixlib=rb-4.1.0&q=85" 
+                                 alt="Analytics dashboard">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center fade-in-up">
+                <a href="schedule.html" class="cta-gold">
+                    Get Your Free 7-Day Reveal
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 5: HOW IT WORKS
+         ============================================ -->
+    <section class="section-white py-5 position-relative">
+        <div class="container py-5">
+            <div class="text-center mb-5 fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-3" style="background: rgba(88,157,253,0.1); color: var(--blue); font-size: 0.875rem; font-weight: 700;">HOW IT WORKS</span>
+                <h2 class="fw-bold mb-2" style="font-size: 3rem;">
+                    <span class="blue-gradient-text">VisiFinder™</span>
+                </h2>
+                <p class="fw-medium text-dark fs-5 mb-2">Your Invisible Traffic, Finally Visible</p>
+                <p class="text-secondary fs-5 mx-auto" style="max-width: 700px;">
+                    Works for B2B, B2C, eCommerce, DTC—anyone driving traffic who wants to know who's actually visiting.
+                </p>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-blue mx-auto mb-4">
+                            <i class="fas fa-eye text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Identify Visitors</h3>
+                        <p class="text-secondary mb-0">See who's on your site—even if they never fill out a form</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-gold mx-auto mb-4">
+                            <i class="fas fa-chart-line text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Track Behavior</h3>
+                        <p class="text-secondary mb-0">Know what pages they view and how engaged they are</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-blue mx-auto mb-4">
+                            <i class="fas fa-bullseye text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Spot Intent</h3>
+                        <p class="text-secondary mb-0">Identify buyers ready to purchase vs. casual browsers</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="floating-card p-4 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-gold mx-auto mb-4">
+                            <i class="fas fa-users text-white fs-4 position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <h3 class="fw-bold fs-5 text-dark mb-2">Sync & Act</h3>
+                        <p class="text-secondary mb-0">Push insights to your CRM, ads, or sales team instantly</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="d-flex flex-wrap justify-content-center gap-4 fade-in-up">
+                <div class="d-flex align-items-center gap-2 text-secondary">
+                    <i class="fas fa-shield-halved" style="color: var(--blue);"></i>
+                    <span class="fw-medium">Privacy Compliant</span>
+                </div>
+                <div class="d-flex align-items-center gap-2 text-secondary">
+                    <i class="fas fa-bolt" style="color: var(--blue);"></i>
+                    <span class="fw-medium">15-Min Setup</span>
+                </div>
+                <div class="d-flex align-items-center gap-2 text-secondary">
+                    <i class="fas fa-clock" style="color: var(--blue);"></i>
+                    <span class="fw-medium">Real-Time Data</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 6: OFFER + PROOF (7-Day Reveal)
+         ============================================ -->
+    <section class="section-gray py-5 position-relative">
+        <div class="container py-5 position-relative" style="z-index: 10;">
+            <div class="text-center mb-5 fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-3 text-white fw-bold" style="background: linear-gradient(135deg, #589DFD 0%, #EAA73F 100%); font-size: 0.875rem;">RISK-FREE OFFER</span>
+                <h2 class="section-title fw-bold mb-3" style="font-size: 2.5rem;">
+                    Don't Take Our Word For It.
+                    <span class="d-block blue-gradient-text">See It For Yourself—Free.</span>
+                </h2>
+                <p class="fs-5 text-secondary mx-auto" style="max-width: 700px;">We'll reveal who's been visiting your site for 7 days. If you don't see value, you pay nothing.</p>
+            </div>
+            
+            <!-- 3-Step Cards -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="floating-card floating-card-blue p-5 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-blue mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 50%;">
+                            <span class="text-white fw-black fs-3 position-relative" style="z-index: 1;">1</span>
+                        </div>
+                        <h3 class="fw-bold fs-4 text-dark mb-3">Quick Install</h3>
+                        <p class="text-secondary fs-5 mb-0">15 minutes. Simple script. No developers needed.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-card floating-card-gold p-5 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-gold mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 50%;">
+                            <span class="text-white fw-black fs-3 position-relative" style="z-index: 1;">2</span>
+                        </div>
+                        <h3 class="fw-bold fs-4 text-dark mb-3">7 Days of Data</h3>
+                        <p class="text-secondary fs-5 mb-0">We monitor and identify your anonymous visitors.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-card floating-card-blue p-5 text-center h-100 fade-in-up">
+                        <div class="icon-badge icon-badge-blue mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 50%;">
+                            <span class="text-white fw-black fs-3 position-relative" style="z-index: 1;">3</span>
+                        </div>
+                        <h3 class="fw-bold fs-4 text-dark mb-3">Reveal Call</h3>
+                        <p class="text-secondary fs-5 mb-0">We show you exactly who's been visiting. You decide next steps.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Risk Reversal Dark Box -->
+            <div class="floating-card p-5 text-center fade-in-up" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); border: none;">
+                <p class="fs-5 mb-3" style="color: #d1d5db;">No credit card required. No contracts. No risk.</p>
+                <p class="text-white fs-3 fw-bold mb-4">If we don't deliver value, you pay nothing.</p>
+                <a href="schedule.html" class="cta-gold">
+                    Start Your Free 7-Day Reveal
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 7: WHO THIS IS FOR
+         ============================================ -->
+    <section class="section-white py-5">
+        <div class="container py-5" style="max-width: 900px;">
+            <div class="text-center mb-5 fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-3" style="background: rgba(88,157,253,0.1); color: var(--blue); font-size: 0.875rem; font-weight: 700;">WHO THIS IS FOR</span>
+                <h2 class="section-title fw-bold mb-3" style="font-size: 2.25rem;">
+                    VisiFinder Works For <span class="blue-gradient-text">Anyone Driving Traffic</span>
+                </h2>
+                <p class="fs-5 text-secondary">B2B, B2C, eCommerce, DTC—if you're investing in traffic, you deserve to know who's showing up.</p>
+            </div>
+            
+            <div class="row g-3 mb-4">
+                <div class="col-sm-6">
+                    <div class="floating-card floating-card-blue p-4 d-flex align-items-center gap-4 fade-in-up">
+                        <div class="icon-badge icon-badge-blue flex-shrink-0" style="width: 48px; height: 48px; border-radius: 12px;">
+                            <i class="fas fa-check text-white position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <span class="text-secondary fw-medium fs-5">Running ads, SEO, or paid campaigns</span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="floating-card floating-card-blue p-4 d-flex align-items-center gap-4 fade-in-up">
+                        <div class="icon-badge icon-badge-blue flex-shrink-0" style="width: 48px; height: 48px; border-radius: 12px;">
+                            <i class="fas fa-check text-white position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <span class="text-secondary fw-medium fs-5">Getting traffic but not enough conversions</span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="floating-card floating-card-blue p-4 d-flex align-items-center gap-4 fade-in-up">
+                        <div class="icon-badge icon-badge-blue flex-shrink-0" style="width: 48px; height: 48px; border-radius: 12px;">
+                            <i class="fas fa-check text-white position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <span class="text-secondary fw-medium fs-5">Frustrated that most visitors leave anonymous</span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="floating-card floating-card-blue p-4 d-flex align-items-center gap-4 fade-in-up">
+                        <div class="icon-badge icon-badge-blue flex-shrink-0" style="width: 48px; height: 48px; border-radius: 12px;">
+                            <i class="fas fa-check text-white position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <span class="text-secondary fw-medium fs-5">Want to follow up with interested buyers</span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="floating-card floating-card-blue p-4 d-flex align-items-center gap-4 fade-in-up">
+                        <div class="icon-badge icon-badge-blue flex-shrink-0" style="width: 48px; height: 48px; border-radius: 12px;">
+                            <i class="fas fa-check text-white position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <span class="text-secondary fw-medium fs-5">Selling products or services online</span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="floating-card floating-card-blue p-4 d-flex align-items-center gap-4 fade-in-up">
+                        <div class="icon-badge icon-badge-blue flex-shrink-0" style="width: 48px; height: 48px; border-radius: 12px;">
+                            <i class="fas fa-check text-white position-relative" style="z-index: 1;"></i>
+                        </div>
+                        <span class="text-secondary fw-medium fs-5">Ready to turn invisible visitors into revenue</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-secondary fade-in-up">
+                <span class="fw-bold text-dark">Bottom line:</span> If you're paying for traffic and wish you knew who was visiting, this is for you.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 8: FAQ ACCORDION
+         ============================================ -->
+    <section class="section-gray py-5 position-relative">
+        <div class="container py-5 position-relative" style="z-index: 10; max-width: 800px;">
+            <div class="text-center mb-5 fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-3" style="background: rgba(107,114,128,0.1); color: var(--gray-700); font-size: 0.875rem; font-weight: 700;">QUESTIONS?</span>
+                <h2 class="section-title fw-bold" style="font-size: 2.25rem;">
+                    Everything You Need to Know
+                </h2>
+            </div>
+            
+            <div class="accordion faq-accordion fade-in-up" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            Is this compliant with privacy laws?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes. VisiFinder operates at the company/account level for B2B and uses legally sourced, compliant data enrichment. We'll walk you through all the details on the call.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Does this work for eCommerce and DTC brands?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Absolutely. Whether you're B2B, B2C, or DTC, if you're driving traffic and want to know who's visiting, VisiFinder reveals those anonymous visitors.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            Does this replace our CRM or analytics?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            No. It enhances them by adding intelligence they can't naturally capture—the identity of visitors who never fill out a form.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            How long does installation take?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            About 15 minutes. It's a simple script—no developer needed.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            Is there any commitment?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            None. The 7-Day Reveal is free. If you see value, we talk next steps. If not, you leave with insights.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                            What if it doesn't find anyone valuable?
+                        </button>
+                    </h2>
+                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Then you pay nothing. We only win if you win.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 9: FINAL CTA - Urgency Close
+         ============================================ -->
+    <section class="section-dark py-5">
+        <div class="container py-5 text-center position-relative" style="z-index: 10; max-width: 900px;">
+            <div class="fade-in-up">
+                <span class="d-inline-block px-3 py-2 rounded-pill mb-4" style="background: rgba(88,157,253,0.2); color: var(--blue); font-size: 0.875rem; font-weight: 700;">DON'T WAIT</span>
+                <h2 class="text-white fw-bold mb-4" style="font-size: 2.5rem;">
+                    Right Now, Someone Is On Your Website.
+                    <span class="d-block blue-gradient-text mt-2">Do You Know Who They Are?</span>
+                </h2>
+                <p class="fs-5 mb-3" style="color: #9ca3af;">
+                    Every day you wait, buyers visit your site, evaluate your offer, and leave without a trace.
+                </p>
+                <p class="fs-5 mb-3" style="color: #d1d5db;">
+                    Your competitors might already know who they are.
+                </p>
+                <p class="text-white fs-4 fw-bold mb-5">
+                    It's time <span style="color: var(--gold);">you</span> did too.
+                </p>
+                
+                <a href="schedule.html" class="cta-gold">
+                    Start Your Free 7-Day Reveal Now
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <p class="mt-4" style="color: #6b7280; font-size: 0.875rem;">15-minute call. See your visitors. No obligation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="py-5" style="background: #050505; border-top: 1px solid #222;">
+        <div class="container text-center">
+            <p class="fs-4 fw-bold mb-2">
+                <span style="color: var(--blue);">Visi</span><span style="color: var(--gold);">Finder</span><span style="color: #6b7280;">™</span>
+            </p>
+            <p style="color: #6b7280; font-size: 0.875rem;">
+                © <script>document.write(new Date().getFullYear())</script> VisiFinder. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ============================================
+        // WEBHOOK TRACKING CONFIGURATION
+        // ============================================
+        // INSTRUCTIONS: Replace this URL with your Zapier webhook URL
+        // Example: 'https://hooks.zapier.com/hooks/catch/123456/abcdef/'
+        const WEBHOOK_URL = ''; // <-- PASTE YOUR ZAPIER WEBHOOK URL HERE
+        
+        // ============================================
+        // SESSION & VARIANT MANAGEMENT
+        // ============================================
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('vsl_session_id');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('vsl_session_id', sessionId);
+            }
+            return sessionId;
+        }
+        
+        function getStoredVariant() {
+            return localStorage.getItem('vsl_variant');
+        }
+        
+        function setStoredVariant(variant) {
+            localStorage.setItem('vsl_variant', variant);
+        }
+        
+        // ============================================
+        // WEBHOOK TRACKING FUNCTION
+        // ============================================
+        function trackEvent(eventType, eventData = {}) {
+            if (!WEBHOOK_URL) {
+                console.log('Tracking (no webhook configured):', eventType, eventData);
+                return;
+            }
+            
+            const payload = {
+                timestamp: new Date().toISOString(),
+                session_id: getSessionId(),
+                variant: currentVariant,
+                page: 'vsl',
+                event_type: eventType,
+                url: window.location.href,
+                referrer: document.referrer || 'direct',
+                user_agent: navigator.userAgent,
+                ...eventData
+            };
+            
+            // Send to webhook (using sendBeacon for reliability)
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon(WEBHOOK_URL, JSON.stringify(payload));
+            } else {
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                    keepalive: true
+                }).catch(err => console.log('Tracking error:', err));
+            }
+        }
+        
+        // ============================================
+        // A/B TEST - URL Parameter Handling
+        // ============================================
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlVariant = urlParams.get('variant');
+        
+        // Determine variant: URL param > stored > random assignment
+        let currentVariant;
+        if (urlVariant === 'A' || urlVariant === 'B') {
+            currentVariant = urlVariant;
+            setStoredVariant(currentVariant);
+        } else if (getStoredVariant()) {
+            currentVariant = getStoredVariant();
+        } else {
+            // Random 50/50 assignment for new visitors
+            currentVariant = Math.random() < 0.5 ? 'A' : 'B';
+            setStoredVariant(currentVariant);
+        }
+        
+        const variant = currentVariant;
+        
+        if (variant === 'B') {
+            document.getElementById('badge-text').textContent = 'Stop Losing Anonymous Visitors';
+            document.getElementById('headline-line1').textContent = "You're Paying for Traffic";
+            document.getElementById('headline-line2').textContent = 'That Disappears Forever';
+            document.getElementById('headline-line3').textContent = 'What If You Could See Your Visitors?';
+            document.getElementById('subtext').innerHTML = `
+                Every day, potential customers visit your website. They browse your products, 
+                check your pricing, read your content. Then they vanish—
+                <span style="color: var(--red); font-weight: 700;">no name, no email, no way to follow up.</span>
+            `;
+        }
+        
+        // ============================================
+        // ANIMATED 97% COUNTER
+        // ============================================
+        function animateCounter() {
+            const statElement = document.getElementById('animated-stat');
+            const target = 97;
+            const duration = 2500;
+            let startTime = null;
+            let hasStarted = false;
+            
+            function animate(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOut * target);
+                
+                statElement.textContent = current + '%';
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasStarted) {
+                        hasStarted = true;
+                        requestAnimationFrame(animate);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(statElement);
+        }
+        
+        // ============================================
+        // ANIMATED PAIN BAR GRAPH
+        // ============================================
+        function animatePainBars() {
+            const trafficBar = document.getElementById('traffic-bar');
+            const identifiedBar = document.getElementById('identified-bar');
+            const trendIcon = document.getElementById('trend-icon');
+            let hasStarted = false;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasStarted) {
+                        hasStarted = true;
+                        
+                        // Animate traffic bar (100%)
+                        setTimeout(() => {
+                            trafficBar.style.height = '220px';
+                        }, 200);
+                        
+                        // Animate identified bar (3%)
+                        setTimeout(() => {
+                            identifiedBar.style.height = '14px';
+                        }, 600);
+                        
+                        // Animate trend icon
+                        setTimeout(() => {
+                            trendIcon.style.transform = 'scale(1) rotate(0deg)';
+                            trendIcon.style.transition = 'transform 0.5s ease';
+                        }, 800);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(trafficBar.parentElement.parentElement);
+        }
+        
+        // ============================================
+        // FADE-IN ANIMATIONS ON SCROLL
+        // ============================================
+        function initFadeAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Stagger the animations
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 50);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            
+            fadeElements.forEach(el => observer.observe(el));
+        }
+        
+        // ============================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // ============================================
+        // CTA CLICK TRACKING
+        // ============================================
+        function trackCTAClick(ctaName) {
+            trackEvent('cta_click', { cta_name: ctaName });
+        }
+        
+        // Add click tracking to all CTA buttons
+        function initCTATracking() {
+            document.querySelectorAll('.cta-gold').forEach((btn, index) => {
+                btn.addEventListener('click', function(e) {
+                    const ctaName = this.textContent.trim().substring(0, 50);
+                    trackCTAClick(ctaName);
+                    
+                    // Update href to include variant parameter
+                    if (this.href && this.href.includes('schedule.html')) {
+                        e.preventDefault();
+                        const scheduleUrl = 'schedule.html?variant=' + currentVariant;
+                        window.location.href = scheduleUrl;
+                    }
+                });
+            });
+        }
+        
+        // ============================================
+        // INITIALIZE ON DOM LOAD
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            animateCounter();
+            animatePainBars();
+            initFadeAnimations();
+            initCTATracking();
+            
+            // Track page view
+            trackEvent('page_view');
+            
+            // Add variant indicator (optional - remove in production)
+            const indicator = document.createElement('div');
+            indicator.style.cssText = 'position:fixed;bottom:16px;left:16px;background:rgba(0,0,0,0.8);color:white;padding:6px 12px;border-radius:20px;font-size:12px;font-family:monospace;z-index:9999;';
+            indicator.textContent = 'Variant ' + currentVariant;
+            document.body.appendChild(indicator);
+        });
+    </script>
+</body>
+</html>
