@@ -79,6 +79,20 @@
     }
     </script>
 
+    <!-- Schema.org: VideoObject (explainer) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "VisiFinder Explainer — How to Identify 50–85% of Your Website Visitors",
+        "description": "A 90-second walkthrough of how VisiFinder uses geo-framing, ISP routing, and USPS-verified records to reveal the actual people behind your anonymous website traffic.",
+        "thumbnailUrl": "https://vumbnail.com/1167550168.jpg",
+        "embedUrl": "https://player.vimeo.com/video/1167550168?h=a761b4636b",
+        "contentUrl": "https://vimeo.com/1167550168/a761b4636b",
+        "uploadDate": "2026-02-01"
+    }
+    </script>
+
     <!-- Schema.org: FAQ (mirrors visible FAQ section) -->
     <script type="application/ld+json">
     {
@@ -576,78 +590,45 @@
         }
         
         /* ============================================
-           VIDEO TESTIMONIAL SECTION
+           VIDEO EXPLAINER SECTION
            ============================================ */
         .video-testimonial {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
-        
+
         .video-testimonial .container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
             gap: 64px;
             align-items: center;
         }
-        
-        .video-placeholder {
-            aspect-ratio: 16/9;
-            background: var(--bg-tertiary);
-            border: 2px dashed var(--border-strong);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
+
+        .video-embed-wrap {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: var(--navy);
+            box-shadow: 12px 12px 0 var(--navy);
+            overflow: hidden;
         }
-        
-        .video-placeholder i {
-            width: 64px;
-            height: 64px;
-            color: var(--text-light);
+
+        .video-embed-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
-        
-        .video-placeholder span {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-        
+
         .video-content h2 {
+            margin-top: 16px;
             margin-bottom: 16px;
         }
-        
+
         .video-content p {
             font-size: 1.125rem;
             margin-bottom: 24px;
-        }
-        
-        .video-author {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .video-author-avatar {
-            width: 56px;
-            height: 56px;
-            background: var(--navy);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-        
-        .video-author-info strong {
-            display: block;
-            color: var(--text-main);
-        }
-        
-        .video-author-info span {
-            font-size: 0.875rem;
-            color: var(--text-light);
         }
         
         /* ============================================
@@ -1366,23 +1347,26 @@
         </div>
     </section>
 
-    <!-- Video Testimonial Section -->
-    <section class="video-testimonial">
+    <!-- Video Explainer Section -->
+    <section class="video-testimonial" aria-labelledby="explainer-heading">
         <div class="container">
-            <div class="video-placeholder">
-                <i data-lucide="play-circle"></i>
-                <span>Video Testimonial Placeholder</span>
+            <div class="video-embed-wrap" data-testid="vimeo-explainer">
+                <iframe
+                    src="https://player.vimeo.com/video/1167550168?h=a761b4636b&title=0&byline=0&portrait=0"
+                    title="VisiFinder Explainer Video"
+                    loading="lazy"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    allowfullscreen></iframe>
             </div>
             <div class="video-content">
-                <h2>"VisiFinder paid for itself in the first week"</h2>
-                <p>"We had no idea how many potential customers were slipping through the cracks. Within days of installing VisiFinder, we identified three companies that were ready to buy—we just didn't know they existed."</p>
-                <div class="video-author">
-                    <div class="video-author-avatar">JT</div>
-                    <div class="video-author-info">
-                        <strong>Jennifer Torres</strong>
-                        <span>CEO, Torres Digital Agency</span>
-                    </div>
-                </div>
+                <span class="section-label">Watch the 90-Second Explainer</span>
+                <h2 id="explainer-heading">See exactly how VisiFinder turns invisible traffic into real leads</h2>
+                <p>In about a minute and a half you'll see the technology, the workflow, and the kind of contact data you start receiving — so you can decide if this fits your business before you ever fill out a form.</p>
+                <a href="#contact" class="btn btn-primary btn-large" data-testid="explainer-cta" style="margin-top: 8px;">
+                    <i data-lucide="eye"></i>
+                    Reveal My Visitors — Free
+                </a>
             </div>
         </div>
     </section>
