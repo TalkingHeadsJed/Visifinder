@@ -1,108 +1,126 @@
 {
-  "identity": {
-    "name": "E1",
-    "persona": "The Anti-AI Designer",
-    "principles": [
-      "Fusion over Imitation",
-      "Emotion First",
-      "Content is king",
-      "Zoom in",
-      "Negative Space",
-      "Contrast"
-    ]
-  },
-  "project_context": {
-    "app_type": "VSL Landing Page + Booking Flow",
-    "aesthetic": "TalkingHeads.com Style - Dark, Professional, Video Agency",
-    "target_audience": "B2B Business Owners, CMOs, High-Ticket Sellers",
-    "core_offer": "Anonymous Buyer Reveal System (7-Day Free Trial)"
-  },
-  "theme": {
-    "mode": "dark",
-    "colors": {
-      "background": "#050505",
-      "surface": "#0F0F0F",
-      "surface_highlight": "#1A1A1A",
-      "text_primary": "#FFFFFF",
-      "text_secondary": "#A1A1AA",
-      "primary": "#3B82F6",
-      "primary_hover": "#2563EB",
-      "accent": "#F59E0B",
-      "success": "#10B981",
-      "border": "#27272A"
+  "theme": "light",
+  "typography": {
+    "headings": {
+      "font_family": "Chivo, sans-serif",
+      "style": "tracking-tight text-gray-900",
+      "weights": ["600", "700", "900"],
+      "usage": "Use for all headlines. Do not center-align blindly; prefer left-alignment for B2B readability."
     },
-    "typography": {
-      "headings": {
-        "font_family": "Outfit, sans-serif",
-        "weights": ["500", "700"],
-        "letter_spacing": "-0.02em"
-      },
-      "body": {
-        "font_family": "Inter, sans-serif",
-        "weights": ["400", "500"]
-      }
+    "body": {
+      "font_family": "IBM Plex Sans, sans-serif",
+      "style": "leading-relaxed text-gray-700",
+      "weights": ["400", "500", "600"],
+      "usage": "Use for paragraphs, labels, and form inputs. Extremely legible for technical SaaS."
+    },
+    "labels": {
+      "style": "uppercase tracking-[0.2em] text-xs font-semibold text-[#1E3A5F]"
     }
   },
-  "assets": {
-    "fonts": [
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
-    ],
-    "icons": "lucide-react",
-    "images": {
-      "hero_bg": "https://images.pexels.com/photos/27141316/pexels-photo-27141316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      "reality_frustration": "https://images.unsplash.com/photo-1624814635026-6cd3a72f35a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwyfHxmcnVzdHJhdGVkJTIwYnVzaW5lc3MlMjBvd25lciUyMGxvb2tpbmclMjBhdCUyMGNvbXB1dGVyJTIwZGFyayUyMG1vb2R5fGVufDB8fHx8MTc3MTc0OTM0Mnww&ixlib=rb-4.1.0&q=85",
-      "solution_tech": "https://images.pexels.com/photos/8090147/pexels-photo-8090147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      "social_proof_meeting": "https://images.unsplash.com/photo-1758520145175-aa3b593b81af?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwyfHxzdWNjZXNzZnVsJTIwYnVzaW5lc3MlMjBtZWV0aW5nJTIwbW9kZXJuJTIwb2ZmaWNlJTIwZGFyayUyMGFlc3RoZXRpY3xlbnwwfHx8fDE3NzE3NDkzNDR8MA&ixlib=rb-4.1.0&q=85"
-    }
+  "colors": {
+    "primary": {
+      "navy": "#1E3A5F",
+      "usage": "Hero background (if inverted), Footer background, structural headings, form focus states."
+    },
+    "accent": {
+      "orange": "#F97316",
+      "hover": "#EA580C",
+      "usage": "EXCLUSIVELY for CTA buttons, key checkmark icons, and critical conversion metrics. Do not overuse."
+    },
+    "background": {
+      "base": "#FFFFFF",
+      "secondary": "#F9FAFB",
+      "tertiary": "#F3F4F6",
+      "usage": "Use base for main sections, secondary for alternating bands (like FAQ or Testimonials) to separate content without gradients."
+    },
+    "text": {
+      "main": "#111827",
+      "muted": "#4B5563",
+      "inverse": "#FFFFFF"
+    },
+    "border": {
+      "default": "#E5E7EB",
+      "strong": "#D1D5DB"
+    },
+    "CRITICAL_RULE": "ABSOLUTELY NO GRADIENTS. Use solid hex codes only. No linear-gradient or radial-gradient in CSS. Do not use opacity fades for backgrounds."
   },
-  "layout_strategy": {
-    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
-    "spacing": "py-24 md:py-32",
-    "grid_modes": {
-      "features": "grid grid-cols-1 md:grid-cols-2 gap-12 items-center",
-      "stats": "grid grid-cols-2 md:grid-cols-4 gap-8"
-    }
+  "visual_enhancers": {
+    "borders": "1px solid borders (border-gray-200) around cards, sections, and grids to create the 'Technical Grid' structural look.",
+    "shadows": "Minimalist. Use flat solid offset shadows (e.g., shadow-[4px_4px_0px_#1E3A5F]) for high-end Brutalist/SaaS feel, or very subtle structural shadows (shadow-sm). DO NOT use large soft drop shadows.",
+    "radius": "rounded-sm (4px) or rounded-md (6px) max. Do not use highly rounded pill shapes except for specific badges. Sharp, crisp edges represent precision SaaS."
+  },
+  "grids_and_layouts": {
+    "spacing": "Generous spacing. Use py-24 or py-32 for section padding. Use gap-12 or gap-16 between grid items.",
+    "hero": "Split layout: 55% Left text (H1, Subhead, CTA, Trust Badges) / 45% Right image (Dashboard preview with a solid #1E3A5F offset block behind it).",
+    "bento_features": "Use 'High Density Grid' (Mode B from guidelines) for features. 3-column grid (md:grid-cols-3). Direct children of grid must use solid backgrounds with 1px borders.",
+    "alignment": "Strict left-alignment for forms, text blocks, and bullet points. Center alignment is ONLY permitted for section overarching headlines."
   },
   "components": {
-    "ui_library": "shadcn/ui (customized)",
-    "custom_components": [
-      {
-        "name": "VSLHero",
-        "description": "Centered layout with bold headline, subheadline, Vimeo embed (16:9), and primary CTA.",
-        "props": ["headline", "subheadline", "videoUrl", "ctaText"]
-      },
-      {
-        "name": "ContentSection",
-        "description": "Alternating layout (Text Left/Image Right or vice versa) for storytelling.",
-        "props": ["title", "content", "image", "reversed"]
-      },
-      {
-        "name": "CTAButton",
-        "description": "High visibility button, often full width on mobile, pulsing effect optional.",
-        "props": ["text", "onClick", "variant"]
-      },
-      {
-        "name": "FAQAccordion",
-        "description": "Shadcn accordion with dark theme styling.",
-        "props": ["items"]
-      }
-    ]
+    "buttons": "Solid #F97316 background, #FFFFFF text, font-semibold. Hover state: bg-[#EA580C] and -translate-y-0.5. No gradient, no ring unless focused. data-testid required.",
+    "inputs": "Shadcn standard but customized: h-12, border-gray-300, focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F].",
+    "accordion": "FAQ uses Shadcn Accordion. border-b only. No background color (transparent to white). text-[#1E3A5F] for questions.",
+    "dialog_exit_intent": "Shadcn Dialog. Triggered dynamically via JS on mouseleave of window. Needs a bold hook ('Wait! See who is on your site right now...'), a 2-field form, and a large Orange CTA.",
+    "trust_badges": "Place immediately below the Hero CTA and Form submit buttons. E.g., 'Secure PHP/MySQL Infrastructure' or 'Trusted by 1,000+ Businesses' with padlock icon."
   },
-  "motion": {
-    "library": "framer-motion",
-    "principles": [
-      "Fade up on scroll for sections",
-      "Scale up for CTAs on hover",
-      "Smooth accordion expansion"
-    ]
+  "motion_and_interactions": {
+    "hover": "Subtle translation (-translate-y-[1px]) or border color shifts. DO NOT use opacity fades for interactive elements.",
+    "entrance": "Fade-in up for grid items using Framer Motion (y: 20, opacity: 0 to y: 0, opacity: 1).",
+    "forbidden": "No continuous pulsing, no bouncy animations. Keep it professional and reliable."
   },
-  "universal_guidelines": [
-    "Use dark colors without gradients for backgrounds (e.g. #050505)",
-    "Use 'Outfit' font for all headings to match the modern video agency vibe.",
-    "Ensure video embed is responsive (aspect-video).",
-    "CTAs must be prominent and repeated in every section.",
-    "Do NOT use transparent backgrounds for dropdowns/overlays.",
-    "Add 'data-testid' to all interactive elements."
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "graphs of performance analytics on a laptop screen",
+      "category": "hero_dashboard_mockup",
+      "placement": "Hero section right-side visual. Place inside a container with rounded-md and a solid #1E3A5F border or shadow offset."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1687293233471-187c8df1beef?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "a woman sitting at a desk using a laptop computer",
+      "category": "testimonial_or_persona",
+      "placement": "Target audience representation in the 'Problem/Solution' section or as a featured testimonial image."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1758598497635-48cbbb1f6555?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Man smiling in modern office setting",
+      "category": "testimonial_avatar",
+      "placement": "Social proof / Testimonials grid."
+    }
   ],
-  "instructions_to_main_agent": "Implement the VSL page first. Use the Vimeo URL provided. Ensure the Bookafy calendar is embedded on a separate '/schedule' route. Use the dark theme variables in tailwind.config.js."
+  "pages": {
+    "home": {
+      "sections": [
+        "Header (Logo left, solid Orange CTA right. border-b. bg-white)",
+        "Hero (Split layout, H1 text-gray-900, Orange CTA, Trust badge underneath)",
+        "Social Proof (Grayscale client logos, massive spacing)",
+        "Problem/Solution (Bento grid, solid backgrounds, 1px borders. Emphasize 'Stop guessing who visits your site')",
+        "How It Works (3 clear steps, left-aligned, icons in Navy circles)",
+        "Testimonials (Clean cards, bg-white, 1px border-gray-200)",
+        "FAQ (Shadcn Accordion, minimal)",
+        "Final CTA (Solid Navy #1E3A5F background, White text, massive Orange CTA)",
+        "Footer (Minimal, copyright, links, bg-white, border-t)"
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "YOU MUST NOT USE GRADIENTS. The user strictly forbid them. Ensure Tailwind classes like bg-gradient-to-r are absent.",
+    "Build the Exit Intent Popup using a customized Shadcn Dialog component. Trigger it by listening to the 'mouseleave' event on the document where e.clientY <= 0.",
+    "Implement the lead capture form with react-hook-form and zod for validation. Include Name, Email, Phone, Website.",
+    "Make the phone number a 'click-to-call' link (href='tel:...').",
+    "Use Phosphor icons or Lucide icons for Trust Badges.",
+    "Ensure all fonts are imported via Google Fonts (Chivo for headings, IBM Plex Sans for body) in index.css or index.html.",
+    "Do NOT center-align the main app wrapper. Preserve default left-alignment for text rhythm.",
+    "Always add `data-testid` attributes to interactive elements (CTAs, form inputs, accordion triggers)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic outputs. Avoid the 'AI slop' aesthetic. Create crisp, high-end B2B SaaS frontends.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts. Use split, bento, or asymmetric layouts.",
+    "Create depth through 1px borders and solid color offsets rather than blurry drop shadows for this specific app.",
+    "You MUST NOT apply universal transition (transition: all). Target specific properties like transition-colors.",
+    "NEVER use emojis for icons. Use proper icon libraries (Lucide React is installed).",
+    "Every interaction needs micro-animations - hover states (transform, color).",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Prioritize using Shadcn UI components for complex interactions like Accordion and Dialog."
+  ]
 }
