@@ -1256,9 +1256,9 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <span class="section-label">New Tech Identifies 50%–85% of Your Traffic</span>
-                <h1>You're losing <span>97% of your traffic</span> every day</h1>
-                <p class="hero-description">Stop the leak with VisiFinder. Our system reveals who is visiting — giving you more opportunities to boost conversations and stay top of mind.</p>
+                <span class="section-label">Website Visitor Identification</span>
+                <h1>New Tech Identifies <span>50%–85%</span> of Your Traffic</h1>
+                <p class="hero-description">You're losing 97% of your traffic every day. Stop the leak with VisiFinder. Our system reveals who is visiting — giving you more opportunities to boost conversations and stay top of mind.</p>
                 
                 <div class="hero-cta">
                     <a href="#contact" class="btn btn-primary btn-large" data-testid="hero-cta-primary">
@@ -1713,13 +1713,7 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // ============================================
-        // PREVIEW MODE — no PHP available in the preview
-        // environment, so intercept form submissions and
-        // route directly to the thank-you page so you can
-        // see the entire visitor flow.
-        // (This block does nothing on the live PHP host.)
-        // ============================================
+        // PREVIEW MODE — no PHP in preview env; route forms to thank-you page
         document.querySelectorAll('form[action="process-form.php"]').forEach(form => {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
