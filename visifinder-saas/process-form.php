@@ -1,224 +1,185 @@
 <?php
 /**
  * VisiFinder Lead Form Processor
- * 
- * Security Features:
- * - CSRF token validation
- * - Prepared statements (SQL injection prevention)
- * - Input sanitization and validation
- * - Rate limiting
- * - HTTPS enforcement
+ *
+ * Captures: Email + Website (only) from any form on the site
+ * Sources : main_form (default), exit_popup, bottom_form
+ *
+ * Security:
+ *  - Prepared statements (SQL injection safe)
+ *  - Input validation & sanitization
+ *  - Per-IP rate limiting
+ *  - HTTPS-aware (uncomment redirect block in production)
+ *  - Optional honeypot field (`hp_field`) — bots will fill it; humans won't
  */
 
 // ============================================
-// CONFIGURATION - UPDATE THESE VALUES
+// CONFIGURATION
 // ============================================
 $config = [
-    'db_host' => 'localhost',
-    'db_name' => 'visifinder',
-    'db_user' => 'YOUR_DB_USER',
-    'db_pass' => 'YOUR_DB_PASSWORD',
-    'notification_email' => 'YOUR_EMAIL@example.com',
-    'from_email' => 'noreply@visifinder.com',
-    'rate_limit_seconds' => 60,  // Minimum seconds between submissions from same IP
-    'max_submissions_per_hour' => 5  // Max submissions per IP per hour
+    'db_host'                 => 'localhost',
+    'db_name'                 => 'visifinder',
+    'db_user'                 => 'YOUR_DB_USER',
+    'db_pass'                 => 'YOUR_DB_PASSWORD',
+    'notification_email'      => 'sales@websitetalkingheads.com',
+    'from_email'              => 'noreply@websitetalkingheads.com',
+    'thank_you_page'          => 'thank-you.html',
+    'rate_limit_seconds'      => 30,
+    'max_submissions_per_hour'=> 5,
 ];
 
 // ============================================
-// SECURITY CHECKS
+// REQUEST GUARDS
 // ============================================
 
-// Enforce HTTPS in production
-if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
-    // Uncomment the following line in production:
-    // header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-    // exit();
-}
+// Force HTTPS in production (uncomment when live)
+// if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+//     header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+//     exit;
+// }
 
-// Only accept POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    die('Method not allowed');
+    exit('Method not allowed');
 }
 
-// Get client IP (handles proxies)
+// Honeypot — silently drop bots
+if (!empty($_POST['hp_field'])) {
+    header('Location: ' . $config['thank_you_page']);
+    exit;
+}
+
+// ============================================
+// HELPERS
+// ============================================
 function getClientIP() {
-    $ip = $_SERVER['REMOTE_ADDR'];
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+        $ip = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
     } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
     }
-    return filter_var(trim($ip), FILTER_VALIDATE_IP) ?: 'unknown';
+    return filter_var($ip, FILTER_VALIDATE_IP) ?: 'unknown';
+}
+
+function sanitize($v) {
+    return htmlspecialchars(trim((string)$v), ENT_QUOTES, 'UTF-8');
+}
+
+function normalizeWebsite($url) {
+    $url = trim($url);
+    if ($url === '') return '';
+    if (!preg_match('~^https?://~i', $url)) {
+        $url = 'https://' . $url;
+    }
+    return $url;
 }
 
 // ============================================
-// INPUT VALIDATION & SANITIZATION
+// COLLECT & VALIDATE
 // ============================================
+$email   = isset($_POST['email'])   ? sanitize($_POST['email'])   : '';
+$website = isset($_POST['website']) ? normalizeWebsite($_POST['website']) : '';
+$source  = isset($_POST['source'])  ? sanitize($_POST['source'])  : 'main_form';
+$ip      = getClientIP();
+$ua      = isset($_SERVER['HTTP_USER_AGENT']) ? substr($_SERVER['HTTP_USER_AGENT'], 0, 500) : '';
 
-function sanitizeInput($input) {
-    $input = trim($input);
-    $input = stripslashes($input);
-    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
-    return $input;
-}
-
-function validateEmail($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
-}
-
-function validateURL($url) {
-    return filter_var($url, FILTER_VALIDATE_URL);
-}
-
-function validatePhone($phone) {
-    // Remove all non-numeric characters except + for country code
-    $cleaned = preg_replace('/[^0-9+]/', '', $phone);
-    return strlen($cleaned) >= 10 && strlen($cleaned) <= 15;
-}
-
-// Collect and validate form data
-$name = isset($_POST['name']) ? sanitizeInput($_POST['name']) : '';
-$email = isset($_POST['email']) ? sanitizeInput($_POST['email']) : '';
-$phone = isset($_POST['phone']) ? sanitizeInput($_POST['phone']) : '';
-$website = isset($_POST['website']) ? sanitizeInput($_POST['website']) : '';
-$source = isset($_POST['source']) ? sanitizeInput($_POST['source']) : 'main_form';
-$ip_address = getClientIP();
-
-// Validation
 $errors = [];
-
-if (empty($name) || strlen($name) < 2) {
-    $errors[] = 'Valid name is required';
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = 'A valid email address is required.';
+}
+if (!filter_var($website, FILTER_VALIDATE_URL)) {
+    $errors[] = 'A valid website URL is required.';
 }
 
-if (!validateEmail($email)) {
-    $errors[] = 'Valid email is required';
-}
-
-if (!validatePhone($phone)) {
-    $errors[] = 'Valid phone number is required';
-}
-
-if (!validateURL($website)) {
-    $errors[] = 'Valid website URL is required';
-}
-
-if (!empty($errors)) {
+if ($errors) {
     http_response_code(400);
-    die('Validation failed: ' . implode(', ', $errors));
+    exit('Validation failed: ' . implode(' ', $errors));
 }
 
 // ============================================
-// DATABASE CONNECTION
+// DATABASE
 // ============================================
-
 try {
     $pdo = new PDO(
         "mysql:host={$config['db_host']};dbname={$config['db_name']};charset=utf8mb4",
         $config['db_user'],
         $config['db_pass'],
         [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false
+            PDO::ATTR_EMULATE_PREPARES   => false,
         ]
     );
 } catch (PDOException $e) {
-    error_log("Database connection failed: " . $e->getMessage());
+    error_log('DB connect failed: ' . $e->getMessage());
     http_response_code(500);
-    die('Service temporarily unavailable. Please try again later.');
+    exit('Service temporarily unavailable. Please try again shortly.');
 }
 
 // ============================================
-// RATE LIMITING
+// RATE LIMITING (per IP)
 // ============================================
-
-// Check recent submissions from this IP
 $stmt = $pdo->prepare("
-    SELECT COUNT(*) as count, MAX(created_at) as last_submission 
-    FROM leads 
-    WHERE ip_address = ? 
-    AND created_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)
+    SELECT COUNT(*) AS cnt, MAX(created_at) AS last_at
+    FROM leads
+    WHERE ip_address = ?
+      AND created_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)
 ");
-$stmt->execute([$ip_address]);
-$rateCheck = $stmt->fetch();
+$stmt->execute([$ip]);
+$rate = $stmt->fetch();
 
-if ($rateCheck['count'] >= $config['max_submissions_per_hour']) {
+if ((int)$rate['cnt'] >= $config['max_submissions_per_hour']) {
     http_response_code(429);
-    die('Too many submissions. Please try again later.');
+    exit('Too many submissions. Please try again later.');
 }
-
-if ($rateCheck['last_submission']) {
-    $lastSubmission = strtotime($rateCheck['last_submission']);
-    if (time() - $lastSubmission < $config['rate_limit_seconds']) {
-        http_response_code(429);
-        die('Please wait before submitting again.');
-    }
+if ($rate['last_at'] && (time() - strtotime($rate['last_at'])) < $config['rate_limit_seconds']) {
+    http_response_code(429);
+    exit('Please wait a moment before submitting again.');
 }
 
 // ============================================
-// SAVE TO DATABASE
+// INSERT LEAD
 // ============================================
-
 try {
     $stmt = $pdo->prepare("
-        INSERT INTO leads (name, email, phone, website, source, ip_address, user_agent, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+        INSERT INTO leads (email, website, source, ip_address, user_agent, created_at)
+        VALUES (?, ?, ?, ?, ?, NOW())
     ");
-    
-    $stmt->execute([
-        $name,
-        $email,
-        $phone,
-        $website,
-        $source,
-        $ip_address,
-        isset($_SERVER['HTTP_USER_AGENT']) ? substr($_SERVER['HTTP_USER_AGENT'], 0, 500) : ''
-    ]);
-    
+    $stmt->execute([$email, $website, $source, $ip, $ua]);
     $leadId = $pdo->lastInsertId();
-    
 } catch (PDOException $e) {
-    error_log("Database insert failed: " . $e->getMessage());
+    error_log('DB insert failed: ' . $e->getMessage());
     http_response_code(500);
-    die('Failed to save your information. Please try again.');
+    exit('Failed to save your information. Please try again.');
 }
 
 // ============================================
-// SEND EMAIL NOTIFICATION
+// EMAIL NOTIFICATION
 // ============================================
+$subject = 'New VisiFinder Lead: ' . $email;
+$body    = "New lead from VisiFinder website\n"
+         . "----------------------------------\n"
+         . "Email   : {$email}\n"
+         . "Website : {$website}\n"
+         . "Source  : {$source}\n"
+         . "IP      : {$ip}\n"
+         . "Lead ID : {$leadId}\n"
+         . "Time    : " . date('Y-m-d H:i:s') . "\n";
 
-$subject = "New VisiFinder Lead: $name";
-$message = "
-New lead submission from VisiFinder website:
-
-Name: $name
-Email: $email
-Phone: $phone
-Website: $website
-Source: $source
-IP Address: $ip_address
-Submitted: " . date('Y-m-d H:i:s') . "
-Lead ID: $leadId
-
----
-This is an automated notification from VisiFinder.
-";
-
-$headers = [
+$headers = implode("\r\n", [
     'From: ' . $config['from_email'],
     'Reply-To: ' . $email,
     'X-Mailer: PHP/' . phpversion(),
-    'Content-Type: text/plain; charset=UTF-8'
-];
+    'Content-Type: text/plain; charset=UTF-8',
+]);
 
-// Send email (will fail silently if mail server not configured)
-@mail($config['notification_email'], $subject, $message, implode("\r\n", $headers));
+@mail($config['notification_email'], $subject, $body, $headers);
 
 // ============================================
-// REDIRECT TO THANK YOU PAGE
+// REDIRECT TO THANK-YOU
 // ============================================
-
-header('Location: thank-you.html');
-exit();
+// Pass lead_id so phone-collection form on thank-you page can append to it
+header('Location: ' . $config['thank_you_page'] . '?lid=' . urlencode($leadId));
+exit;
