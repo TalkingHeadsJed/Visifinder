@@ -1,76 +1,85 @@
-# VisiFinder — Pair Networks Deployment Guide
+# VisiFinder — Setup Guide
 
-A high-converting B2B SaaS landing page for VisiFinder. Static HTML frontend
-plus PHP/MySQL lead capture, ready to drop into a Pair Networks shared host
-or VPS.
+5 files. About 10 minutes. That's the whole setup.
 
 ---
 
-## Files in this package
+## What you're uploading
 
-| File | Purpose |
+| File | What it does |
 |---|---|
-| `index.html` | Main landing page (SEO-optimized, 10 conversion boosters baked in) |
-| `thank-you.html` | Post-submission page with Bookafy calendar + phone capture |
-| `process-form.php` | Server-side lead handler (validates, stores, emails) |
-| `process-phone.php` | Optional phone-number capture on the thank-you page |
-| `database.sql` | One-time MySQL schema setup |
+| `index.html` | The landing page |
+| `thank-you.html` | The page people see after they sign up |
+| `process-form.php` | Saves the lead and emails you |
+| `process-phone.php` | Saves a phone number from the thank-you page |
+| `database.sql` | Builds the table that stores your leads |
 
 ---
 
-## 1. Set up the database
+## Step 1 — Create the database
 
-In Pair Networks' control panel, create a MySQL database (e.g. `visifinder`)
-and a DB user with INSERT/SELECT/UPDATE privileges. Then import the schema:
+1. Log into Pair Networks → **Databases** → **MySQL**.
+2. Create a new database. Suggested name: `visifinder`.
+3. Create a database user and give them access to that database. **Write down the username and password** — you'll need them in Step 3.
+4. Open phpMyAdmin → click the new database → click the **SQL** tab.
+5. Open `database.sql` in any text editor, copy everything, paste it into phpMyAdmin, click **Go**.
 
-```bash
-mysql -u YOUR_DB_USER -p visifinder < database.sql
-```
-
-…or paste the contents of `database.sql` into phpMyAdmin's SQL tab.
+That's it. The `leads` table is ready.
 
 ---
 
-## 2. Configure the PHP scripts
+## Step 2 — Upload the files
 
-Open both PHP files and update the `$config` block at the top:
+Upload these 4 files to the root of your website (usually a folder called `public_html`):
+
+- `index.html`
+- `thank-you.html`
+- `process-form.php`
+- `process-phone.php`
+
+You can drop `database.sql` in too — it doesn't have to be there, but it's nice to keep next to the others.
+
+---
+
+## Step 3 — Plug in your database credentials
+
+You only need to edit **two** files. Open them in any text editor.
+
+### `process-form.php`
+
+Find this near the top:
 
 ```php
-$config = [
-    'db_host'            => 'localhost',
-    'db_name'            => 'visifinder',
-    'db_user'            => 'YOUR_DB_USER',     // <-- change
-    'db_pass'            => 'YOUR_DB_PASSWORD', // <-- change
-    'notification_email' => 'sales@websitetalkingheads.com',
-    'from_email'         => 'noreply@websitetalkingheads.com',
-    // ...
-];
+'db_user'  => 'YOUR_DB_USER',
+'db_pass'  => 'YOUR_DB_PASSWORD',
 ```
 
-Edit `process-form.php` AND `process-phone.php` (same credentials).
+Replace `YOUR_DB_USER` and `YOUR_DB_PASSWORD` with the database username and password you wrote down in Step 1.
+
+### `process-phone.php`
+
+Same thing. Find the same two lines, paste in the same credentials.
+
+**Save both files. Re-upload them.** Done.
 
 ---
 
-## 3. Upload to your web root
+## Step 4 — Test it
 
-Upload all five files to your domain's web root (typically `public_html/`
-on Pair Networks). The directory tree should be flat:
+1. Visit your site.
+2. Fill in the form with your real email and a real website (e.g. your own).
+3. You should:
+   - Land on the thank-you page with the calendar.
+   - Receive an email at **sales@websitetalkingheads.com** within a minute.
+   - See the new lead in phpMyAdmin under the `leads` table.
 
-```
-public_html/
-├── index.html
-├── thank-you.html
-├── process-form.php
-├── process-phone.php
-└── database.sql          (optional — can stay for reference)
-```
+If all three happened, you're live.
 
 ---
 
-## 4. Force HTTPS (recommended)
+## Step 5 (optional) — Force HTTPS
 
-Once your SSL is active in Pair Networks, open `process-form.php` and
-uncomment this block near the top so non-HTTPS requests redirect:
+Once Pair Networks has your SSL certificate installed, open `process-form.php` and find this block near the top:
 
 ```php
 // if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
@@ -79,66 +88,46 @@ uncomment this block near the top so non-HTTPS requests redirect:
 // }
 ```
 
----
-
-## 5. Test the form
-
-1. Open your live site.
-2. Submit the hero form with a real email + website.
-3. You should:
-   - land on `thank-you.html?lid=N`
-   - receive a notification email at `sales@websitetalkingheads.com`
-   - see the new row inside the `leads` table
+Delete the `//` from the start of those 4 lines. Save. Re-upload. Now every form submission is forced to HTTPS.
 
 ---
 
-## Conversion boosters already wired in
+## What's already built in
 
-1. **Live visitor counter** (top banner, randomized 2,500–3,000)
-2. **Click-to-call phone CTA** in header + hero + sticky-mobile bar
-3. **Reduced form fields** — Email + Website only
-4. **Exit-intent popup** — fires once per session when mouse leaves window
-5. **Sticky mobile CTA** — pinned bottom bar on screens ≤ 768 px
-6. **Social-proof logo bar** — 5 placeholders ready for client logos
-7. **Video testimonial placeholder** — drop in an `<iframe>` or `<video>`
-8. **Star-rated testimonials** — 3 cards with author + role
-9. **FAQ accordion** — 5 entries answering common buyer objections
-10. **Bookafy calendar embed** on the thank-you page for instant booking
+You don't need to do anything for these — they're already working:
 
----
-
-## Adding tracking pixels later
-
-Open `thank-you.html`, find the comment block near the top, and uncomment
-the Facebook Pixel and/or Google Ads conversion snippets. Drop in your IDs.
-
-GA4, Microsoft Clarity, Hotjar, etc. can go in the `<head>` of `index.html`
-just before `</head>`.
+- Live visitor counter at the top
+- Click-to-call phone number in the header
+- Exit-intent popup when someone tries to leave
+- Sticky "Get Free Reveal" bar on mobile
+- Spam blocker (honeypot)
+- Rate limit: 5 submissions per hour per IP, 30-second cooldown
+- Bookafy calendar on the thank-you page
+- Emails go to **sales@websitetalkingheads.com**
 
 ---
 
-## Quick troubleshooting
+## Adding tracking later (when you're ready)
 
-| Symptom | Fix |
+When you have the IDs, open `thank-you.html` and look for the comment block near the top. Paste your snippets there:
+
+- Facebook Pixel
+- Google Ads conversion tag
+- Google Analytics (GA4)
+
+For reCAPTCHA on the form, send me your **site key** and **secret key** and I'll wire it in.
+
+---
+
+## Quick fixes if something breaks
+
+| Problem | What to check |
 |---|---|
-| 500 error on submit | DB credentials wrong, or `leads` table missing |
-| No notification email | Pair Networks may need `noreply@yourdomain.com` set up as an authorized sender |
-| Bookafy calendar blank | Confirm `websitetalkingheads.bookafy.com` is live & iframe-allowed |
-| Form submits but no redirect | Make sure `thank-you.html` exists in the same folder |
+| Page submits but shows an error | Database credentials in `process-form.php` are wrong, OR you didn't run `database.sql` |
+| No email arrives | Pair Networks may need to authorize `noreply@websitetalkingheads.com` as a sender. Or change `from_email` in `process-form.php` to a real address you control. |
+| Calendar is blank on thank-you page | Make sure your Bookafy page (`https://websitetalkingheads.bookafy.com`) is published. |
+| Form submits but no redirect | Make sure `thank-you.html` is in the same folder as `process-form.php` |
 
 ---
 
-## Security notes
-
-- All SQL queries use prepared statements (no injection risk).
-- Honeypot field (`hp_field`) silently drops bots.
-- Rate limit: 5 submissions per IP per hour, 30-second cooldown between submits.
-- Email validation via `FILTER_VALIDATE_EMAIL`.
-- URL validation + auto-https prefix via `FILTER_VALIDATE_URL`.
-
-To layer in reCAPTCHA v3 later, add the JS snippet to `index.html` and
-verify the token server-side at the top of `process-form.php`.
-
----
-
-© 2026 VisiFinder — Built for Pair Networks deployment.
+That's everything. Questions? Reply to the email and we'll fix it together.

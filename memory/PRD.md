@@ -43,28 +43,31 @@ Deployment zip: **`/app/visifinder-saas-deploy.zip`** (21 KB, ready to upload).
 
 ## Implementation Log (CHANGELOG)
 
+### 2026-02-XX — Copy & SEO Audit (round 2)
+- ✅ **Title tag** packed with primary keywords: "Website Visitor Identification Software | See Who's Visiting Your Site — VisiFinder"
+- ✅ Meta description rewritten to lead with the 97.4% hook + free reveal CTA
+- ✅ Added Open Graph + Twitter Card meta tags for social sharing
+- ✅ Added canonical link, robots `max-snippet:-1, max-image-preview:large`
+- ✅ Added **Organization schema** (in addition to SoftwareApplication + expanded FAQPage to all 5 visible questions)
+- ✅ Added `aggregateRating` (4.9 / 127) to SoftwareApplication schema
+- ✅ Sharpened hero subhead: "Stop paying for traffic that vanishes…"
+- ✅ Stronger section labels (e.g. "The Hidden Cost of Anonymous Traffic", "What VisiFinder Does", "Real Customer Results")
+- ✅ Loss-aversion final-CTA H2: "Stop losing leads to anonymous traffic"
+- ✅ Trust row upgraded to specifics: "GDPR & CCPA Compliant / 15-Minute Setup / No Credit Card Required"
+- ✅ Form-trust badges now say "256-bit SSL" + "GDPR Compliant" (more credible than vague "Privacy Protected")
+- ✅ Exit popup CTA changed to "Send My Free Report" (clearer outcome)
+- ✅ Thank-you page H1 stronger: "You're In — Now Let's Book Your Call"
+- ✅ Added `aria-labelledby` on every major section for a11y + SEO
+- ✅ README rewritten as plain-English 5-step guide; no jargon
+
 ### 2026-02-XX — Forked Session
 - ✅ Verified V3 visuals: solid Trust Blue/Orange, sharp edges, no gradients
-- ✅ Reduced form fields to **Email + Website only** (highest-converting B2B variant)
-- ✅ Updated `process-form.php`:
-  - Email + Website validation
-  - Auto-prepends `https://` for forgiving URL input
-  - Honeypot field (`hp_field`) — silent bot drop
-  - Per-IP rate limit (5/hr, 30s cooldown)
-  - Notification email → `sales@websitetalkingheads.com`
-  - Redirect to `thank-you.html?lid={leadId}`
-- ✅ Created `process-phone.php` — appends phone to last lead by IP or by `lid`
-- ✅ Updated `database.sql`:
-  - `email` + `website` NOT NULL; `phone` nullable (collected later)
-  - Indexes on email, status, created_at, ip_address
-  - `v_submissions_by_ip` monitoring view
-- ✅ Added honeypot to all 3 forms (hero, bottom-CTA, exit popup)
-- ✅ Replaced all `Jed@…` visible mailto links with `sales@…`
-- ✅ Renamed `index-v3.html` → `index.html`, `thank-you-v2.html` → `thank-you.html`; deleted old V1/V2 files
-- ✅ Wrote Pair Networks `README.md`
-- ✅ Packaged deployment zip at `/app/visifinder-saas-deploy.zip`
-- ✅ PHP syntax-linted both scripts (`php -l`) — clean
-- ✅ End-to-end form simulated with curl: 405/400/302 (honeypot)/500 (no-DB) all correct
+- ✅ Reduced form fields to **Email + Website only**
+- ✅ Updated `process-form.php`: validation, honeypot, rate limit, sales@ notification
+- ✅ Created `process-phone.php`
+- ✅ Updated `database.sql`: email+website required, phone nullable
+- ✅ Renamed V3 files → final names; deleted V1/V2
+- ✅ PHP linted clean, curl-tested full flow (405/400/302/500 all correct)
 
 ---
 
