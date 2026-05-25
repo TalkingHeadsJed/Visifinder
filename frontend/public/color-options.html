@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisiFinder Color Scheme Options</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f5f5f5; padding: 40px; }
+        h1 { text-align: center; margin-bottom: 40px; color: #1a1a1a; }
+        .palettes { display: flex; flex-direction: column; gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .palette { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .palette h2 { margin-bottom: 8px; font-size: 24px; }
+        .palette p { color: #666; margin-bottom: 20px; font-size: 14px; }
+        .colors { display: flex; gap: 16px; margin-bottom: 24px; }
+        .color-box { 
+            width: 120px; 
+            height: 80px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: flex-end; 
+            padding: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .mini-preview { 
+            border-radius: 12px; 
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .mini-preview h3 { font-size: 28px; }
+        .mini-preview p { font-size: 14px; opacity: 0.8; }
+        .mini-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            width: fit-content;
+        }
+        .recommendation { border: 3px solid #10b981; }
+        .rec-badge { 
+            background: #10b981; 
+            color: white; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>VisiFinder Color Scheme Options</h1>
+    
+    <div class="palettes">
+        <!-- Option A -->
+        <div class="palette">
+            <h2>Option A: Modern Trust Blue</h2>
+            <p>Used by: Stripe, Intercom, Dropbox</p>
+            <div class="colors">
+                <div class="color-box" style="background: #0066FF;">Primary #0066FF</div>
+                <div class="color-box" style="background: #E8F4FF; color: #333; text-shadow: none;">Background #E8F4FF</div>
+                <div class="color-box" style="background: #1A1A2E;">Text #1A1A2E</div>
+                <div class="color-box" style="background: #00C853;">CTA #00C853</div>
+            </div>
+            <div class="mini-preview" style="background: #E8F4FF;">
+                <h3 style="color: #1A1A2E;">See Who's Visiting Your Website</h3>
+                <p style="color: #1A1A2E;">97% of visitors leave without a trace. VisiFinder reveals them.</p>
+                <a class="mini-btn" style="background: #0066FF; color: white;">Get Started Free</a>
+            </div>
+        </div>
+
+        <!-- Option B -->
+        <div class="palette">
+            <h2>Option B: Purple Tech</h2>
+            <p>Used by: Notion, Linear, Figma</p>
+            <div class="colors">
+                <div class="color-box" style="background: #7C3AED;">Primary #7C3AED</div>
+                <div class="color-box" style="background: #F5F3FF; color: #333; text-shadow: none;">Background #F5F3FF</div>
+                <div class="color-box" style="background: #1F2937;">Text #1F2937</div>
+                <div class="color-box" style="background: #06B6D4;">Accent #06B6D4</div>
+            </div>
+            <div class="mini-preview" style="background: #F5F3FF;">
+                <h3 style="color: #1F2937;">See Who's Visiting Your Website</h3>
+                <p style="color: #1F2937;">97% of visitors leave without a trace. VisiFinder reveals them.</p>
+                <a class="mini-btn" style="background: #7C3AED; color: white;">Get Started Free</a>
+            </div>
+        </div>
+
+        <!-- Option C - Recommended -->
+        <div class="palette recommendation">
+            <h2>Option C: Blue-Purple Gradient <span class="rec-badge">★ RECOMMENDED</span></h2>
+            <p>Used by: Vercel, Webflow, Monday.com</p>
+            <div class="colors">
+                <div class="color-box" style="background: #3B82F6;">Blue #3B82F6</div>
+                <div class="color-box" style="background: #8B5CF6;">Purple #8B5CF6</div>
+                <div class="color-box" style="background: #FAFAFA; color: #333; text-shadow: none;">Background #FAFAFA</div>
+                <div class="color-box" style="background: #111827;">Text #111827</div>
+            </div>
+            <div class="mini-preview" style="background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%); color: white;">
+                <h3>See Who's Visiting Your Website</h3>
+                <p>97% of visitors leave without a trace. VisiFinder reveals them.</p>
+                <a class="mini-btn" style="background: white; color: #3B82F6;">Get Started Free</a>
+            </div>
+        </div>
+
+        <!-- Option D -->
+        <div class="palette">
+            <h2>Option D: Teal & Coral</h2>
+            <p>Used by: Mailchimp, Calendly</p>
+            <div class="colors">
+                <div class="color-box" style="background: #0D9488;">Teal #0D9488</div>
+                <div class="color-box" style="background: #F97316;">Coral #F97316</div>
+                <div class="color-box" style="background: #F0FDFA; color: #333; text-shadow: none;">Background #F0FDFA</div>
+                <div class="color-box" style="background: #134E4A;">Text #134E4A</div>
+            </div>
+            <div class="mini-preview" style="background: #F0FDFA;">
+                <h3 style="color: #134E4A;">See Who's Visiting Your Website</h3>
+                <p style="color: #134E4A;">97% of visitors leave without a trace. VisiFinder reveals them.</p>
+                <a class="mini-btn" style="background: #F97316; color: white;">Get Started Free</a>
+            </div>
+        </div>
+
+        <!-- Option E -->
+        <div class="palette">
+            <h2>Option E: Dark Mode SaaS</h2>
+            <p>Used by: Linear, GitHub, Vercel</p>
+            <div class="colors">
+                <div class="color-box" style="background: #0F172A;">Dark #0F172A</div>
+                <div class="color-box" style="background: #1E293B;">Card #1E293B</div>
+                <div class="color-box" style="background: #38BDF8;">Blue #38BDF8</div>
+                <div class="color-box" style="background: #4ADE80;">Green #4ADE80</div>
+            </div>
+            <div class="mini-preview" style="background: #0F172A; color: white;">
+                <h3 style="color: #38BDF8;">See Who's Visiting Your Website</h3>
+                <p style="color: #94a3b8;">97% of visitors leave without a trace. VisiFinder reveals them.</p>
+                <a class="mini-btn" style="background: #4ADE80; color: #0F172A;">Get Started Free</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
