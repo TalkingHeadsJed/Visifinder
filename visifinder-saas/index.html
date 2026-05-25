@@ -709,6 +709,138 @@
         }
         
         /* ============================================
+           CHALLENGE / POC SECTION
+           ============================================ */
+        .challenge {
+            background: var(--orange);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 280px;
+            background: var(--navy);
+            opacity: 0.08;
+            transform: translate(40%, -40%);
+        }
+
+        .challenge .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            background: var(--navy);
+            color: var(--white);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+        }
+
+        .challenge h2 {
+            color: var(--white);
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+
+        .challenge-lead {
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            max-width: 720px;
+            line-height: 1.5;
+        }
+
+        .challenge-sub {
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 1.0625rem;
+            max-width: 720px;
+            margin-bottom: 40px;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .challenge-item {
+            background: var(--white);
+            border-left: 4px solid var(--navy);
+            padding: 24px 28px;
+        }
+
+        .challenge-item-label {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--orange);
+            margin-bottom: 8px;
+        }
+
+        .challenge-item h3 {
+            font-size: 1.125rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .challenge-item p {
+            font-size: 0.938rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .challenge-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .challenge .btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .challenge .btn-primary:hover {
+            background: #142A47;
+        }
+
+        .challenge-cta-row .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .challenge-cta-row .btn-secondary:hover {
+            background: var(--white);
+            color: var(--orange);
+            border-color: var(--white);
+        }
+
+        @media (max-width: 1024px) {
+            .challenge-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
            HOW IT WORKS
            ============================================ */
         .how-it-works {
@@ -1392,6 +1524,45 @@
                         </div>
                     </div>
                 </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Challenge / Free POC -->
+    <section class="challenge" aria-labelledby="challenge-heading">
+        <div class="container">
+            <span class="challenge-badge">The VisiFinder Challenge</span>
+            <h2 id="challenge-heading">Don't believe it can work? Prove us wrong — on our dime.</h2>
+            <p class="challenge-lead">Already using a visitor identification tool? Run it head-to-head against VisiFinder for 7 full days. Same traffic, same window, two reports — and you keep both.</p>
+            <p class="challenge-sub">No invoice. No contract. No catch. If your current tool wins, you walk away with free competitive intelligence. If we win, you've found a better source of leads. Either way, you reap the benefits.</p>
+
+            <div class="challenge-grid">
+                <div class="challenge-item" data-testid="challenge-item-1">
+                    <div class="challenge-item-label">01 — Side-by-side</div>
+                    <h3>Run both tools in parallel</h3>
+                    <p>Keep your current setup exactly as it is. We run alongside it on the same traffic for 7 days — no disruption.</p>
+                </div>
+                <div class="challenge-item" data-testid="challenge-item-2">
+                    <div class="challenge-item-label">02 — True 7-day POC</div>
+                    <h3>You get the full reveal</h3>
+                    <p>At day 7, we hand over a complete identification report so you can compare match rates, accuracy, and contact quality yourself.</p>
+                </div>
+                <div class="challenge-item" data-testid="challenge-item-3">
+                    <div class="challenge-item-label">03 — Zero risk</div>
+                    <h3>Always free, always yours</h3>
+                    <p>The POC costs you nothing. Whatever leads we surface are yours to keep — even if you decide to stay with your current tool.</p>
+                </div>
+            </div>
+
+            <div class="challenge-cta-row">
+                <a href="#contact" class="btn btn-primary btn-large" data-testid="challenge-cta">
+                    <i data-lucide="swords"></i>
+                    Accept the Challenge — Free
+                </a>
+                <a href="tel:+18017482281" class="btn btn-secondary btn-large" data-testid="challenge-phone">
+                    <i data-lucide="phone"></i>
+                    Or call (801) 748-2281
+                </a>
             </div>
         </div>
     </section>
