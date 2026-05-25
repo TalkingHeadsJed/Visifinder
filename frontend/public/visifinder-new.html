@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VisiFinder reveals the 97% of anonymous website visitors you're losing. See who's visiting your site, what they're looking at, and turn invisible traffic into real leads.">
+    <meta name="keywords" content="website visitor identification, anonymous visitor tracking, B2B lead generation, website analytics, visitor identification software">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="VisiFinder">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="VisiFinder - See Who's Visiting Your Website">
+    <meta property="og:description" content="97% of your website visitors leave without a trace. VisiFinder reveals who they are so you can turn traffic into customers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://visifinder.com">
+    <meta property="og:image" content="https://visifinder.com/images/og-image.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VisiFinder - See Who's Visiting Your Website">
+    <meta name="twitter:description" content="97% of your website visitors leave without a trace. VisiFinder reveals who they are.">
+    
+    <title>VisiFinder - See Who's Visiting Your Website | Visitor Identification Software</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231E3A5F' rx='20' width='100' height='100'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='%23F97316'>V</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "VisiFinder",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "Website visitor identification software that reveals anonymous visitors and turns them into actionable leads for small businesses.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free 7-day website visitor reveal"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "127"
+        }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "VisiFinder",
+        "url": "https://visifinder.com",
+        "logo": "https://visifinder.com/images/logo.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-XXX-XXX-XXXX",
+            "contactType": "sales"
+        }
+    }
+    </script>
+    
+    <style>
+        :root {
+            --navy: #1E3A5F;
+            --navy-dark: #152A45;
+            --blue: #0066FF;
+            --blue-light: #E8F4FF;
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --white: #FFFFFF;
+            --gray-50: #FAFAFA;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-800);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--gray-900);
+        }
+        
+        h1 { font-size: clamp(2rem, 5vw, 3rem); }
+        h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+        
+        p { color: var(--gray-600); }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: var(--orange);
+            color: white;
+            box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+        }
+        
+        .btn-secondary {
+            background: var(--white);
+            color: var(--navy);
+            border: 2px solid var(--gray-200);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--navy);
+            background: var(--gray-50);
+        }
+        
+        .btn-large {
+            padding: 18px 36px;
+            font-size: 1.125rem;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-weight: 800;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .nav-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-phone:hover {
+            color: var(--navy);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(180deg, var(--blue-light) 0%, var(--white) 100%);
+        }
+        
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .hero-content {
+            max-width: 560px;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            margin-bottom: 24px;
+        }
+        
+        .hero-badge i {
+            color: var(--orange);
+        }
+        
+        .hero h1 {
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 span {
+            color: var(--blue);
+        }
+        
+        .hero > .container > .hero-content > p {
+            font-size: 1.125rem;
+            margin-bottom: 32px;
+            color: var(--gray-600);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .stat {
+            text-align: left;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+        
+        /* Hero Form */
+        .hero-form {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 20px 50px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-100);
+        }
+        
+        .hero-form h3 {
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+        
+        .hero-form > p {
+            font-size: 0.938rem;
+            margin-bottom: 24px;
+            color: var(--gray-500);
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: var(--gray-400);
+        }
+        
+        .hero-form .btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .form-trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 0.813rem;
+            color: var(--gray-500);
+        }
+        
+        .form-trust span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .form-trust i {
+            color: var(--gray-400);
+        }
+        
+        /* Problem Section */
+        .problem {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .section-label {
+            display: inline-block;
+            background: var(--blue-light);
+            color: var(--blue);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.813rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 1.125rem;
+            margin-top: 16px;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .problem-card {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .problem-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .problem-icon i {
+            font-size: 1.5rem;
+            color: #DC2626;
+        }
+        
+        .problem-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+        
+        .problem-card p {
+            font-size: 0.938rem;
+        }
+        
+        /* Solution Section */
+        .solution {
+            padding: 100px 0;
+            background: var(--navy);
+            color: var(--white);
+        }
+        
+        .solution .section-label {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--orange);
+        }
+        
+        .solution .section-header h2 {
+            color: var(--white);
+        }
+        
+        .solution .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        
+        .solution-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .solution-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--blue) 0%, #0052CC 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .solution-icon i {
+            font-size: 1.75rem;
+            color: var(--white);
+        }
+        
+        .solution-card h3 {
+            color: var(--white);
+            margin-bottom: 12px;
+            font-size: 1.125rem;
+        }
+        
+        .solution-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+        
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 16.67%;
+            right: 16.67%;
+            height: 2px;
+            background: var(--gray-200);
+            z-index: 0;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 3px solid var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--orange);
+            margin: 0 auto 24px;
+        }
+        
+        .step h3 {
+            margin-bottom: 12px;
+        }
+        
+        .step p {
+            font-size: 0.938rem;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        
+        /* Social Proof */
+        .social-proof {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        
+        .testimonial {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--gray-100);
+        }
+        
+        .testimonial-stars {
+            color: #FBBF24;
+            margin-bottom: 16px;
+        }
+        
+        .testimonial p {
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--gray-700);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+        
+        .author-info strong {
+            display: block;
+            color: var(--gray-800);
+            font-size: 0.938rem;
+        }
+        
+        .author-info span {
+            font-size: 0.813rem;
+            color: var(--gray-500);
+        }
+        
+        .trust-badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray-500);
+        }
+        
+        .trust-badge i {
+            font-size: 2rem;
+            color: var(--gray-400);
+        }
+        
+        .trust-badge span {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            text-align: left;
+        }
+        
+        .faq-question i {
+            color: var(--gray-400);
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer p {
+            padding: 0 24px 20px;
+            font-size: 0.938rem;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+        
+        .final-cta > .container > p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-form {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .cta-form h3 {
+            margin-bottom: 24px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            padding: 48px 0 24px;
+            color: var(--gray-400);
+        }
+        
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-800);
+            margin-bottom: 24px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .footer-contact {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .footer-contact a {
+            color: var(--gray-400);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-contact a:hover {
+            color: var(--white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.875rem;
+        }
+        
+        /* Exit Intent Popup */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        
+        .popup-overlay.active {
+            display: flex;
+        }
+        
+        .popup {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            animation: popupIn 0.3s ease;
+        }
+        
+        @keyframes popupIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+        }
+        
+        .popup-close:hover {
+            background: var(--gray-200);
+        }
+        
+        .popup h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .popup > p {
+            margin-bottom: 24px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .problem-grid,
+            .solution-grid,
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .steps::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-phone {
+                display: none;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                gap: 24px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .footer-contact {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">
+                <div class="logo-icon">V</div>
+                VisiFinder
+            </a>
+            <div class="nav-cta">
+                <a href="tel:+1XXXXXXXXXX" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    (XXX) XXX-XXXX
+                </a>
+                <a href="#contact" class="btn btn-primary">Get Free Reveal</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-chart-line"></i>
+                    Website Visitor Identification
+                </div>
+                <h1>Stop Losing <span>97% of Your Website Visitors</span> to the Unknown</h1>
+                <p>You're paying for traffic that disappears without a trace. VisiFinder reveals exactly who's visiting your website—so you can turn anonymous browsers into real customers.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">97%</div>
+                        <div class="stat-label">Visitors Leave Anonymous</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">45%</div>
+                        <div class="stat-label">Can Be Identified</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">7 Days</div>
+                        <div class="stat-label">Free Trial</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-form" id="contact">
+                <h3>Get Your Free Website Reveal</h3>
+                <p>See who's been visiting your site—no credit card required.</p>
+                <form action="process-form.php" method="POST" id="leadForm">
+                    <input type="hidden" name="csrf_token" id="csrf_token" value="">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email *</label>
+                        <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Website URL *</label>
+                        <input type="url" id="website" name="website" placeholder="https://yourcompany.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-eye"></i>
+                        Reveal My Visitors — Free
+                    </button>
+                </form>
+                <div class="form-trust">
+                    <span><i class="fas fa-lock"></i> SSL Secured</span>
+                    <span><i class="fas fa-shield-halved"></i> Privacy Protected</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">The Problem</span>
+                <h2>Your Website Traffic Is Costing You Money—And You Don't Even Know Who It Is</h2>
+                <p>Every day, potential customers visit your website, browse your services, and leave without ever telling you who they are.</p>
+            </div>
+            
+            <div class="problem-grid">
+                <article class="problem-card">
+                    <div class="problem-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Wasted Ad Spend</h3>
+                    <p>You're paying for every click—ads, SEO, social media. But when visitors leave without converting, that money vanishes with no way to follow up.</p>
+                </article>
+                
+                <article class="problem-card">
+                    <div class="problem-icon">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <h3>Invisible Buyers</h3>
+                    <p>Someone visited your pricing page three times this week. They're ready to buy. But you have no idea who they are or how to reach them.</p>
+                </article>
+                
+                <article class="problem-card">
+                    <div class="problem-icon">
+                        <i class="fas fa-user-slash"></i>
+                    </div>
+                    <h3>Lost Opportunities</h3>
+                    <p>Your competitors are identifying and contacting these same visitors before you even know they exist. They're winning deals you never knew you lost.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">The Solution</span>
+                <h2>VisiFinder Reveals Who's Visiting Your Website</h2>
+                <p>Turn anonymous traffic into identified leads with actionable contact information.</p>
+            </div>
+            
+            <div class="solution-grid">
+                <article class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Identify Visitors</h3>
+                    <p>See the companies and individuals visiting your site—even if they never fill out a form.</p>
+                </article>
+                
+                <article class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Track Behavior</h3>
+                    <p>Know exactly which pages they viewed, how long they stayed, and what caught their interest.</p>
+                </article>
+                
+                <article class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Spot Intent</h3>
+                    <p>Identify hot prospects who are actively researching and ready to make a decision.</p>
+                </article>
+                
+                <article class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Take Action</h3>
+                    <p>Get contact details and reach out while they're still interested in your solution.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">How It Works</span>
+                <h2>Start Seeing Your Visitors in 3 Simple Steps</h2>
+                <p>No technical skills required. Get set up in under 15 minutes.</p>
+            </div>
+            
+            <div class="steps">
+                <article class="step">
+                    <div class="step-number">1</div>
+                    <h3>Quick Setup</h3>
+                    <p>Add a simple tracking code to your website. Takes less than 15 minutes—no developer needed.</p>
+                </article>
+                
+                <article class="step">
+                    <div class="step-number">2</div>
+                    <h3>We Identify Visitors</h3>
+                    <p>Our technology reveals the companies and people behind your anonymous website traffic.</p>
+                </article>
+                
+                <article class="step">
+                    <div class="step-number">3</div>
+                    <h3>You Close Deals</h3>
+                    <p>Get actionable leads delivered to you, complete with contact info and visit history.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Success Stories</span>
+                <h2>Trusted by Small Business Owners Like You</h2>
+                <p>See how other businesses are turning anonymous visitors into paying customers.</p>
+            </div>
+            
+            <div class="testimonials">
+                <article class="testimonial">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"We discovered that a Fortune 500 company had visited our site 12 times before we knew they existed. VisiFinder helped us close a $50,000 deal we would have completely missed."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <strong>Michael Johnson</strong>
+                            <span>CEO, TechStart Solutions</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"I used to wonder where my ad money was going. Now I know exactly who's clicking my ads and visiting my site. My cost per lead dropped by 40% in the first month."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <strong>Sarah Rodriguez</strong>
+                            <span>Owner, Rodriguez Marketing</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Setup took 10 minutes. Within a week, we had identified 47 companies that had visited our site. We've already converted 3 of them into clients."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DK</div>
+                        <div class="author-info">
+                            <strong>David Kim</strong>
+                            <span>Founder, Kim Consulting</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>SOC 2 Compliant</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit SSL Encryption</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-user-shield"></i>
+                    <span>GDPR Ready</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-star"></i>
+                    <span>4.8/5 Rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">FAQ</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about VisiFinder.</p>
+            </div>
+            
+            <div class="faq-grid">
+                <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" itemprop="name">
+                        How does VisiFinder identify website visitors?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">VisiFinder uses advanced IP-to-company matching technology combined with our proprietary database of business contacts. When someone visits your website, we match their digital footprint to identify the company and often the individual—all without requiring them to fill out a form.</p>
+                    </div>
+                </article>
+                
+                <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" itemprop="name">
+                        Is this compliant with privacy laws like GDPR?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Yes. VisiFinder operates primarily at the company level for B2B identification and uses only legally sourced, compliant data. Our practices align with GDPR, CCPA, and other privacy regulations. We'll walk you through all compliance details during your onboarding call.</p>
+                    </div>
+                </article>
+                
+                <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" itemprop="name">
+                        How long does setup take?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Most customers are up and running in under 15 minutes. Simply add a small JavaScript snippet to your website—similar to Google Analytics. No developer required. We provide step-by-step instructions and support if you need help.</p>
+                    </div>
+                </article>
+                
+                <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" itemprop="name">
+                        What does the free 7-day trial include?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">During your free trial, we'll identify every company that visits your website for 7 days. At the end, you'll receive a detailed reveal report showing who visited, what pages they viewed, and how to contact them. No credit card required. If you see value, we'll discuss next steps. If not, you keep the insights.</p>
+                    </div>
+                </article>
+                
+                <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" itemprop="name">
+                        Does this work for small businesses?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Absolutely. VisiFinder is built for small and medium businesses. Whether you're a local service provider, B2B company, or e-commerce store, if you're investing in driving traffic to your website, VisiFinder helps you see who's actually showing up—so you can turn more visitors into customers.</p>
+                    </div>
+                </article>
+                
+                <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" itemprop="name">
+                        What if I don't have a lot of website traffic?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">That's actually when VisiFinder is most valuable. When you have limited traffic, every visitor counts. Instead of wondering if your marketing is working, you'll know exactly who's visiting and can personally follow up with each qualified lead.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Schema for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does VisiFinder identify website visitors?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "VisiFinder uses advanced IP-to-company matching technology combined with our proprietary database of business contacts. When someone visits your website, we match their digital footprint to identify the company and often the individual—all without requiring them to fill out a form."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this compliant with privacy laws like GDPR?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. VisiFinder operates primarily at the company level for B2B identification and uses only legally sourced, compliant data. Our practices align with GDPR, CCPA, and other privacy regulations."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does setup take?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most customers are up and running in under 15 minutes. Simply add a small JavaScript snippet to your website—similar to Google Analytics. No developer required."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What does the free 7-day trial include?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "During your free trial, we'll identify every company that visits your website for 7 days. At the end, you'll receive a detailed reveal report showing who visited, what pages they viewed, and how to contact them. No credit card required."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does this work for small businesses?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. VisiFinder is built for small and medium businesses. Whether you're a local service provider, B2B company, or e-commerce store, if you're investing in driving traffic to your website, VisiFinder helps you see who's actually showing up."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if I don't have a lot of website traffic?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "That's actually when VisiFinder is most valuable. When you have limited traffic, every visitor counts. Instead of wondering if your marketing is working, you'll know exactly who's visiting and can personally follow up with each qualified lead."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="demo">
+        <div class="container">
+            <h2>Ready to See Who's Visiting Your Website?</h2>
+            <p>Join hundreds of small business owners who stopped guessing and started knowing. Get your free 7-day reveal—no credit card required.</p>
+            
+            <div class="cta-form">
+                <h3>Start Your Free Reveal</h3>
+                <form action="process-form.php" method="POST" id="leadFormBottom">
+                    <input type="hidden" name="csrf_token" id="csrf_token_bottom" value="">
+                    <div class="form-group">
+                        <label for="name2">Full Name *</label>
+                        <input type="text" id="name2" name="name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email2">Work Email *</label>
+                        <input type="email" id="email2" name="email" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone2">Phone Number *</label>
+                        <input type="tel" id="phone2" name="phone" placeholder="(555) 123-4567" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="website2">Website URL *</label>
+                        <input type="url" id="website2" name="website" placeholder="https://yourcompany.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-eye"></i>
+                        Get My Free Reveal
+                    </button>
+                </form>
+                <div class="form-trust">
+                    <span><i class="fas fa-lock"></i> SSL Secured</span>
+                    <span><i class="fas fa-shield-halved"></i> Privacy Protected</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon" style="width: 32px; height: 32px; font-size: 1rem;">V</div>
+                    VisiFinder
+                </div>
+                <div class="footer-contact">
+                    <a href="tel:+1XXXXXXXXXX">
+                        <i class="fas fa-phone"></i>
+                        (XXX) XXX-XXXX
+                    </a>
+                    <a href="mailto:hello@visifinder.com">
+                        <i class="fas fa-envelope"></i>
+                        hello@visifinder.com
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VisiFinder. All rights reserved. | <a href="/privacy" style="color: inherit;">Privacy Policy</a> | <a href="/terms" style="color: inherit;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Exit Intent Popup -->
+    <div class="popup-overlay" id="exitPopup">
+        <div class="popup">
+            <button class="popup-close" id="closePopup">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Wait! Don't Leave Empty-Handed</h3>
+            <p>Get a free report showing exactly who's been visiting your website this week.</p>
+            <form action="process-form.php" method="POST" id="popupForm">
+                <input type="hidden" name="csrf_token" id="csrf_token_popup" value="">
+                <input type="hidden" name="source" value="exit_popup">
+                <div class="form-group">
+                    <label for="popup_name">Full Name *</label>
+                    <input type="text" id="popup_name" name="name" placeholder="John Smith" required>
+                </div>
+                <div class="form-group">
+                    <label for="popup_email">Work Email *</label>
+                    <input type="email" id="popup_email" name="email" placeholder="john@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="popup_phone">Phone *</label>
+                    <input type="tel" id="popup_phone" name="phone" placeholder="(555) 123-4567" required>
+                </div>
+                <div class="form-group">
+                    <label for="popup_website">Website *</label>
+                    <input type="url" id="popup_website" name="website" placeholder="https://yourcompany.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large" style="width: 100%;">
+                    Get My Free Reveal
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Generate CSRF token
+        function generateCSRFToken() {
+            return 'csrf_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        }
+        
+        // Set CSRF tokens on all forms
+        const csrfToken = generateCSRFToken();
+        document.querySelectorAll('[id^="csrf_token"]').forEach(input => {
+            input.value = csrfToken;
+        });
+        sessionStorage.setItem('csrf_token', csrfToken);
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Exit Intent Popup
+        let popupShown = false;
+        
+        document.addEventListener('mouseout', (e) => {
+            if (e.clientY < 10 && !popupShown && !sessionStorage.getItem('popupDismissed')) {
+                document.getElementById('exitPopup').classList.add('active');
+                popupShown = true;
+            }
+        });
+        
+        document.getElementById('closePopup').addEventListener('click', () => {
+            document.getElementById('exitPopup').classList.remove('active');
+            sessionStorage.setItem('popupDismissed', 'true');
+        });
+        
+        document.getElementById('exitPopup').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('exitPopup')) {
+                document.getElementById('exitPopup').classList.remove('active');
+                sessionStorage.setItem('popupDismissed', 'true');
+            }
+        });
+        
+        // Form validation and submission
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const inputs = this.querySelectorAll('input[required]');
+                let valid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        valid = false;
+                        input.style.borderColor = '#DC2626';
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+                
+                if (!valid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields.');
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
