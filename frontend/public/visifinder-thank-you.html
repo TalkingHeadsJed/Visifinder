@@ -7,399 +7,36 @@
     <title>Thank You — Book Your Free VisiFinder Reveal Call</title>
     <meta name="description" content="Your request was received. Pick a 15-minute time on the calendar and we'll walk you through your free 7-day website visitor reveal.">
     
-    <!-- Favicon -->
+    <!-- Favicon, manifest, theme color -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231E3A5F' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23F97316' font-weight='bold'>V</text></svg>">
-    
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231E3A5F' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23F97316' font-weight='bold'>V</text></svg>">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#1E3A5F">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@600;700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    
-    <!-- 
-    ============================================
-    TRACKING PIXELS - ADD YOUR PIXELS BELOW
-    ============================================
-    
-    Facebook Pixel Example:
+
+    <!-- Lucide Icons (self-hosted, pinned) -->
+    <script src="assets/lucide.min.js" defer></script>
+
+    <!-- Google Analytics 4 — REPLACE G-XXXXXXXXXX -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_PIXEL_ID');
-    fbq('track', 'Lead');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+      // Fire conversion event when thank-you page is reached
+      gtag('event', 'conversion_lead', { send_to: 'G-XXXXXXXXXX' });
     </script>
-    
-    Google Ads Conversion Example:
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-XXXXXXXXX');
-    gtag('event', 'conversion', {'send_to': 'AW-XXXXXXXXX/XXXXXXXXX'});
-    </script>
-    
-    ============================================
+
+    <!--
+    Optional: add Facebook Pixel or Google Ads tags below when you have them.
     -->
-    
-    <style>
-        :root {
-            --navy: #1E3A5F;
-            --orange: #F97316;
-            --orange-hover: #EA580C;
-            --white: #FFFFFF;
-            --bg-secondary: #F9FAFB;
-            --text-main: #111827;
-            --text-muted: #4B5563;
-            --text-light: #6B7280;
-            --border: #E5E7EB;
-            --green: #10B981;
-            --green-light: #D1FAE5;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-main);
-            background: var(--bg-secondary);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3 {
-            font-family: 'Chivo', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        
-        /* Header */
-        header {
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 24px;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .logo-mark {
-            width: 40px;
-            height: 40px;
-            background: var(--navy);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Chivo', sans-serif;
-            font-weight: 900;
-            font-size: 1.25rem;
-            color: var(--orange);
-        }
-        
-        .logo-text {
-            font-family: 'Chivo', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--navy);
-        }
-        
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px;
-        }
-        
-        .thank-you-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--green-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-        }
-        
-        .success-icon i {
-            width: 40px;
-            height: 40px;
-            color: var(--green);
-        }
-        
-        .thank-you-header h1 {
-            font-size: 2rem;
-            margin-bottom: 12px;
-        }
-        
-        .thank-you-header p {
-            font-size: 1.125rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Video Explainer (sits between header and grid) */
-        .ty-video {
-            margin-bottom: 48px;
-        }
 
-        .ty-video-label {
-            display: block;
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--navy);
-            margin-bottom: 16px;
-        }
-
-        .ty-video-heading {
-            text-align: center;
-            font-size: 1.5rem;
-            color: var(--navy);
-            margin-bottom: 24px;
-        }
-
-        .ty-video-wrap {
-            position: relative;
-            max-width: 880px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
-            background: var(--navy);
-            box-shadow: 12px 12px 0 var(--navy);
-            overflow: hidden;
-        }
-
-        .ty-video-wrap iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        @media (max-width: 640px) {
-            .ty-video-wrap { box-shadow: 6px 6px 0 var(--navy); }
-            .ty-video-heading { font-size: 1.125rem; }
-        }
-
-        /* Two Column Layout */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 48px;
-            align-items: start;
-        }
-        
-        /* Left Column - Next Steps */
-        .next-steps-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            padding: 40px;
-        }
-        
-        .next-steps-card h2 {
-            font-size: 1.25rem;
-            margin-bottom: 24px;
-            color: var(--navy);
-        }
-        
-        .step-item {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .step-item:last-of-type {
-            margin-bottom: 0;
-        }
-        
-        .step-number {
-            width: 32px;
-            height: 32px;
-            background: var(--orange);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-weight: 600;
-            font-size: 0.875rem;
-            flex-shrink: 0;
-        }
-        
-        .step-content h3 {
-            font-size: 1rem;
-            margin-bottom: 4px;
-        }
-        
-        .step-content p {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-        
-        .contact-box {
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
-        }
-        
-        .contact-box h3 {
-            font-size: 1rem;
-            margin-bottom: 16px;
-        }
-        
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            transition: color 0.15s ease;
-        }
-        
-        .contact-link:last-child {
-            border-bottom: none;
-        }
-        
-        .contact-link:hover {
-            color: var(--navy);
-        }
-        
-        .contact-link i {
-            width: 20px;
-            height: 20px;
-            color: var(--orange);
-        }
-        
-        /* Right Column - Calendar */
-        .calendar-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            padding: 40px;
-        }
-        
-        .calendar-card h2 {
-            font-size: 1.25rem;
-            margin-bottom: 8px;
-            color: var(--navy);
-        }
-        
-        .calendar-card > p {
-            font-size: 0.938rem;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-        
-        .calendar-embed {
-            width: 100%;
-            height: 600px;
-            border: none;
-        }
-        
-        /* Phone Number Form (collect after initial submit) */
-        .phone-form {
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-        
-        .phone-form h3 {
-            font-size: 1rem;
-            margin-bottom: 12px;
-        }
-        
-        .phone-form-row {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .phone-form input {
-            flex: 1;
-            height: 48px;
-            padding: 0 16px;
-            font-size: 1rem;
-            font-family: 'IBM Plex Sans', sans-serif;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-        }
-        
-        .phone-form input:focus {
-            outline: none;
-            border-color: var(--navy);
-        }
-        
-        .phone-form button {
-            height: 48px;
-            padding: 0 24px;
-            background: var(--orange);
-            color: var(--white);
-            border: none;
-            font-family: 'IBM Plex Sans', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
-        }
-        
-        .phone-form button:hover {
-            background: var(--orange-hover);
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 48px 24px;
-            color: var(--text-light);
-            font-size: 0.875rem;
-        }
-        
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .thank-you-header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .phone-form-row {
-                flex-direction: column;
-            }
-            
-            .phone-form button {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/thank-you.css">
 </head>
 <body>
     <!-- Header -->
@@ -470,9 +107,9 @@
                         <i data-lucide="phone"></i>
                         (801) 748-2281
                     </a>
-                    <a href="mailto:sales@websitetalkingheads.com" class="contact-link">
+                    <a href="visifinder-contact.html" class="contact-link">
                         <i data-lucide="mail"></i>
-                        sales@websitetalkingheads.com
+                        sales@visifinder.com
                     </a>
                 </div>
                 

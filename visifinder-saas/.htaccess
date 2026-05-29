@@ -1,0 +1,52 @@
+# ==============================================
+# VisiFinder — Apache .htaccess
+# (For Pair Networks VPS / any LAMP host)
+# ==============================================
+
+# Force HTTPS (uncomment once SSL is live)
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ----- Security headers -----
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # CSP: keep in sync with _lib.php vf_send_security_headers()
+    Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https://vumbnail.com https://*.vimeocdn.com; script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; frame-src https://player.vimeo.com https://websitetalkingheads.bookafy.com; connect-src 'self' https://www.google-analytics.com"
+</IfModule>
+
+# ----- Block hidden / sensitive files -----
+<FilesMatch "^(config\.php|_lib\.php|\.htaccess|\.env|.*\.sql|.*\.md|render\.php\.bak)$">
+    Require all denied
+</FilesMatch>
+
+# render.php is allowed but only via rewrites below
+<Files "render.php">
+    Require all granted
+</Files>
+
+# ----- Pretty URLs that include fresh CSRF tokens -----
+RewriteEngine On
+RewriteRule ^$              render.php?page=index.html        [L]
+RewriteRule ^thank-you/?$   render.php?page=thank-you.html    [L]
+RewriteRule ^contact/?$     render.php?page=contact.html      [L]
+
+# ----- Caching for static assets -----
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css            "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/svg+xml       "access plus 1 year"
+    ExpiresByType image/png           "access plus 1 year"
+    ExpiresByType image/webp          "access plus 1 year"
+    ExpiresByType font/woff2          "access plus 1 year"
+</IfModule>
+
+# ----- Gzip compression -----
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>

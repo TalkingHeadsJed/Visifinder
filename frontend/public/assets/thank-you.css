@@ -1,0 +1,348 @@
+        :root {
+            --navy: #1E3A5F;
+            --orange: #F97316;
+            --orange-hover: #EA580C;
+            --white: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --green: #10B981;
+            --green-light: #D1FAE5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Chivo', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Chivo', sans-serif;
+            font-weight: 900;
+            font-size: 1.25rem;
+            color: var(--orange);
+        }
+        
+        .logo-text {
+            font-family: 'Chivo', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--navy);
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        
+        .thank-you-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        
+        .success-icon i {
+            width: 40px;
+            height: 40px;
+            color: var(--green);
+        }
+        
+        .thank-you-header h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        
+        .thank-you-header p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Video Explainer (sits between header and grid) */
+        .ty-video {
+            margin-bottom: 48px;
+        }
+
+        .ty-video-label {
+            display: block;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .ty-video-heading {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .ty-video-wrap {
+            position: relative;
+            max-width: 880px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            background: var(--navy);
+            box-shadow: 12px 12px 0 var(--navy);
+            overflow: hidden;
+        }
+
+        .ty-video-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 640px) {
+            .ty-video-wrap { box-shadow: 6px 6px 0 var(--navy); }
+            .ty-video-heading { font-size: 1.125rem; }
+        }
+
+        /* Two Column Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 48px;
+            align-items: start;
+        }
+        
+        /* Left Column - Next Steps */
+        .next-steps-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 40px;
+        }
+        
+        .next-steps-card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+            color: var(--navy);
+        }
+        
+        .step-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .step-item:last-of-type {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .step-content p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        .contact-box {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .contact-box h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.15s ease;
+        }
+        
+        .contact-link:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-link:hover {
+            color: var(--navy);
+        }
+        
+        .contact-link i {
+            width: 20px;
+            height: 20px;
+            color: var(--orange);
+        }
+        
+        /* Right Column - Calendar */
+        .calendar-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 40px;
+        }
+        
+        .calendar-card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+        
+        .calendar-card > p {
+            font-size: 0.938rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        
+        .calendar-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        
+        /* Phone Number Form (collect after initial submit) */
+        .phone-form {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .phone-form h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        
+        .phone-form-row {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .phone-form input {
+            flex: 1;
+            height: 48px;
+            padding: 0 16px;
+            font-size: 1rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+        
+        .phone-form input:focus {
+            outline: none;
+            border-color: var(--navy);
+        }
+        
+        .phone-form button {
+            height: 48px;
+            padding: 0 24px;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+        
+        .phone-form button:hover {
+            background: var(--orange-hover);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .thank-you-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .phone-form-row {
+                flex-direction: column;
+            }
+            
+            .phone-form button {
+                width: 100%;
+            }
+        }

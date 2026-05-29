@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Contact VisiFinder — Get in Touch</title>
+    <meta name="description" content="Send a message to the VisiFinder team. We typically respond within one business day. Or call us at (801) 748-2281.">
+    <link rel="canonical" href="https://websitetalkingheads.com/contact">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231E3A5F' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23F97316' font-weight='bold'>V</text></svg>">
+    <meta name="theme-color" content="#1E3A5F">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@600;700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/contact.css">
+    <script src="assets/lucide.min.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo"><div class="logo-mark">V</div><span class="logo-text">VisiFinder</span></a>
+            <div class="header-right">
+                <a href="tel:+18017482281" class="header-phone"><i data-lucide="phone"></i> (801) 748-2281</a>
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-wrap">
+        <div class="container">
+            <h1>Get in touch</h1>
+            <p class="contact-lead">Have a question about VisiFinder, the free 7-day POC, or how the Challenge works? Send us a quick note — we typically reply within one business day. Or pick up the phone: <a href="tel:+18017482281"><strong>(801) 748-2281</strong></a>.</p>
+
+            <div id="success-banner" class="contact-success" data-testid="contact-success" hidden>
+                <i data-lucide="check-circle"></i>
+                <div>
+                    <strong>Message sent.</strong>
+                    <span>We'll be in touch within one business day.</span>
+                </div>
+            </div>
+
+            <form action="process-contact.php" method="POST" class="contact-form" data-testid="contact-form">
+                <input type="hidden" name="csrf_token" value="">
+                <input type="text" name="hp_field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" aria-hidden="true">
+
+                <div class="form-group">
+                    <label for="c_name">Your name</label>
+                    <input type="text" id="c_name" name="name" placeholder="Jane Smith" required minlength="2" maxlength="120" data-testid="contact-name">
+                </div>
+                <div class="form-group">
+                    <label for="c_email">Work email</label>
+                    <input type="email" id="c_email" name="email" placeholder="you@company.com" required data-testid="contact-email">
+                </div>
+                <div class="form-group">
+                    <label for="c_message">How can we help?</label>
+                    <textarea id="c_message" name="message" rows="6" placeholder="Tell us a little about your business and what you'd like to know..." required minlength="5" maxlength="4000" data-testid="contact-message"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large" data-testid="contact-submit">
+                    <i data-lucide="send"></i>
+                    Send Message
+                </button>
+                <p class="form-micro-copy">We reply within one business day. Your data stays private.</p>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/#how-it-works">How It Works</a>
+                <a href="/#faq">FAQ</a>
+                <a href="tel:+18017482281">(801) 748-2281</a>
+            </div>
+            <p class="footer-copyright">&copy; 2026 VisiFinder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Show success banner if redirected back with ?sent=1
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('sent') === '1') {
+                var b = document.getElementById('success-banner');
+                if (b) b.hidden = false;
+            }
+        })();
+    </script>
+</body>
+</html>

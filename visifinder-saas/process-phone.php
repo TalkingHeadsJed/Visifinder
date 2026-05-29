@@ -1,64 +1,52 @@
 <?php
 /**
- * VisiFinder Phone Number Collector
- *
- * Used on the thank-you page to append a phone number to the most
- * recent lead from this IP (or to the lead ID passed in `lid`).
- * Always redirects back to the thank-you page on success/failure.
+ * VisiFinder Phone Capture (V2)
+ * - Real CSRF, rate-limited, security headers
  */
+declare(strict_types=1);
 
-$config = [
-    'db_host'            => 'localhost',
-    'db_name'            => 'visifinder',
-    'db_user'            => 'YOUR_DB_USER',
-    'db_pass'            => 'YOUR_DB_PASSWORD',
-    'notification_email' => 'sales@websitetalkingheads.com',
-    'from_email'         => 'noreply@websitetalkingheads.com',
-    'thank_you_page'     => 'thank-you.html',
-];
+$cfg = require __DIR__ . '/config.php';
+require __DIR__ . '/_lib.php';
+
+vf_send_security_headers();
+vf_force_https($cfg);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ' . $config['thank_you_page']);
+    header('Location: ' . $cfg['thank_you_page']);
     exit;
 }
 
-function getClientIP() {
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
-    } else {
-        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
-    }
-    return filter_var($ip, FILTER_VALIDATE_IP) ?: 'unknown';
+if (!vf_csrf_check($_POST['csrf_token'] ?? null)) {
+    header('Location: ' . $cfg['thank_you_page'] . '?phone=invalid');
+    exit;
 }
 
-$phoneRaw = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-$lid      = isset($_POST['lid']) ? (int)$_POST['lid'] : 0;
-$ip       = getClientIP();
+$phoneRaw = (string)($_POST['phone'] ?? '');
+$lid      = (int)($_POST['lid'] ?? 0);
+$ip       = vf_client_ip();
 
-// Strip everything except digits and leading +
 $phoneDigits = preg_replace('/[^0-9+]/', '', $phoneRaw);
 if (strlen($phoneDigits) < 10 || strlen($phoneDigits) > 15) {
-    header('Location: ' . $config['thank_you_page'] . '?phone=invalid');
+    header('Location: ' . $cfg['thank_you_page'] . '?phone=invalid');
     exit;
 }
 
 try {
-    $pdo = new PDO(
-        "mysql:host={$config['db_host']};dbname={$config['db_name']};charset=utf8mb4",
-        $config['db_user'],
-        $config['db_pass'],
-        [
-            PDO::ATTR_ERRMODE          => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ]
-    );
+    $pdo = vf_db($cfg);
+} catch (PDOException $e) {
+    error_log('[VisiFinder] Phone DB connect failed: ' . $e->getMessage());
+    header('Location: ' . $cfg['thank_you_page'] . '?phone=invalid');
+    exit;
+}
 
+// Rate-limit phone updates the same way
+vf_rate_limit_or_die($pdo, $ip, 10, 10);
+
+try {
     if ($lid > 0) {
         $stmt = $pdo->prepare("UPDATE leads SET phone = ? WHERE id = ? LIMIT 1");
         $stmt->execute([$phoneDigits, $lid]);
-        $updated = $stmt->rowCount();
     } else {
-        // Fallback: update the most recent lead from this IP
         $stmt = $pdo->prepare("
             UPDATE leads
             SET phone = ?
@@ -67,27 +55,26 @@ try {
             LIMIT 1
         ");
         $stmt->execute([$phoneDigits, $ip]);
-        $updated = $stmt->rowCount();
     }
-
-    // Notify sales of the new phone number
-    if ($updated > 0) {
-        $subject = 'VisiFinder Lead — Phone Added';
-        $body    = "A lead added a phone number on the thank-you page\n"
-                 . "-------------------------------------------------\n"
-                 . "Lead ID : " . ($lid ?: 'most recent for IP') . "\n"
-                 . "Phone   : {$phoneDigits}\n"
-                 . "IP      : {$ip}\n"
-                 . "Time    : " . date('Y-m-d H:i:s') . "\n";
-        $headers = implode("\r\n", [
-            'From: ' . $config['from_email'],
-            'Content-Type: text/plain; charset=UTF-8',
-        ]);
-        @mail($config['notification_email'], $subject, $body, $headers);
-    }
+    $updated = $stmt->rowCount();
 } catch (PDOException $e) {
-    error_log('Phone update failed: ' . $e->getMessage());
+    error_log('[VisiFinder] Phone update failed: ' . $e->getMessage());
+    $updated = 0;
 }
 
-header('Location: ' . $config['thank_you_page'] . '?phone=saved');
+if ($updated > 0) {
+    vf_mail(
+        $cfg,
+        $cfg['notification_email'],
+        'VisiFinder Lead — Phone Added',
+        "Phone added by lead\n"
+      . "-------------------\n"
+      . "Lead ID : " . ($lid ?: 'latest-for-IP') . "\n"
+      . "Phone   : {$phoneDigits}\n"
+      . "IP      : {$ip}\n"
+      . "Time    : " . date('Y-m-d H:i:s') . "\n"
+    );
+}
+
+header('Location: ' . $cfg['thank_you_page'] . '?phone=saved');
 exit;

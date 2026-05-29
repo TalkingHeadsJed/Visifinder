@@ -1,133 +1,142 @@
 # VisiFinder — Setup Guide
 
-5 files. About 10 minutes. That's the whole setup.
+7 files (+ assets folder). About 10 minutes. That's the whole setup.
 
 ---
 
 ## What you're uploading
 
-| File | What it does |
-|---|---|
-| `index.html` | The landing page |
-| `thank-you.html` | The page people see after they sign up |
-| `process-form.php` | Saves the lead and emails you |
-| `process-phone.php` | Saves a phone number from the thank-you page |
-| `database.sql` | Builds the table that stores your leads |
+```
+visifinder/
+├── index.html            ← Landing page
+├── thank-you.html        ← Post-submit page (calendar + video)
+├── contact.html          ← Contact form page
+├── process-form.php      ← Saves the lead and emails you
+├── process-phone.php     ← Saves a phone number from thank-you
+├── process-contact.php   ← Handles contact-page submissions
+├── render.php            ← Injects fresh CSRF tokens into served pages
+├── config.php            ← Your database creds + email settings
+├── _lib.php              ← Shared helpers (security headers, CSRF, etc.)
+├── database.sql          ← Builds the leads table
+├── site.webmanifest      ← Mobile/PWA metadata
+├── .htaccess             ← Apache config (HTTPS, security headers, pretty URLs)
+└── assets/
+    ├── styles.css        ← Site styles (cached, ~30 KB)
+    ├── thank-you.css     ← Thank-you-page styles
+    ├── contact.css       ← Contact-page styles
+    ├── app.js            ← Front-end behavior (FAQ, video, popup)
+    └── lucide.min.js     ← Self-hosted icons (no external CDN)
+```
 
 ---
 
 ## Step 1 — Create the database
 
 1. Log into Pair Networks → **Databases** → **MySQL**.
-2. Create a new database. Suggested name: `visifinder`.
-3. Create a database user and give them access to that database. **Write down the username and password** — you'll need them in Step 3.
-4. Open phpMyAdmin → click the new database → click the **SQL** tab.
-5. Open `database.sql` in any text editor, copy everything, paste it into phpMyAdmin, click **Go**.
-
-That's it. The `leads` table is ready.
+2. Create a database called `visifinder`. Create a user, give them access. Write down the username/password.
+3. Open phpMyAdmin → SQL tab → paste in `database.sql` → click Go.
 
 ---
 
 ## Step 2 — Upload the files
 
-Upload these 4 files to the root of your website (usually a folder called `public_html`):
+Drop everything into your web root (usually `public_html/` or `/var/www/html`).
 
-- `index.html`
-- `thank-you.html`
-- `process-form.php`
-- `process-phone.php`
-
-You can drop `database.sql` in too — it doesn't have to be there, but it's nice to keep next to the others.
+**Important on a VPS:** for extra hardening, move `config.php` and `_lib.php` ONE folder above the web root (e.g. `/var/www/visifinder-config/`) and update the `require __DIR__ . '/config.php';` lines at the top of the 3 processor PHP files to point there.
 
 ---
 
-## Step 3 — Plug in your database credentials
+## Step 3 — Edit `config.php`
 
-You only need to edit **two** files. Open them in any text editor.
-
-### `process-form.php`
-
-Find this near the top:
+Open `config.php` and update **just three things**:
 
 ```php
-'db_user'  => 'YOUR_DB_USER',
-'db_pass'  => 'YOUR_DB_PASSWORD',
+'db_user' => 'YOUR_DB_USER',          // ← your DB username
+'db_pass' => 'YOUR_DB_PASSWORD',      // ← your DB password
+'notification_email' => 'sales@visifinder.com',  // ← already correct
 ```
 
-Replace `YOUR_DB_USER` and `YOUR_DB_PASSWORD` with the database username and password you wrote down in Step 1.
-
-### `process-phone.php`
-
-Same thing. Find the same two lines, paste in the same credentials.
-
-**Save both files. Re-upload them.** Done.
+Save. That's it for credentials.
 
 ---
 
-## Step 4 — Test it
+## Step 4 — Set file permissions (VPS only)
+
+```bash
+chown -R www-data:www-data /var/www/html
+chmod 644 *.html *.css *.js *.sql
+chmod 600 config.php             # Only the web server can read DB creds
+chmod 644 *.php
+```
+
+---
+
+## Step 5 — Test
 
 1. Visit your site.
-2. Fill in the form with your real email and a real website (e.g. your own).
+2. Submit the form with your real email + your real website.
 3. You should:
-   - Land on the thank-you page with the calendar.
-   - Receive an email at **sales@websitetalkingheads.com** within a minute.
-   - See the new lead in phpMyAdmin under the `leads` table.
-
-If all three happened, you're live.
+   - Land on `thank-you.html?lid=N`
+   - Receive an email at **sales@visifinder.com** within a minute
+   - See the new row in `leads` table
 
 ---
 
-## Step 5 (optional) — Force HTTPS
+## Step 6 — Force HTTPS (after SSL is installed)
 
-Once Pair Networks has your SSL certificate installed, open `process-form.php` and find this block near the top:
+Open `.htaccess` and uncomment the 3 RewriteRule lines at the top:
 
-```php
-// if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
-//     header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-//     exit;
-// }
+```apache
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 ```
 
-Delete the `//` from the start of those 4 lines. Save. Re-upload. Now every form submission is forced to HTTPS.
+That forces every visitor to HTTPS. The PHP scripts already do this in code too (controlled by `enforce_https` in `config.php`).
 
 ---
 
 ## What's already built in
 
-You don't need to do anything for these — they're already working:
-
-- Live visitor counter at the top
-- Click-to-call phone number in the header
-- Exit-intent popup when someone tries to leave
+- 90-second Vimeo explainer with **facade lazy-load** (page loads fast, video only loads on click)
+- Live "How many buyers did you lose today?" banner
+- Click-to-call phone in header and CTAs
+- Exit-intent popup offers a **free PDF Audit Checklist** (lead magnet)
 - Sticky "Get Free Reveal" bar on mobile
-- Spam blocker (honeypot)
-- Rate limit: 5 submissions per hour per IP, 30-second cooldown
-- Bookafy calendar on the thank-you page
-- Emails go to **sales@websitetalkingheads.com**
+- "The VisiFinder Challenge" section (free 7-day POC head-to-head with current tool)
+- About / Founder Story section
+- FAQ with "Talk to a real human" anchor
+- Contact page with full form (no scraped `mailto:`)
+- Anti-spam: honeypot + per-IP rate limit (5/hr, 30s cooldown)
+- Real session-backed CSRF tokens
+- Email validation incl. MX-record check + disposable-domain blocklist
+- Strict URL validation (rejects gibberish)
+- Self-hosted Lucide icons (no third-party CDN risk)
+- HTTP security headers: HSTS, CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy
+- `<meta name="theme-color">` + manifest for mobile browser chrome
+- Google Analytics 4 stub (replace `G-XXXXXXXXXX` in `index.html` and `thank-you.html`)
+- Schema.org: SoftwareApplication, Organization, VideoObject (with transcript), FAQPage
 
 ---
 
-## Adding tracking later (when you're ready)
+## When you have your tracking IDs
 
-When you have the IDs, open `thank-you.html` and look for the comment block near the top. Paste your snippets there:
+**GA4** — Replace `G-XXXXXXXXXX` with your real measurement ID (appears twice in `index.html`, twice in `thank-you.html`).
 
-- Facebook Pixel
-- Google Ads conversion tag
-- Google Analytics (GA4)
-
-For reCAPTCHA on the form, send me your **site key** and **secret key** and I'll wire it in.
+**Facebook Pixel / Google Ads conversion tags** — Paste your snippets into `thank-you.html` just before `</head>` (look for the comment placeholder).
 
 ---
 
-## Quick fixes if something breaks
+## Quick fixes
 
-| Problem | What to check |
+| Problem | Check |
 |---|---|
-| Page submits but shows an error | Database credentials in `process-form.php` are wrong, OR you didn't run `database.sql` |
-| No email arrives | Pair Networks may need to authorize `noreply@websitetalkingheads.com` as a sender. Or change `from_email` in `process-form.php` to a real address you control. |
-| Calendar is blank on thank-you page | Make sure your Bookafy page (`https://websitetalkingheads.bookafy.com`) is published. |
-| Form submits but no redirect | Make sure `thank-you.html` is in the same folder as `process-form.php` |
+| 500 error on submit | `config.php` credentials or `database.sql` not imported |
+| No email arrives | The `from_email` must match a real address on your domain (SPF/DKIM/DMARC) |
+| Calendar blank | Verify `https://websitetalkingheads.bookafy.com` is published |
+| Video doesn't play | CSP in `.htaccess` may need adjusting; check browser console |
+| Forms say "Invalid session" | `render.php` must be the one serving the HTML; check `.htaccess` rewrites |
 
 ---
 
-That's everything. Questions? Reply to the email and we'll fix it together.
+&copy; 2026 VisiFinder.
