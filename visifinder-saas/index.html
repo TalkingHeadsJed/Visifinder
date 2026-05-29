@@ -654,31 +654,33 @@
         </a>
     </div>
 
-    <!-- Exit Intent Popup — Lead Magnet (PDF) -->
+    <!-- Exit Intent Popup — Free 7-Day POC Challenge -->
     <div class="popup-overlay" id="exitPopup" role="dialog" aria-labelledby="popup-title" aria-modal="true">
         <div class="popup">
             <button class="popup-close" id="closePopup" data-testid="popup-close" aria-label="Close">
                 <i data-lucide="x"></i>
             </button>
-            <span class="popup-badge"><i data-lucide="file-text" aria-hidden="true"></i> Free Resource</span>
-            <h3 id="popup-title">Get the 97% Traffic Leak Audit Checklist</h3>
-            <p>The 5-minute self-audit small business owners use to find out exactly how much pipeline they're losing to anonymous traffic — and how to plug the leak. PDF, no sales call required.</p>
+            <span class="popup-badge"><i data-lucide="swords" aria-hidden="true"></i> The VisiFinder Challenge</span>
+            <h3 id="popup-title">Don't believe us? Try it for real.</h3>
+            <p>Run a <strong>7-day proof of concept</strong> on your real traffic — at <strong>zero cost</strong>. Compare our identification rate and contact accuracy against whatever you're using today. If we don't win, you walk away with free competitive data. If we do, you've found a better source of leads. Either way, you reap the benefits.</p>
             <form action="process-form.php" method="POST" id="popupForm" data-testid="popup-form">
                 <input type="hidden" name="csrf_token" value="">
-                <input type="hidden" name="source" value="exit_popup">
+                <input type="hidden" name="source" value="exit_popup_poc">
                 <input type="text" name="hp_field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" aria-hidden="true">
                 <div class="form-group">
                     <label for="popup_email">Work Email</label>
                     <input type="email" id="popup_email" name="email" placeholder="you@company.com" required>
                 </div>
-                <!-- We still need a website for our records; defaults silently to N/A if user skips -->
-                <input type="hidden" name="website" value="https://pdf-download.visifinder.com">
+                <div class="form-group">
+                    <label for="popup_website">Your Website</label>
+                    <input type="url" id="popup_website" name="website" placeholder="https://yourcompany.com" required>
+                </div>
                 <button type="submit" class="btn btn-primary btn-large" style="width: 100%;" data-testid="popup-submit">
-                    <i data-lucide="download" aria-hidden="true"></i>
-                    Send Me the Free Checklist
+                    <i data-lucide="swords" aria-hidden="true"></i>
+                    Start My Free 7-Day POC
                 </button>
             </form>
-            <p class="form-micro-copy" style="margin-top: 12px;">Delivered instantly. No spam. Unsubscribe anytime.</p>
+            <p class="form-micro-copy" style="margin-top: 12px;">No invoice. No contract. No catch. Cancel anytime.</p>
         </div>
     </div>
 
