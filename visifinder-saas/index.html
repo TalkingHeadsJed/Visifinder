@@ -588,10 +588,14 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-photo" data-testid="about-photo">
-                    <div class="about-photo-placeholder">
-                        <i data-lucide="user-circle-2" aria-hidden="true"></i>
-                        <span>Founder photo coming soon</span>
-                    </div>
+                    <picture>
+                        <source srcset="assets/jed-founder.webp" type="image/webp">
+                        <img src="assets/jed-founder.jpg"
+                             alt="Jed, Founder of VisiFinder"
+                             class="about-photo-img"
+                             width="320" height="320"
+                             loading="lazy">
+                    </picture>
                 </div>
                 <div class="about-content">
                     <span class="section-label">Why VisiFinder Exists</span>
