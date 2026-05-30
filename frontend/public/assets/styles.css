@@ -1224,3 +1224,85 @@
     transition: transform 0.25s ease;
 }
 .about-photo-img:hover { transform: translate(-4px, -4px); box-shadow: 16px 16px 0 var(--orange); }
+
+/* ============================================
+   CREDIBILITY STRIP — replaces client logos
+   ============================================ */
+.credibility {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+.credibility-eyebrow {
+    display: block;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--orange);
+    margin-bottom: 16px;
+}
+.credibility h2 {
+    font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+    max-width: 900px;
+    margin: 0 0 48px 0;
+    color: var(--text-main);
+}
+.credibility h2 em {
+    font-style: normal;
+    color: var(--navy);
+    background: linear-gradient(transparent 65%, rgba(249, 115, 22, 0.25) 65%);
+    padding: 0 4px;
+}
+.credibility-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+.credibility-card {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--navy);
+    padding: 28px 24px;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.credibility-card:hover {
+    transform: translateY(-3px);
+    border-left-color: var(--orange);
+}
+.credibility-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: background-color 0.18s ease;
+}
+.credibility-card:hover .credibility-icon {
+    background: var(--orange);
+}
+.credibility-icon i { width: 24px; height: 24px; }
+.credibility-card h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+.credibility-card p {
+    font-size: 0.938rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.55;
+}
+.credibility-card em {
+    color: var(--text-light);
+    font-style: italic;
+}
+@media (max-width: 1024px) {
+    .credibility-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .credibility-grid { grid-template-columns: 1fr; }
+}
