@@ -1,0 +1,237 @@
+:root {
+    --gold: #EAA73F;
+    --gold-dark: #d4922e;
+    --blue: #589DFD;
+    --dark: #0a0a0a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    background: #f9fafb;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Header */
+.header {
+    background: white;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--dark);
+}
+
+.logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.logo .visi {
+    color: var(--gold);
+}
+
+.logo .finder {
+    color: var(--dark);
+}
+
+/* Main Content */
+.main-content {
+    padding: 60px 0;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 48px;
+    align-items: start;
+}
+
+@media (max-width: 992px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Left Side - Info */
+.info-section {
+    padding: 32px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(234,167,63,0.1) 0%, rgba(234,167,63,0.05) 100%);
+    border: 1px solid rgba(234,167,63,0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: var(--gold-dark);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.info-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.info-title .highlight {
+    color: var(--gold);
+}
+
+.info-subtitle {
+    color: #6b7280;
+    margin-bottom: 24px;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    color: #374151;
+}
+
+.benefits-list li i {
+    color: var(--blue);
+    font-size: 1rem;
+}
+
+.expect-box {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.expect-box h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.expect-box h2 i {
+    color: var(--gold);
+}
+
+.expect-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expect-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.expect-list li i {
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+/* Right Side - Calendar */
+.calendar-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.calendar-header {
+    background: linear-gradient(135deg, var(--blue) 0%, #4a8de8 100%);
+    color: white;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.calendar-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.calendar-embed {
+    padding: 0;
+}
+
+.calendar-embed iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+}
+
+/* Footer */
+.footer {
+    background: var(--dark);
+    padding: 32px 0;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.footer-logo .visi {
+    color: var(--gold);
+}
+
+.footer-logo .finder {
+    color: white;
+}
+
+.footer p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+}

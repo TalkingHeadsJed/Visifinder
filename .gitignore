@@ -86,3 +86,4 @@ android-sdk/ -e
 credentials.json
 *.key
 .credentials
+visifinder-saas/config.php

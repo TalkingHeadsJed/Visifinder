@@ -1,0 +1,339 @@
+/* VSL / index page sections */
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(180deg, #e8f4fc 0%, #ffffff 100%);
+    padding: 80px 0 60px;
+    position: relative;
+}
+
+.badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.headline {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.headline .gold {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.headline .red {
+    color: var(--red);
+    font-style: italic;
+}
+
+.subtext {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 700px;
+    margin: 0 auto 32px;
+}
+
+.subtext .highlight {
+    color: var(--blue);
+    font-weight: 600;
+}
+
+.subtext.highlight {
+    font-weight: 600;
+    color: var(--blue);
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(234, 167, 63, 0.4);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(234, 167, 63, 0.5);
+    color: white;
+}
+
+/* Video Section */
+.video-section {
+    padding: 60px 0;
+    background: white;
+}
+
+.video-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 0 4px var(--gold), 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+}
+
+/* See the Difference Section */
+.difference-section {
+    padding: 60px 0;
+    background: #f9fafb;
+}
+
+.difference-image {
+    max-width: 700px;
+    margin: 0 auto 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.difference-image img {
+    width: 100%;
+    height: auto;
+}
+
+.comparison-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.comparison-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.comparison-card.without {
+    border-left: 4px solid var(--red);
+}
+
+.comparison-card.with {
+    border-left: 4px solid var(--blue);
+}
+
+.comparison-card .label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.comparison-card.without .label {
+    color: var(--red);
+}
+
+.comparison-card.with .label {
+    color: var(--blue);
+}
+
+.comparison-card .title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.comparison-card .desc {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.difference-tagline {
+    color: #6b7280;
+    font-size: 1.125rem;
+}
+
+.difference-tagline .highlight {
+    color: var(--blue);
+}
+
+.brand-visi {
+    color: var(--gold);
+}
+
+/* Stats Section */
+.stats-section {
+    background: var(--dark);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.big-stat {
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 16px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.stat-text {
+    font-size: 1.5rem;
+    color: white;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Features Section */
+.features-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.125rem;
+    margin-bottom: 48px;
+}
+
+.feature-card {
+    background: white;
+    padding: 32px 24px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+}
+
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--blue) 0%, #4a8de8 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: white;
+    font-size: 24px;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* How It Works */
+.how-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.step-card {
+    text-align: center;
+    padding: 24px;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+    background: var(--gold);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 auto 16px;
+}
+
+.step-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.step-card p {
+    color: #6b7280;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.cta-section p {
+    color: #9ca3af;
+    font-size: 1.125rem;
+    margin-bottom: 32px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .headline {
+        font-size: 2.25rem;
+    }
+
+    .big-stat {
+        font-size: 5rem;
+    }
+
+    .comparison-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}

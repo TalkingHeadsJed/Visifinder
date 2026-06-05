@@ -1,0 +1,48 @@
+/* Footer component */
+
+.footer {
+    background: var(--dark);
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid #333;
+}
+
+.footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.footer-logo .visi {
+    color: var(--gold);
+}
+
+.footer-logo .finder {
+    color: white;
+}
+
+.footer p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.trust-badge i {
+    color: var(--blue);
+}

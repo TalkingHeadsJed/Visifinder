@@ -1,0 +1,31 @@
+<?php
+/**
+ * VisiFinder — Central Config (TEMPLATE)
+ * Copy to config.php on the server and fill in real values. Do NOT commit config.php.
+ * Pair Networks: MySQL is remote (vdb6.pit.pair.com); DBs/users are named working_*.
+ * Provision the DB+user in the Pair panel (the DB user has no CREATE DATABASE priv).
+ * The app should use the least-privilege read/write user (working_NN_w).
+ */
+return [
+    'db_host' => 'vdb6.pit.pair.com',
+    'db_name' => 'working_REPLACE_ME',
+    'db_user' => 'working_REPLACE_ME_w',
+    'db_pass' => 'REPLACE_ME',
+
+    'notification_email' => 'sales@visifinder.com',
+    'from_email'         => 'noreply@visifinder.com',
+    'from_name'          => 'VisiFinder',
+
+    'thank_you_page' => 'thank-you.html',
+    'contact_page'   => 'contact.html',
+
+    'enforce_https'           => true,
+    'rate_limit_seconds'      => 30,
+    'max_submissions_per_hour'=> 5,
+
+    'blocked_email_domains' => [
+        'mailinator.com', 'tempmail.com', 'guerrillamail.com', '10minutemail.com',
+        'throwaway.email', 'trashmail.com', 'yopmail.com', 'fakeinbox.com',
+        'sharklasers.com', 'getairmail.com', 'maildrop.cc', 'dispostable.com',
+    ],
+];

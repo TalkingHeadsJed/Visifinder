@@ -1,0 +1,5 @@
+# https://visifinder.com/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://visifinder.com/sitemap.xml

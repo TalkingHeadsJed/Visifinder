@@ -49,32 +49,32 @@ if ($website === false) {
     exit('Please enter a valid website URL (e.g. https://yourcompany.com).');
 }
 
-// DB
+// DB (optional) — degrade to email-only if the database is unavailable
+$pdo = null;
 try {
     $pdo = vf_db($cfg);
 } catch (PDOException $e) {
-    error_log('[VisiFinder] DB connect failed: ' . $e->getMessage());
-    http_response_code(500);
-    exit('Service temporarily unavailable. Please try again shortly.');
+    error_log('[VisiFinder] DB connect failed — email-only fallback: ' . $e->getMessage());
 }
 
-vf_rate_limit_or_die($pdo, $ip, $cfg['rate_limit_seconds'], $cfg['max_submissions_per_hour']);
-
-// Insert
-try {
-    $stmt = $pdo->prepare("
-        INSERT INTO leads (email, website, source, ip_address, user_agent, created_at)
-        VALUES (?, ?, ?, ?, ?, NOW())
-    ");
-    $stmt->execute([$emailRaw, $website, $source, $ip, $ua]);
-    $leadId = (int)$pdo->lastInsertId();
-} catch (PDOException $e) {
-    error_log('[VisiFinder] DB insert failed: ' . $e->getMessage());
-    http_response_code(500);
-    exit('Failed to save your information. Please try again.');
+$leadId     = 0;
+$storedInDb = false;
+if ($pdo !== null) {
+    vf_rate_limit_or_die($pdo, $ip, $cfg['rate_limit_seconds'], $cfg['max_submissions_per_hour']);
+    try {
+        $stmt = $pdo->prepare("
+            INSERT INTO leads (email, website, source, ip_address, user_agent, created_at)
+            VALUES (?, ?, ?, ?, ?, NOW())
+        ");
+        $stmt->execute([$emailRaw, $website, $source, $ip, $ua]);
+        $leadId     = (int)$pdo->lastInsertId();
+        $storedInDb = true;
+    } catch (PDOException $e) {
+        error_log('[VisiFinder] DB insert failed — email-only fallback: ' . $e->getMessage());
+    }
 }
 
-// Notify sales
+// Notify sales — ALWAYS. This is the safety net so a lead is never silently lost.
 $subject = "New VisiFinder Lead: {$emailRaw}";
 $body    = "New lead from VisiFinder\n"
          . "--------------------------\n"
@@ -82,10 +82,17 @@ $body    = "New lead from VisiFinder\n"
          . "Website : {$website}\n"
          . "Source  : {$source}\n"
          . "IP      : {$ip}\n"
-         . "Lead ID : {$leadId}\n"
+         . "Lead ID : " . ($storedInDb ? (string)$leadId : 'NOT STORED (DB unavailable — email-only)') . "\n"
          . "Time    : " . date('Y-m-d H:i:s') . "\n";
 
-vf_mail($cfg, $cfg['notification_email'], $subject, $body, $emailRaw);
+$mailed = vf_mail($cfg, $cfg['notification_email'], $subject, $body, $emailRaw);
+
+// Only error if BOTH persistence paths failed, so a lead is never dropped without a trace.
+if (!$storedInDb && !$mailed) {
+    error_log('[VisiFinder] CRITICAL: lead neither stored nor emailed — ' . $emailRaw);
+    http_response_code(500);
+    exit('Service temporarily unavailable. Please try again shortly.');
+}
 
 header('Location: ' . $cfg['thank_you_page'] . '?lid=' . urlencode((string)$leadId));
 exit;

@@ -26,7 +26,7 @@ if (!vf_csrf_check($_POST['csrf_token'] ?? null)) {
     exit('Invalid session. Please reload and try again.');
 }
 
-$name    = htmlspecialchars(substr(trim((string)($_POST['name']    ?? '')), 0, 120), ENT_QUOTES, 'UTF-8');
+$name    = preg_replace('/[\r\n]+/', ' ', htmlspecialchars(substr(trim((string)($_POST['name']    ?? '')), 0, 120), ENT_QUOTES, 'UTF-8'));
 $email   = trim((string)($_POST['email']   ?? ''));
 $message = htmlspecialchars(substr(trim((string)($_POST['message'] ?? '')), 0, 4000), ENT_QUOTES, 'UTF-8');
 $ip      = vf_client_ip();

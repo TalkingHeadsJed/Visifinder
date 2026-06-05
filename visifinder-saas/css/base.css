@@ -1,0 +1,25 @@
+/* Base: variables, reset, typography */
+
+:root {
+    --gold: #EAA73F;
+    --gold-dark: #d4922e;
+    --blue: #589DFD;
+    --dark: #0a0a0a;
+    --red: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+}

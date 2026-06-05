@@ -31,38 +31,39 @@ if (strlen($phoneDigits) < 10 || strlen($phoneDigits) > 15) {
     exit;
 }
 
+$pdo = null;
 try {
     $pdo = vf_db($cfg);
 } catch (PDOException $e) {
-    error_log('[VisiFinder] Phone DB connect failed: ' . $e->getMessage());
-    header('Location: ' . $cfg['thank_you_page'] . '?phone=invalid');
-    exit;
+    error_log('[VisiFinder] Phone DB connect failed — email-only fallback: ' . $e->getMessage());
 }
 
-// Rate-limit phone updates the same way
-vf_rate_limit_or_die($pdo, $ip, 10, 10);
-
-try {
-    if ($lid > 0) {
-        $stmt = $pdo->prepare("UPDATE leads SET phone = ? WHERE id = ? LIMIT 1");
-        $stmt->execute([$phoneDigits, $lid]);
-    } else {
-        $stmt = $pdo->prepare("
-            UPDATE leads
-            SET phone = ?
-            WHERE ip_address = ?
-            ORDER BY created_at DESC
-            LIMIT 1
-        ");
-        $stmt->execute([$phoneDigits, $ip]);
+$updated = 0;
+if ($pdo !== null) {
+    // Rate-limit phone updates the same way
+    vf_rate_limit_or_die($pdo, $ip, 10, 10);
+    try {
+        if ($lid > 0) {
+            $stmt = $pdo->prepare("UPDATE leads SET phone = ? WHERE id = ? LIMIT 1");
+            $stmt->execute([$phoneDigits, $lid]);
+        } else {
+            $stmt = $pdo->prepare("
+                UPDATE leads
+                SET phone = ?
+                WHERE ip_address = ?
+                ORDER BY created_at DESC
+                LIMIT 1
+            ");
+            $stmt->execute([$phoneDigits, $ip]);
+        }
+        $updated = $stmt->rowCount();
+    } catch (PDOException $e) {
+        error_log('[VisiFinder] Phone update failed — email-only fallback: ' . $e->getMessage());
     }
-    $updated = $stmt->rowCount();
-} catch (PDOException $e) {
-    error_log('[VisiFinder] Phone update failed: ' . $e->getMessage());
-    $updated = 0;
 }
 
 if ($updated > 0) {
+    // Linked to an existing stored lead row
     vf_mail(
         $cfg,
         $cfg['notification_email'],
@@ -70,6 +71,19 @@ if ($updated > 0) {
         "Phone added by lead\n"
       . "-------------------\n"
       . "Lead ID : " . ($lid ?: 'latest-for-IP') . "\n"
+      . "Phone   : {$phoneDigits}\n"
+      . "IP      : {$ip}\n"
+      . "Time    : " . date('Y-m-d H:i:s') . "\n"
+    );
+} else {
+    // DB unavailable or no matching lead row — email the phone so it is never lost
+    vf_mail(
+        $cfg,
+        $cfg['notification_email'],
+        'VisiFinder Lead — Phone (email-only)',
+        "Phone submitted (not linked to a stored lead)\n"
+      . "---------------------------------------------\n"
+      . "Lead ID : " . ($lid ?: 'n/a') . "\n"
       . "Phone   : {$phoneDigits}\n"
       . "IP      : {$ip}\n"
       . "Time    : " . date('Y-m-d H:i:s') . "\n"
